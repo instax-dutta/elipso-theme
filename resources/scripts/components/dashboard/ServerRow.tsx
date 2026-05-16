@@ -11,20 +11,18 @@ import Spinner from '@/components/elements/Spinner';
 import styled from 'styled-components/macro';
 import isEqual from 'react-fast-compare';
 
-// Determines if the current value is in an alarm threshold so we can show it in red rather
-// than the more faded default style.
 const isAlarmState = (current: number, limit: number): boolean => limit > 0 && current / (limit * 1024 * 1024) >= 0.9;
 
 const Icon = memo(
     styled(FontAwesomeIcon)<{ $alarm: boolean }>`
-        ${(props) => (props.$alarm ? tw`text-red-500` : tw`text-neutral-600`)};
+        ${(props) => (props.$alarm ? tw`text-red-400` : tw`text-neutral-500`)};
     `,
     isEqual
 );
 
 const IconDescription = styled.p<{ $alarm: boolean }>`
     ${tw`text-sm ml-2`};
-    ${(props) => (props.$alarm ? tw`text-red-600` : tw`text-neutral-800`)};
+    ${(props) => (props.$alarm ? tw`text-red-400` : tw`text-neutral-300`)};
 `;
 
 const StatusIndicatorBox = styled(GreyRowBox)<{ $status: ServerPowerState | undefined }>`
@@ -38,7 +36,7 @@ const StatusIndicatorBox = styled(GreyRowBox)<{ $status: ServerPowerState | unde
             !$status || $status === 'offline'
                 ? tw`bg-red-500`
                 : $status === 'running'
-                ? tw`bg-green-500`
+                ? tw`bg-cyan-400`
                 : tw`bg-yellow-500`};
     }
 
@@ -64,8 +62,6 @@ export default ({ server, className }: { server: Server; className?: string }) =
     }, [stats?.isSuspended, server.status]);
 
     useEffect(() => {
-        // Don't waste a HTTP request if there is nothing important to show to the user because
-        // the server is suspended.
         if (isSuspended) return;
 
         getStats().then(() => {
@@ -95,16 +91,16 @@ export default ({ server, className }: { server: Server; className?: string }) =
                     <FontAwesomeIcon icon={faServer} />
                 </div>
                 <div>
-                    <p css={tw`text-lg font-semibold text-black break-words tracking-[-0.03em]`}>{server.name}</p>
+                    <p css={tw`text-lg font-semibold text-white break-words tracking-[-0.03em]`}>{server.name}</p>
                     {!!server.description && (
-                        <p css={tw`text-sm text-neutral-800 break-words line-clamp-2`}>{server.description}</p>
+                        <p css={tw`text-sm text-neutral-400 break-words line-clamp-2`}>{server.description}</p>
                     )}
                 </div>
             </div>
             <div css={tw`flex-1 ml-4 lg:block lg:col-span-2 hidden`}>
                 <div css={tw`flex justify-center`}>
-                    <FontAwesomeIcon icon={faEthernet} css={tw`text-neutral-600`} />
-                    <p css={tw`text-sm text-neutral-800 ml-2 font-mono`}>
+                    <FontAwesomeIcon icon={faEthernet} css={tw`text-neutral-500`} />
+                    <p css={tw`text-sm text-neutral-300 ml-2 font-mono`}>
                         {server.allocations
                             .filter((alloc) => alloc.isDefault)
                             .map((allocation) => (
@@ -119,13 +115,13 @@ export default ({ server, className }: { server: Server; className?: string }) =
                 {!stats || isSuspended ? (
                     isSuspended ? (
                         <div css={tw`flex-1 text-center`}>
-                            <span css={tw`bg-red-100 rounded-full border border-red-500 px-2 py-1 text-red-600 text-xs font-mono`}>
+                            <span css={tw`bg-red-900/50 rounded-full border border-red-500 px-2 py-1 text-red-400 text-xs font-mono`}>
                                 {server.status === 'suspended' ? 'Suspended' : 'Connection Error'}
                             </span>
                         </div>
                     ) : server.isTransferring || server.status ? (
                         <div css={tw`flex-1 text-center`}>
-                            <span css={tw`bg-neutral-200 rounded-full border border-neutral-300 px-2 py-1 text-neutral-800 text-xs font-mono`}>
+                            <span css={tw`bg-neutral-700 rounded-full border border-neutral-500 px-2 py-1 text-neutral-300 text-xs font-mono`}>
                                 {server.isTransferring
                                     ? 'Transferring'
                                     : server.status === 'installing'
@@ -147,7 +143,7 @@ export default ({ server, className }: { server: Server; className?: string }) =
                                     {stats.cpuUsagePercent.toFixed(2)} %
                                 </IconDescription>
                             </div>
-                            <p css={tw`text-xs text-neutral-600 text-center mt-1 font-mono`}>of {cpuLimit}</p>
+                            <p css={tw`text-xs text-neutral-500 text-center mt-1 font-mono`}>of {cpuLimit}</p>
                         </div>
                         <div css={tw`flex-1 ml-4 sm:block hidden`}>
                             <div css={tw`flex justify-center`}>
@@ -156,7 +152,7 @@ export default ({ server, className }: { server: Server; className?: string }) =
                                     {bytesToString(stats.memoryUsageInBytes)}
                                 </IconDescription>
                             </div>
-                            <p css={tw`text-xs text-neutral-600 text-center mt-1 font-mono`}>of {memoryLimit}</p>
+                            <p css={tw`text-xs text-neutral-500 text-center mt-1 font-mono`}>of {memoryLimit}</p>
                         </div>
                         <div css={tw`flex-1 ml-4 sm:block hidden`}>
                             <div css={tw`flex justify-center`}>
@@ -165,7 +161,7 @@ export default ({ server, className }: { server: Server; className?: string }) =
                                     {bytesToString(stats.diskUsageInBytes)}
                                 </IconDescription>
                             </div>
-                            <p css={tw`text-xs text-neutral-600 text-center mt-1 font-mono`}>of {diskLimit}</p>
+                            <p css={tw`text-xs text-neutral-500 text-center mt-1 font-mono`}>of {diskLimit}</p>
                         </div>
                     </React.Fragment>
                 )}

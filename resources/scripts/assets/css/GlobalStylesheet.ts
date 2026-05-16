@@ -26,6 +26,7 @@ export default createGlobalStyle`
 
     :root {
         --elipso-ink: #ffffff;
+        --elipso-on-primary: #000000;
         --elipso-body: #a1a1a1;
         --elipso-muted: #666666;
         --elipso-hairline: #333333;
@@ -33,29 +34,27 @@ export default createGlobalStyle`
         --elipso-canvas-soft: #111111;
         --elipso-canvas-soft-2: #1a1a1a;
         --elipso-link: #0070f3;
-        --elipso-error: #ee0000;
-        --elipso-warning: #f5a623;
         --elipso-cyan: #50e3c2;
         --elipso-violet: #7928ca;
         --elipso-pink: #ff0080;
         --elipso-ship: #f9cb28;
-        --elipso-shadow: 0 1px 1px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 30%);
     }
 
     body {
         ${tw`font-sans bg-black text-neutral-400`};
-        letter-spacing: 0;
+        letter-spacing: -0.01em;
         color: var(--elipso-body);
-        background:
-            radial-gradient(circle at 18% -12%, rgb(0 124 240 / 12%), transparent 28rem),
-            radial-gradient(circle at 82% 0%, rgb(255 0 128 / 10%), transparent 26rem),
-            linear-gradient(180deg, var(--elipso-canvas), var(--elipso-canvas-soft) 34rem);
+        background: 
+            radial-gradient(circle at 18% -12%, rgb(0 124 240 / 10%), transparent 28rem),
+            radial-gradient(circle at 82% 0%, rgb(255 0 128 / 8%), transparent 26rem),
+            var(--elipso-canvas) !important;
         min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
     }
 
     h1, h2, h3, h4, h5, h6 {
         ${tw`font-semibold font-header`};
-        color: var(--elipso-ink);
+        color: var(--elipso-ink) !important;
         letter-spacing: -0.04em;
     }
 
@@ -65,19 +64,19 @@ export default createGlobalStyle`
     }
 
     a {
-        color: inherit;
+        color: var(--elipso-link) !important;
     }
 
     ::selection {
-        color: #000;
-        background: var(--elipso-ink);
+        color: #000000;
+        background: #ffffff;
     }
 
     form {
         ${tw`m-0`};
     }
 
-    textarea, select, input, button, button:focus, button:focus-visible {
+    textarea, select, input, button {
         ${tw`outline-none`};
     }
 
@@ -91,31 +90,24 @@ export default createGlobalStyle`
         -moz-appearance: textfield !important;
     }
 
-    /* Scroll Bar Style */
+    /* Custom Scrollbar */
     ::-webkit-scrollbar {
-        background: none;
-        width: 16px;
-        height: 16px;
+        width: 10px;
+        height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
     }
 
     ::-webkit-scrollbar-thumb {
-        border: solid 0 rgb(0 0 0 / 0%);
-        border-right-width: 4px;
-        border-left-width: 4px;
-        -webkit-border-radius: 9px 4px;
-        -webkit-box-shadow: inset 0 0 0 1px #333333, inset 0 0 0 4px #555555;
+        background: #333333;
+        border-radius: 5px;
+        border: 2px solid #0a0a0a;
     }
 
-    ::-webkit-scrollbar-track-piece {
-        margin: 4px 0;
-    }
-
-    ::-webkit-scrollbar-thumb:horizontal {
-        border-right-width: 0;
-        border-left-width: 0;
-        border-top-width: 4px;
-        border-bottom-width: 4px;
-        -webkit-border-radius: 4px 9px;
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555555;
     }
 
     ::-webkit-scrollbar-corner {

@@ -21,7 +21,7 @@ const RightNavigation = styled.div`
 
         &:active,
         &:hover {
-            ${tw`text-white bg-neutral-800 border-neutral-600`};
+            ${tw`text-white bg-neutral-800 border-neutral-700`};
         }
 
         &:active,
@@ -40,20 +40,19 @@ export default () => {
     const onTriggerLogout = () => {
         setIsLoggingOut(true);
         http.post('/auth/logout').finally(() => {
-            // @ts-expect-error this is valid
             window.location = '/';
         });
     };
 
     return (
-        <div className={'w-full bg-neutral-100/90 border-b border-neutral-700 shadow-none overflow-x-auto backdrop-blur'}>
+        <div className={'w-full bg-neutral-950/90 border-b border-neutral-800 shadow-none overflow-x-auto backdrop-blur-md'}>
             <SpinnerOverlay visible={isLoggingOut} />
-            <div className={'mx-auto w-full flex items-center h-[3.5rem] max-w-[1200px]'}>
+            <div className={'mx-auto w-full flex items-center h-14 max-w-[1200px]'}>
                 <div id={'logo'} className={'flex-1'}>
                     <Link
                         to={'/'}
                         className={
-                            'text-2xl font-header font-semibold px-4 no-underline text-white hover:text-neutral-300 transition-colors duration-150 tracking-[-0.04em]'
+                            'text-xl font-header font-semibold px-4 no-underline text-white hover:text-neutral-200 transition-colors duration-150 tracking-[-0.04em]'
                         }
                     >
                         {name}

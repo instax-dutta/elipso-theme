@@ -1,428 +1,71 @@
+/* ============================================
+   ELIPSO - VERCEL DARK MODE THEME
+   Following Vercel Design System Specs
+   ============================================ */
+
 :root {
+    /* Vercel Dark Mode Colors - Inverted for dark theme */
     --elipso-ink: #ffffff;
+    --elipso-on-primary: #000000;
     --elipso-body: #a1a1a1;
     --elipso-muted: #666666;
     --elipso-hairline: #333333;
+    --elipso-hairline-strong: #555555;
     --elipso-canvas: #0a0a0a;
     --elipso-canvas-soft: #111111;
     --elipso-canvas-soft-2: #1a1a1a;
     --elipso-link: #0070f3;
+    --elipso-link-deep: #3b9aff;
+    --elipso-success: #0070f3;
     --elipso-error: #ee0000;
     --elipso-warning: #f5a623;
     --elipso-cyan: #50e3c2;
     --elipso-violet: #7928ca;
     --elipso-pink: #ff0080;
-    --elipso-shadow: 0 1px 1px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 30%);
+    
+    /* Vercel shadows - stacked for depth */
+    --elipso-shadow-level-1: inset 0 0 0 1px rgba(255,255,255,0.08);
+    --elipso-shadow-level-2: 0px 1px 1px rgba(0,0,0,0.2), 0px 2px 2px rgba(0,0,0,0.1);
+    --elipso-shadow-level-3: 0px 2px 2px rgba(0,0,0,0.15), 0px 8px 8px -8px rgba(0,0,0,0.2);
+    --elipso-shadow-level-4: 0px 2px 2px rgba(0,0,0,0.15), 0px 8px 16px -4px rgba(0,0,0,0.25);
 }
 
-/* Reset everything to dark */
-html, body {
-    background: #0a0a0a !important;
-    color: #a1a1a1 !important;
-    font-family: Geist, Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-}
+/* ============================================
+   BASE RESET & TYPOGRAPHY
+   ============================================ */
 
 * {
-    border-color: #333333 !important;
+    box-sizing: border-box;
 }
 
-/* Override AdminLTE default skin */
-.skin-blue,
-.skin-blue-light,
-.skin-black,
-.skin-black-light {
-    background: #0a0a0a !important;
+html, body {
+    background: var(--elipso-canvas) !important;
+    color: var(--elipso-body) !important;
+    font-family: Geist, Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.skin-blue .wrapper,
-.skin-black .wrapper {
-    background: #0a0a0a !important;
-}
-
-/* Main layout */
-.main-header,
-.navbar,
-.navbar-static-top,
-.navbar-custom-menu,
-.main-sidebar,
-.left-side,
-.content-wrapper,
-.right-side,
-.wrapper {
-    background: #111111 !important;
-    color: #ffffff !important;
-}
-
-/* Header */
-.main-header {
-    background: rgba(17, 17, 17, 0.95) !important;
-    border-bottom: 1px solid #333333 !important;
-    backdrop-filter: blur(16px);
-}
-
-.main-header .logo {
-    color: #ffffff !important;
-    font-weight: 600;
-    letter-spacing: -0.04em;
-}
-
-.main-header .navbar {
-    background: transparent !important;
-}
-
-.main-header .navbar .nav > li > a {
-    color: #a1a1a1 !important;
-    font-weight: 500;
-}
-
-.main-header .navbar .nav > li > a:hover,
-.main-header .navbar .nav > li > a:focus {
-    background: #1a1a1a !important;
-    color: #ffffff !important;
-}
-
-/* Sidebar */
-.main-sidebar {
-    background: #0a0a0a !important;
-    border-right: 1px solid #333333 !important;
-}
-
-.sidebar-menu > li > a {
-    color: #a1a1a1 !important;
-}
-
-.sidebar-menu > li:hover > a,
-.sidebar-menu > li.active > a,
-.sidebar-menu > li.active > a:hover {
-    background: #1a1a1a !important;
-    color: #ffffff !important;
-    border-left: 3px solid #50e3c2 !important;
-}
-
-.treeview-menu > li > a {
-    color: #888888 !important;
-}
-
-.treeview-menu > li.active > a,
-.treeview-menu > li > a:hover {
-    color: #ffffff !important;
-    background: #1a1a1a !important;
-}
-
-/* Content */
-.content-wrapper {
-    background: transparent !important;
-}
-
-.content-header > h1,
-.box-title,
-.modal-title,
 h1, h2, h3, h4, h5, h6 {
-    color: #ffffff !important;
+    color: var(--elipso-ink) !important;
     font-weight: 600;
     letter-spacing: -0.04em;
+    line-height: 1.25;
 }
 
-/* Cards */
-.box,
-.panel,
-.modal-content,
-.nav-tabs-custom,
-.small-box,
-.callout,
-.alert {
-    background: #111111 !important;
-    border: 1px solid #333333 !important;
-    border-radius: 8px !important;
-    box-shadow: 0 1px 1px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 30%) !important;
-}
-
-.box-header,
-.box-footer,
-.modal-header,
-.modal-footer,
-.panel-heading,
-.panel-footer {
-    background: #111111 !important;
-    border-bottom: 1px solid #333333 !important;
-    color: #ffffff !important;
-}
-
-.box-header.with-border {
-    border-bottom-color: #333333 !important;
-}
-
-/* Tables */
-.table {
-    color: #a1a1a1 !important;
-}
-
-.table > thead > tr > th {
-    background: #1a1a1a !important;
-    color: #666666 !important;
+code, pre, .mono, .font-mono {
     font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace !important;
-    font-size: 12px !important;
-    font-weight: 400 !important;
-    border-bottom: 1px solid #333333 !important;
+    font-size: 13px;
 }
 
-.table > tbody > tr > td {
-    background: #0a0a0a !important;
-    border-bottom: 1px solid #333333 !important;
-}
+/* ============================================
+   VERCEL MESH GRADIENT ATMOSPHERE
+   ============================================ */
 
-.table > tbody > tr:hover > td {
-    background: #111111 !important;
-}
-
-/* Forms */
-.form-control,
-.form-control:focus,
-.form-control:hover {
-    background: #1a1a1a !important;
-    border: 1px solid #333333 !important;
-    color: #ffffff !important;
-    box-shadow: none !important;
-    border-radius: 6px !important;
-}
-
-.form-control::placeholder {
-    color: #666666 !important;
-}
-
-/* Select2 */
-.select2-container--default .select2-selection--single,
-.select2-container--default .select2-selection--multiple {
-    background: #1a1a1a !important;
-    border: 1px solid #333333 !important;
-    border-radius: 6px !important;
-}
-
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-    color: #ffffff !important;
-}
-
-.select2-dropdown {
-    background: #1a1a1a !important;
-    border: 1px solid #333333 !important;
-}
-
-.select2-results__option {
-    color: #a1a1a1 !important;
-}
-
-.select2-results__option--highlighted[aria-selected] {
-    background: #333333 !important;
-    color: #ffffff !important;
-}
-
-/* Buttons */
-.btn {
-    border-radius: 999px !important;
-    font-weight: 500 !important;
-    border: 1px solid #333333 !important;
-    box-shadow: none !important;
-}
-
-.btn-primary,
-.btn-success {
-    background: #ffffff !important;
-    border-color: #ffffff !important;
-    color: #000000 !important;
-}
-
-.btn-primary:hover,
-.btn-success:hover {
-    background: #e0e0e0 !important;
-    border-color: #e0e0e0 !important;
-    color: #000000 !important;
-}
-
-.btn-default,
-.btn-secondary {
-    background: #1a1a1a !important;
-    color: #ffffff !important;
-    border-color: #333333 !important;
-}
-
-.btn-default:hover,
-.btn-secondary:hover {
-    background: #333333 !important;
-    color: #ffffff !important;
-}
-
-.btn-danger {
-    background: #ee0000 !important;
-    border-color: #ee0000 !important;
-    color: #ffffff !important;
-}
-
-.btn-warning {
-    background: #f5a623 !important;
-    border-color: #f5a623 !important;
-    color: #000000 !important;
-}
-
-.btn-info {
-    background: #0070f3 !important;
-    border-color: #0070f3 !important;
-    color: #ffffff !important;
-}
-
-/* Labels & Badges */
-.label,
-.badge {
-    border-radius: 999px !important;
-    font-weight: 400 !important;
-}
-
-.label-primary,
-.badge-primary {
-    background: #ffffff !important;
-    color: #000000 !important;
-}
-
-.label-success,
-.badge-success {
-    background: #0070f3 !important;
-    color: #ffffff !important;
-}
-
-.label-warning,
-.badge-warning {
-    background: #f5a623 !important;
-    color: #000000 !important;
-}
-
-.label-danger,
-.badge-danger {
-    background: #ee0000 !important;
-    color: #ffffff !important;
-}
-
-.label-info,
-.badge-info {
-    background: #333333 !important;
-    color: #ffffff !important;
-}
-
-/* Links */
-a {
-    color: #0070f3 !important;
-}
-
-a:hover,
-a:focus {
-    color: #3b9aff !important;
-}
-
-/* Tabs */
-.nav-tabs {
-    border-bottom: 1px solid #333333 !important;
-}
-
-.nav-tabs > li > a {
-    color: #666666 !important;
-}
-
-.nav-tabs > li > a:hover {
-    color: #ffffff !important;
-    background: #1a1a1a !important;
-    border-color: #333333 !important;
-}
-
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover,
-.nav-tabs > li.active > a:focus {
-    color: #ffffff !important;
-    background: #111111 !important;
-    border-color: #333333 !important;
-    border-bottom-color: #111111 !important;
-}
-
-/* Modal */
-.modal-content {
-    background: #111111 !important;
-    border: 1px solid #333333 !important;
-}
-
-.modal-header {
-    background: #111111 !important;
-    border-bottom: 1px solid #333333 !important;
-}
-
-.modal-header .close {
-    color: #ffffff !important;
-}
-
-.modal-footer {
-    background: #111111 !important;
-    border-top: 1px solid #333333 !important;
-}
-
-/* Dropdown */
-.dropdown-menu {
-    background: #1a1a1a !important;
-    border: 1px solid #333333 !important;
-}
-
-.dropdown-menu > li > a {
-    color: #a1a1a1 !important;
-}
-
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus {
-    background: #333333 !important;
-    color: #ffffff !important;
-}
-
-/* Pagination */
-.pagination > li > a,
-.pagination > li > span {
-    background: #1a1a1a !important;
-    border-color: #333333 !important;
-    color: #a1a1a1 !important;
-}
-
-.pagination > li > a:hover,
-.pagination > li > span:hover {
-    background: #333333 !important;
-    color: #ffffff !important;
-}
-
-.pagination > .active > a,
-.pagination > .active > span {
-    background: #ffffff !important;
-    border-color: #ffffff !important;
-    color: #000000 !important;
-}
-
-/* Progress bars */
-.progress-bar {
-    background: #ffffff !important;
-    color: #000000 !important;
-}
-
-/* Login page */
-.login-page,
-.register-page {
-    background: #000000 !important;
-}
-
-.login-box,
-.register-box {
-    background: #111111 !important;
-    border: 1px solid #333333 !important;
-    border-radius: 8px !important;
-}
-
-.login-box .card-header,
-.register-box .card-header {
-    background: #111111 !important;
-    color: #ffffff !important;
-    border-bottom: 1px solid #333333 !important;
-}
-
+body::before,
 .login-page::before,
 .register-page::before {
     content: "";
@@ -431,15 +74,586 @@ a:focus {
     z-index: -1;
     height: 54vh;
     background:
-        radial-gradient(circle at 20% 40%, #007cf0, transparent 34%),
-        radial-gradient(circle at 48% 52%, #7928ca, transparent 32%),
-        radial-gradient(circle at 66% 45%, #ff0080, transparent 30%),
-        radial-gradient(circle at 82% 56%, #f9cb28, transparent 30%);
+        radial-gradient(circle at 20% 40%, #007cf0 0%, transparent 34%),
+        radial-gradient(circle at 48% 52%, #7928ca 0%, transparent 32%),
+        radial-gradient(circle at 66% 45%, #ff0080 0%, transparent 30%),
+        radial-gradient(circle at 82% 56%, #f9cb28 0%, transparent 30%);
     filter: blur(56px);
-    opacity: 0.32;
+    opacity: 0.28;
+    pointer-events: none;
 }
 
-/* Terminal */
+.login-page,
+.register-page {
+    background: var(--elipso-canvas) !important;
+}
+
+/* ============================================
+   ADMIN LTE SKIN OVERRIDES
+   ============================================ */
+
+.skin-blue .wrapper,
+.skin-black .wrapper {
+    background: var(--elipso-canvas) !important;
+}
+
+/* ============================================
+   MAIN LAYOUT
+   ============================================ */
+
+.main-header,
+.navbar,
+.navbar-static-top,
+.navbar-custom-menu {
+    background: rgba(17, 17, 17, 0.92) !important;
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--elipso-hairline) !important;
+    box-shadow: none !important;
+}
+
+.main-sidebar,
+.left-side {
+    background: var(--elipso-canvas) !important;
+    border-right: 1px solid var(--elipso-hairline) !important;
+}
+
+.content-wrapper,
+.right-side,
+.wrapper {
+    background: transparent !important;
+}
+
+/* ============================================
+   HEADER & LOGO
+   ============================================ */
+
+.main-header .logo {
+    color: var(--elipso-ink) !important;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    font-size: 18px;
+}
+
+.main-header .navbar .nav > li > a {
+    color: var(--elipso-body) !important;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.main-header .navbar .nav > li > a:hover,
+.main-header .navbar .nav > li > a:focus {
+    background: var(--elipso-canvas-soft-2) !important;
+    color: var(--elipso-ink) !important;
+}
+
+/* ============================================
+   SIDEBAR NAVIGATION
+   ============================================ */
+
+.sidebar-menu > li > a {
+    color: var(--elipso-body) !important;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin: 2px 8px;
+    transition: all 0.15s ease;
+}
+
+.sidebar-menu > li:hover > a {
+    background: var(--elipso-canvas-soft-2) !important;
+    color: var(--elipso-ink) !important;
+}
+
+.sidebar-menu > li.active > a,
+.sidebar-menu > li.active > a:hover {
+    background: var(--elipso-canvas-soft-2) !important;
+    color: var(--elipso-ink) !important;
+    border-left: 3px solid var(--elipso-cyan) !important;
+    padding-left: 13px;
+}
+
+.treeview-menu > li > a {
+    color: var(--elipso-muted) !important;
+    font-size: 13px;
+    padding: 10px 16px 10px 32px;
+}
+
+.treeview-menu > li.active > a,
+.treeview-menu > li > a:hover {
+    color: var(--elipso-ink) !important;
+    background: var(--elipso-canvas-soft-2) !important;
+}
+
+/* ============================================
+   CONTENT AREA
+   ============================================ */
+
+.content-header > h1,
+.box-title,
+.modal-title {
+    color: var(--elipso-ink) !important;
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: -0.03em;
+}
+
+/* ============================================
+   CARDS & PANELS
+   ============================================ */
+
+.box,
+.panel,
+.modal-content,
+.nav-tabs-custom,
+.small-box,
+.callout,
+.alert {
+    background: var(--elipso-canvas-soft) !important;
+    border: 1px solid var(--elipso-hairline) !important;
+    border-radius: 8px !important;
+    box-shadow: var(--elipso-shadow-level-2) !important;
+}
+
+.box-header,
+.box-footer,
+.modal-header,
+.modal-footer,
+.panel-heading,
+.panel-footer {
+    background: var(--elipso-canvas-soft) !important;
+    border-bottom: 1px solid var(--elipso-hairline) !important;
+    color: var(--elipso-ink) !important;
+}
+
+.box-header.with-border {
+    border-bottom-color: var(--elipso-hairline) !important;
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+
+.table {
+    color: var(--elipso-body) !important;
+    background: transparent !important;
+}
+
+.table > thead > tr > th {
+    background: var(--elipso-canvas-soft-2) !important;
+    color: var(--elipso-muted) !important;
+    font-family: "Geist Mono", ui-monospace, monospace !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--elipso-hairline) !important;
+    padding: 12px 16px;
+}
+
+.table > tbody > tr > td {
+    background: var(--elipso-canvas-soft) !important;
+    border-bottom: 1px solid var(--elipso-hairline) !important;
+    padding: 16px;
+    font-size: 14px;
+}
+
+.table > tbody > tr:hover > td {
+    background: var(--elipso-canvas-soft-2) !important;
+}
+
+.table > tbody > tr:last-child > td {
+    border-bottom: none !important;
+}
+
+/* ============================================
+   FORMS & INPUTS
+   ============================================ */
+
+.form-control,
+.form-control:focus,
+.form-control:hover {
+    background: var(--elipso-canvas-soft-2) !important;
+    border: 1px solid var(--elipso-hairline) !important;
+    color: var(--elipso-ink) !important;
+    box-shadow: none !important;
+    border-radius: 6px !important;
+    padding: 10px 14px;
+    font-size: 14px;
+    height: 40px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-control:focus {
+    border-color: var(--elipso-ink) !important;
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.08) !important;
+}
+
+.form-control::placeholder {
+    color: var(--elipso-muted) !important;
+}
+
+/* Select2 */
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--multiple {
+    background: var(--elipso-canvas-soft-2) !important;
+    border: 1px solid var(--elipso-hairline) !important;
+    border-radius: 6px !important;
+    height: 40px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: var(--elipso-ink) !important;
+    line-height: 38px;
+}
+
+.select2-dropdown {
+    background: var(--elipso-canvas-soft) !important;
+    border: 1px solid var(--elipso-hairline) !important;
+    border-radius: 6px !important;
+    box-shadow: var(--elipso-shadow-level-4) !important;
+}
+
+.select2-results__option {
+    color: var(--elipso-body) !important;
+    padding: 10px 14px;
+}
+
+.select2-results__option--highlighted[aria-selected] {
+    background: var(--elipso-canvas-soft-2) !important;
+    color: var(--elipso-ink) !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    border: none;
+    width: 20px;
+    height: 20px;
+}
+
+/* ============================================
+   BUTTONS - VERCEL STYLE
+   ============================================ */
+
+.btn {
+    border-radius: 9999px !important;
+    font-weight: 500 !important;
+    font-size: 14px;
+    padding: 10px 20px;
+    border: 1px solid var(--elipso-hairline) !important;
+    box-shadow: none !important;
+    transition: all 0.15s ease;
+}
+
+/* Primary - White on Black for dark mode */
+.btn-primary,
+.btn-success {
+    background: var(--elipso-ink) !important;
+    border-color: var(--elipso-ink) !important;
+    color: var(--elipso-on-primary) !important;
+}
+
+.btn-primary:hover,
+.btn-success:hover {
+    background: #e0e0e0 !important;
+    border-color: #e0e0e0 !important;
+    color: var(--elipso-on-primary) !important;
+}
+
+/* Secondary - Ghost style */
+.btn-default,
+.btn-secondary {
+    background: transparent !important;
+    color: var(--elipso-ink) !important;
+    border-color: var(--elipso-hairline) !important;
+}
+
+.btn-default:hover,
+.btn-secondary:hover {
+    background: var(--elipso-canvas-soft-2) !important;
+    color: var(--elipso-ink) !important;
+}
+
+/* Danger */
+.btn-danger {
+    background: var(--elipso-error) !important;
+    border-color: var(--elipso-error) !important;
+    color: #ffffff !important;
+}
+
+.btn-danger:hover {
+    background: #cc0000 !important;
+    border-color: #cc0000 !important;
+}
+
+/* Warning */
+.btn-warning {
+    background: var(--elipso-warning) !important;
+    border-color: var(--elipso-warning) !important;
+    color: #000000 !important;
+}
+
+/* ============================================
+   LABELS & BADGES
+   ============================================ */
+
+.label,
+.badge {
+    border-radius: 9999px !important;
+    font-weight: 400 !important;
+    font-size: 11px;
+    padding: 4px 10px;
+    letter-spacing: 0.02em;
+}
+
+.label-primary,
+.badge-primary {
+    background: var(--elipso-ink) !important;
+    color: var(--elipso-on-primary) !important;
+}
+
+.label-success,
+.badge-success {
+    background: var(--elipso-success) !important;
+    color: #ffffff !important;
+}
+
+.label-warning,
+.badge-warning {
+    background: var(--elipso-warning) !important;
+    color: #000000 !important;
+}
+
+.label-danger,
+.badge-danger {
+    background: var(--elipso-error) !important;
+    color: #ffffff !important;
+}
+
+.label-info,
+.badge-info {
+    background: var(--elipso-canvas-soft-2) !important;
+    color: var(--elipso-body) !important;
+}
+
+/* ============================================
+   LINKS
+   ============================================ */
+
+a {
+    color: var(--elipso-link) !important;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+a:hover,
+a:focus {
+    color: var(--elipso-link-deep) !important;
+    text-decoration: underline;
+}
+
+/* ============================================
+   TABS
+   ============================================ */
+
+.nav-tabs {
+    border-bottom: 1px solid var(--elipso-hairline) !important;
+    background: transparent;
+}
+
+.nav-tabs > li > a {
+    color: var(--elipso-muted) !important;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 12px 20px;
+    border: none !important;
+    border-radius: 6px 6px 0 0;
+    margin-right: 4px;
+    transition: all 0.15s ease;
+}
+
+.nav-tabs > li > a:hover {
+    color: var(--elipso-ink) !important;
+    background: var(--elipso-canvas-soft-2) !important;
+    border: none !important;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    color: var(--elipso-ink) !important;
+    background: var(--elipso-canvas-soft) !important;
+    border: none !important;
+    border-bottom: 2px solid var(--elipso-cyan) !important;
+}
+
+/* ============================================
+   MODALS
+   ============================================ */
+
+.modal-content {
+    background: var(--elipso-canvas-soft) !important;
+    border: 1px solid var(--elipso-hairline) !important;
+    border-radius: 12px !important;
+    box-shadow: var(--elipso-shadow-level-4), 0 24px 32px -8px rgba(0,0,0,0.4) !important;
+}
+
+.modal-header {
+    background: var(--elipso-canvas-soft) !important;
+    border-bottom: 1px solid var(--elipso-hairline) !important;
+    padding: 20px 24px;
+    border-radius: 12px 12px 0 0;
+}
+
+.modal-header .close {
+    color: var(--elipso-body) !important;
+    opacity: 0.6;
+}
+
+.modal-header .close:hover {
+    opacity: 1;
+    color: var(--elipso-ink) !important;
+}
+
+.modal-body {
+    background: var(--elipso-canvas-soft) !important;
+    padding: 24px;
+    color: var(--elipso-body) !important;
+}
+
+.modal-footer {
+    background: var(--elipso-canvas-soft) !important;
+    border-top: 1px solid var(--elipso-hairline) !important;
+    padding: 16px 24px;
+    border-radius: 0 0 12px 12px;
+}
+
+/* ============================================
+   DROPDOWNS
+   ============================================ */
+
+.dropdown-menu {
+    background: var(--elipso-canvas-soft) !important;
+    border: 1px solid var(--elipso-hairline) !important;
+    border-radius: 8px !important;
+    box-shadow: var(--elipso-shadow-level-4) !important;
+    padding: 8px;
+}
+
+.dropdown-menu > li > a {
+    color: var(--elipso-body) !important;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+    background: var(--elipso-canvas-soft-2) !important;
+    color: var(--elipso-ink) !important;
+}
+
+/* ============================================
+   PAGINATION
+   ============================================ */
+
+.pagination > li > a,
+.pagination > li > span {
+    background: var(--elipso-canvas-soft) !important;
+    border-color: var(--elipso-hairline) !important;
+    color: var(--elipso-body) !important;
+    border-radius: 6px;
+    margin: 0 2px;
+}
+
+.pagination > li > a:hover,
+.pagination > li > span:hover {
+    background: var(--elipso-canvas-soft-2) !important;
+    color: var(--elipso-ink) !important;
+}
+
+.pagination > .active > a,
+.pagination > .active > span {
+    background: var(--elipso-ink) !important;
+    border-color: var(--elipso-ink) !important;
+    color: var(--elipso-on-primary) !important;
+}
+
+/* ============================================
+   PROGRESS BARS
+   ============================================ */
+
+.progress-bar {
+    background: var(--elipso-cyan) !important;
+    color: #000000 !important;
+    border-radius: 4px;
+}
+
+.progress {
+    background: var(--elipso-canvas-soft-2) !important;
+    border-radius: 4px;
+    height: 8px;
+}
+
+/* ============================================
+   LOGIN BOX
+   ============================================ */
+
+.login-box,
+.register-box {
+    background: var(--elipso-canvas-soft) !important;
+    border: 1px solid var(--elipso-hairline) !important;
+    border-radius: 12px !important;
+    box-shadow: var(--elipso-shadow-level-4) !important;
+    padding: 40px;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.login-box .card-header,
+.register-box .card-header {
+    background: transparent !important;
+    color: var(--elipso-ink) !important;
+    border-bottom: 1px solid var(--elipso-hairline) !important;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+/* ============================================
+   SCROLLBAR - VERCEL STYLE
+   ============================================ */
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--elipso-hairline);
+    border-radius: 5px;
+    border: 2px solid var(--elipso-canvas);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--elipso-hairline-strong);
+}
+
+/* ============================================
+   SELECTION
+   ============================================ */
+
+::selection {
+    color: var(--elipso-on-primary);
+    background: var(--elipso-ink);
+}
+
+/* ============================================
+   TERMINAL / CONSOLE
+   ============================================ */
+
 .xterm,
 .xterm-viewport,
 .xterm-screen,
@@ -447,82 +661,62 @@ pre {
     border-radius: 8px;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-    width: 16px;
-    height: 16px;
+.terminal .xterm-viewport {
+    background: var(--elipso-canvas) !important;
 }
 
-::-webkit-scrollbar-track {
-    background: #0a0a0a;
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.text-muted { color: var(--elipso-muted) !important; }
+.text-primary { color: var(--elipso-link) !important; }
+.text-success { color: var(--elipso-success) !important; }
+.text-warning { color: var(--elipso-warning) !important; }
+.text-danger { color: var(--elipso-error) !important; }
+.text-white { color: var(--elipso-ink) !important; }
+.text-gray { color: var(--elipso-body) !important; }
+
+.bg-gray { background-color: var(--elipso-canvas-soft-2) !important; }
+.bg-white { background-color: var(--elipso-canvas) !important; }
+
+.border { border-color: var(--elipso-hairline) !important; }
+.border-light { border-color: var(--elipso-hairline) !important; }
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-::-webkit-scrollbar-thumb {
-    background: #333333;
-    border: 4px solid #0a0a0a;
-    border-radius: 8px;
+.box,
+.panel,
+.modal-content,
+.dropdown-menu {
+    animation: fadeIn 0.2s ease-out;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #555555;
+/* ============================================
+   ACTIVE STATE INDICATORS (Cyan accent)
+   ============================================ */
+
+.sidebar-menu > li.active > a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 24px;
+    background: var(--elipso-cyan);
+    border-radius: 0 2px 2px 0;
 }
 
-/* Code */
-code,
-pre,
-.code,
-.mono,
-.label,
-.badge,
-.badge span {
-    font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace !important;
-}
-
-/* Selection */
-::selection {
-    color: #000000;
-    background: #ffffff;
-}
-
-/* Text utilities */
-.text-muted {
-    color: #666666 !important;
-}
-
-.text-primary {
-    color: #0070f3 !important;
-}
-
-.text-success {
-    color: #0070f3 !important;
-}
-
-.text-warning {
-    color: #f5a623 !important;
-}
-
-.text-danger {
-    color: #ee0000 !important;
-}
-
-.text-white {
-    color: #ffffff !important;
-}
-
-/* Background utilities */
-.bg-gray {
-    background-color: #1a1a1a !important;
-}
-
-.bg-white {
-    background-color: #0a0a0a !important;
-}
-
-/* Border utilities */
-.border {
-    border-color: #333333 !important;
-}
-
-.border-light {
-    border-color: #333333 !important;
-}
+/* Server status indicators */
+.server-status-online { color: var(--elipso-cyan) !important; }
+.server-status-offline { color: var(--elipso-error) !important; }
+.server-status-running { color: var(--elipso-cyan) !important; }
+.server-status-stopped { color: var(--elipso-muted) !important; }
