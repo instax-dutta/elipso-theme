@@ -6,7 +6,7 @@ DEFAULT_TMP_DIR="${TMPDIR:-/tmp}"
 SELF_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 log() {
-    printf '[elipso] %s\n' "$1"
+    printf '[elipso] %s\n' "$1" >&2
 }
 
 die() {
@@ -85,6 +85,7 @@ resolve_source_dir() {
     local workdir src_dir
     workdir="$(mktemp -d "$DEFAULT_TMP_DIR/elipso-install.XXXXXX")"
     src_dir="$(download_bundle "$workdir")"
+    [[ -f "$src_dir/resources/views/templates/wrapper.blade.php" ]] || die "theme bundle is missing resources/views/templates/wrapper.blade.php"
     printf '%s\n' "$src_dir"
 }
 
