@@ -6,7 +6,6 @@ import { faCogs, faLayerGroup, faSignOutAlt } from '@fortawesome/free-solid-svg-
 import { useStoreState } from 'easy-peasy';
 import { ApplicationStore } from '@/state';
 import SearchContainer from '@/components/dashboard/search/SearchContainer';
-import tw, { theme } from 'twin.macro';
 import styled from 'styled-components/macro';
 import http from '@/api/http';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
@@ -17,17 +16,27 @@ const RightNavigation = styled.div`
     & > a,
     & > button,
     & > .navigation-link {
-        ${tw`flex items-center h-8 no-underline text-neutral-400 px-3 cursor-pointer transition-all duration-150 rounded-md border border-transparent`};
+        display: flex;
+        align-items: center;
+        height: 28px;
+        text-decoration: none;
+        color: var(--elipso-body);
+        padding: 0 var(--space-xs);
+        cursor: pointer;
+        transition: all 0.15s ease;
+        border-radius: var(--radius-full);
+        border: 1px solid transparent;
 
         &:active,
         &:hover {
-            ${tw`text-white bg-neutral-800 border-neutral-700`};
+            background: var(--elipso-canvas-soft);
+            color: var(--elipso-ink);
+            border-color: var(--elipso-hairline);
         }
 
-        &:active,
-        &:hover,
         &.active {
-            box-shadow: inset 0 -2px ${theme`colors.cyan.400`.toString()};
+            background: var(--elipso-canvas-soft-2);
+            color: var(--elipso-ink);
         }
     }
 `;
@@ -45,15 +54,23 @@ export default () => {
     };
 
     return (
-        <div className={'w-full bg-neutral-950/90 border-b border-neutral-800 shadow-none overflow-x-auto backdrop-blur-md'}>
+        <div
+            style={{
+                background: 'rgba(10,10,10,0.85)',
+                backdropFilter: 'blur(12px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+            }}
+            className={'w-full border-b border-[var(--elipso-hairline)] shadow-none overflow-x-auto'}
+        >
             <SpinnerOverlay visible={isLoggingOut} />
-            <div className={'mx-auto w-full flex items-center h-14 max-w-[1200px]'}>
+            <div className={'mx-auto w-full flex items-center h-16 max-w-[1200px] px-6'}>
                 <div id={'logo'} className={'flex-1'}>
                     <Link
                         to={'/'}
                         className={
-                            'text-xl font-header font-semibold px-4 no-underline text-white hover:text-neutral-200 transition-colors duration-150 tracking-[-0.04em]'
+                            'text-xl font-semibold px-4 no-underline text-[var(--elipso-ink)] hover:text-[var(--elipso-ink)] transition-colors duration-150 tracking-[-0.04em]'
                         }
+                        style={{ fontFamily: 'var(--font-sans)' }}
                     >
                         {name}
                     </Link>

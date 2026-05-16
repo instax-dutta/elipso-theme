@@ -37,7 +37,7 @@
 
         @include('layouts.scripts')
     </head>
-    <body class="{{ $css['body'] ?? 'bg-neutral-50' }}">
+    <body class="{{ $css['body'] ?? 'elipso-mesh' }}">
         @section('content')
             @yield('above-container')
             @yield('container')

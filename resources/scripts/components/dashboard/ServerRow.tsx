@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { Server } from '@/api/server/getServer';
 import getServerResourceUsage, { ServerPowerState, ServerStats } from '@/api/server/getServerResourceUsage';
 import { bytesToString, ip, mbToBytes } from '@/lib/formatters';
-import tw from 'twin.macro';
 import GreyRowBox from '@/components/elements/GreyRowBox';
 import Spinner from '@/components/elements/Spinner';
 import styled from 'styled-components/macro';
@@ -15,33 +14,47 @@ const isAlarmState = (current: number, limit: number): boolean => limit > 0 && c
 
 const Icon = memo(
     styled(FontAwesomeIcon)<{ $alarm: boolean }>`
-        ${(props) => (props.$alarm ? tw`text-red-400` : tw`text-neutral-500`)};
+        ${(props) => (props.$alarm ? 'color: var(--elipso-error) !important;' : 'color: var(--elipso-muted) !important;')};
     `,
     isEqual
 );
 
-const IconDescription = styled.p<{ $alarm: boolean }>`
-    ${tw`text-sm ml-2`};
-    ${(props) => (props.$alarm ? tw`text-red-400` : tw`text-neutral-300`)};
-`;
+const IconDescription = memo(
+    styled.p<{ $alarm: boolean }>`
+        font-size: 14px;
+        margin-left: 8px;
+        ${(props) => (props.$alarm ? 'color: var(--elipso-error) !important;' : 'color: var(--elipso-body) !important;')};
+    `,
+    isEqual
+);
 
 const StatusIndicatorBox = styled(GreyRowBox)<{ $status: ServerPowerState | undefined }>`
-    ${tw`grid grid-cols-12 gap-4 relative`};
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+    position: relative;
 
     & .status-bar {
-        ${tw`w-2 bg-red-500 absolute right-0 z-20 rounded-full m-1 opacity-70 transition-all duration-150`};
-        height: calc(100% - 0.5rem);
+        width: 8px;
+        position: absolute;
+        right: 0;
+        z-index: 20;
+        border-radius: 9999px;
+        margin: 4px;
+        opacity: 0.7;
+        transition: all 0.15s ease;
+        background: var(--elipso-error);
 
         ${({ $status }) =>
             !$status || $status === 'offline'
-                ? tw`bg-red-500`
+                ? 'background: var(--elipso-error)'
                 : $status === 'running'
-                ? tw`bg-cyan-400`
-                : tw`bg-yellow-500`};
+                ? 'background: var(--elipso-cyan)'
+                : 'background: var(--elipso-warning)'};
     }
 
     &:hover .status-bar {
-        ${tw`opacity-75`};
+        opacity: 0.75;
     }
 `;
 
@@ -86,21 +99,21 @@ export default ({ server, className }: { server: Server; className?: string }) =
 
     return (
         <StatusIndicatorBox as={Link} to={`/server/${server.id}`} className={className} $status={stats?.status}>
-            <div css={tw`flex items-center col-span-12 sm:col-span-5 lg:col-span-6`}>
-                <div className={'icon mr-4'}>
-                    <FontAwesomeIcon icon={faServer} />
+            <div style={{ display: 'flex', alignItems: 'center' }} className={'col-span-12 sm:col-span-5 lg:col-span-6'}>
+                <div className={'mr-4'}>
+                    <FontAwesomeIcon icon={faServer} style={{ color: 'var(--elipso-muted)' }} />
                 </div>
                 <div>
-                    <p css={tw`text-lg font-semibold text-white break-words tracking-[-0.03em]`}>{server.name}</p>
+                    <p style={{ color: 'var(--elipso-ink)', fontWeight: 600, fontSize: '18px', letterSpacing: '-0.03em', wordBreak: 'break-word' }}>{server.name}</p>
                     {!!server.description && (
-                        <p css={tw`text-sm text-neutral-400 break-words line-clamp-2`}>{server.description}</p>
+                        <p style={{ color: 'var(--elipso-body)', fontSize: '14px', wordBreak: 'break-word', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>{server.description}</p>
                     )}
                 </div>
             </div>
-            <div css={tw`flex-1 ml-4 lg:block lg:col-span-2 hidden`}>
-                <div css={tw`flex justify-center`}>
-                    <FontAwesomeIcon icon={faEthernet} css={tw`text-neutral-500`} />
-                    <p css={tw`text-sm text-neutral-300 ml-2 font-mono`}>
+            <div style={{ flex: 1, marginLeft: '16px' }} className={'lg:block lg:col-span-2 hidden'}>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <FontAwesomeIcon icon={faEthernet} style={{ color: 'var(--elipso-muted)' }} />
+                    <p style={{ color: 'var(--elipso-body)', fontSize: '14px', marginLeft: '8px', fontFamily: 'var(--font-mono)' }}>
                         {server.allocations
                             .filter((alloc) => alloc.isDefault)
                             .map((allocation) => (
@@ -111,17 +124,17 @@ export default ({ server, className }: { server: Server; className?: string }) =
                     </p>
                 </div>
             </div>
-            <div css={tw`hidden col-span-7 lg:col-span-4 sm:flex items-baseline justify-center`}>
+            <div className={'hidden col-span-7 lg:col-span-4 sm:flex items-baseline justify-center'}>
                 {!stats || isSuspended ? (
                     isSuspended ? (
-                        <div css={tw`flex-1 text-center`}>
-                            <span css={tw`bg-red-900/50 rounded-full border border-red-500 px-2 py-1 text-red-400 text-xs font-mono`}>
+                        <div style={{ flex: 1, textAlign: 'center' }}>
+                            <span style={{ background: 'var(--elipso-error-soft)', borderRadius: '9999px', border: '1px solid var(--elipso-error)', padding: '4px 8px', color: 'var(--elipso-error)', fontSize: '12px', fontFamily: 'var(--font-mono)' }}>
                                 {server.status === 'suspended' ? 'Suspended' : 'Connection Error'}
                             </span>
                         </div>
                     ) : server.isTransferring || server.status ? (
-                        <div css={tw`flex-1 text-center`}>
-                            <span css={tw`bg-neutral-700 rounded-full border border-neutral-500 px-2 py-1 text-neutral-300 text-xs font-mono`}>
+                        <div style={{ flex: 1, textAlign: 'center' }}>
+                            <span style={{ background: 'var(--elipso-canvas-soft-2)', borderRadius: '9999px', border: '1px solid var(--elipso-hairline)', padding: '4px 8px', color: 'var(--elipso-body)', fontSize: '12px', fontFamily: 'var(--font-mono)' }}>
                                 {server.isTransferring
                                     ? 'Transferring'
                                     : server.status === 'installing'
@@ -136,32 +149,32 @@ export default ({ server, className }: { server: Server; className?: string }) =
                     )
                 ) : (
                     <React.Fragment>
-                        <div css={tw`flex-1 ml-4 sm:block hidden`}>
-                            <div css={tw`flex justify-center`}>
+                        <div style={{ flex: 1, marginLeft: '16px' }} className={'sm:block hidden'}>
+                            <div style={{ display: 'flex', justifyContent: 'center' }}>
                                 <Icon icon={faMicrochip} $alarm={alarms.cpu} />
                                 <IconDescription $alarm={alarms.cpu}>
                                     {stats.cpuUsagePercent.toFixed(2)} %
                                 </IconDescription>
                             </div>
-                            <p css={tw`text-xs text-neutral-500 text-center mt-1 font-mono`}>of {cpuLimit}</p>
+                            <p style={{ color: 'var(--elipso-muted)', fontSize: '12px', textAlign: 'center', marginTop: '4px', fontFamily: 'var(--font-mono)' }}>of {cpuLimit}</p>
                         </div>
-                        <div css={tw`flex-1 ml-4 sm:block hidden`}>
-                            <div css={tw`flex justify-center`}>
+                        <div style={{ flex: 1, marginLeft: '16px' }} className={'sm:block hidden'}>
+                            <div style={{ display: 'flex', justifyContent: 'center' }}>
                                 <Icon icon={faMemory} $alarm={alarms.memory} />
                                 <IconDescription $alarm={alarms.memory}>
                                     {bytesToString(stats.memoryUsageInBytes)}
                                 </IconDescription>
                             </div>
-                            <p css={tw`text-xs text-neutral-500 text-center mt-1 font-mono`}>of {memoryLimit}</p>
+                            <p style={{ color: 'var(--elipso-muted)', fontSize: '12px', textAlign: 'center', marginTop: '4px', fontFamily: 'var(--font-mono)' }}>of {memoryLimit}</p>
                         </div>
-                        <div css={tw`flex-1 ml-4 sm:block hidden`}>
-                            <div css={tw`flex justify-center`}>
+                        <div style={{ flex: 1, marginLeft: '16px' }} className={'sm:block hidden'}>
+                            <div style={{ display: 'flex', justifyContent: 'center' }}>
                                 <Icon icon={faHdd} $alarm={alarms.disk} />
                                 <IconDescription $alarm={alarms.disk}>
                                     {bytesToString(stats.diskUsageInBytes)}
                                 </IconDescription>
                             </div>
-                            <p css={tw`text-xs text-neutral-500 text-center mt-1 font-mono`}>of {diskLimit}</p>
+                            <p style={{ color: 'var(--elipso-muted)', fontSize: '12px', textAlign: 'center', marginTop: '4px', fontFamily: 'var(--font-mono)' }}>of {diskLimit}</p>
                         </div>
                     </React.Fragment>
                 )}

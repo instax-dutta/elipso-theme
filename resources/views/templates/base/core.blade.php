@@ -1,5 +1,5 @@
 @extends('templates/wrapper', [
-    'css' => ['body' => 'bg-black'],
+    'css' => ['body' => 'elipso-canvas'],
 ])
 
 @section('container')

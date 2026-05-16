@@ -30,23 +30,39 @@ const Container = styled.div`
 
 export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => (
     <Container>
-        {title && <h2 css={tw`text-3xl text-center text-white font-semibold py-4 tracking-[-0.04em]`}>{title}</h2>}
+        {title && <h2 className={'text-3xl text-center text-[var(--elipso-ink)] font-semibold py-4 tracking-[-0.04em]'} style={{ fontFamily: 'var(--font-sans)' }}>{title}</h2>}
         <FlashMessageRender css={tw`mb-2 px-1`} />
         <Form {...props} ref={ref}>
-            <div css={tw`md:flex w-full bg-neutral-800 shadow-vercel-lg rounded-xl border border-neutral-700 p-6 mx-1 overflow-hidden`}>
-                <div css={tw`flex-none select-none mb-6 md:mb-0 md:mr-6 self-stretch rounded-lg bg-neutral-900 p-6 flex items-center justify-center`}>
-                    <img src={'/assets/svgs/pterodactyl.svg'} css={tw`block w-40 md:w-56 mx-auto`} alt="Pterodactyl" />
+            <div
+                style={{
+                    background: 'rgba(17,17,17,0.85)',
+                    backdropFilter: 'blur(16px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+                    border: '1px solid var(--elipso-hairline)',
+                    borderRadius: '12px',
+                    boxShadow: 'var(--shadow-5)',
+                }}
+                className={'md:flex w-full p-6 mx-1 overflow-hidden'}
+            >
+                <div
+                    style={{
+                        background: 'var(--elipso-canvas-soft)',
+                        borderRadius: '8px',
+                    }}
+                    className={'flex-none select-none mb-6 md:mb-0 md:mr-6 self-stretch p-6 flex items-center justify-center'}
+                >
+                    <img src={'/assets/svgs/pterodactyl.svg'} className={'block w-40 md:w-56 mx-auto'} alt="Pterodactyl" />
                 </div>
-                <div css={tw`flex-1`}>{props.children}</div>
+                <div className={'flex-1'}>{props.children}</div>
             </div>
         </Form>
-        <p css={tw`text-center text-neutral-500 text-xs mt-4`}>
+        <p className={'text-center text-[var(--elipso-muted)] text-xs mt-4'}>
             &copy; 2015 - {new Date().getFullYear()}&nbsp;
             <a
                 rel={'noopener nofollow noreferrer'}
                 href={'https://pterodactyl.io'}
                 target={'_blank'}
-                css={tw`no-underline text-neutral-500 hover:text-neutral-300`}
+                className={'no-underline text-[var(--elipso-muted)] hover:text-[var(--elipso-body)]'}
             >
                 Pterodactyl Software
             </a>
