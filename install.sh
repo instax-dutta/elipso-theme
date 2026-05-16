@@ -1,74 +1,126 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/bash
 
-PANEL_DIR="${1:-/var/www/pterodactyl}"
-THEME_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BACKUP_DIR="$THEME_DIR/backups/$(date +%Y%m%d-%H%M%S)"
+# Elipso Theme Installer - One-liner for Pterodactyl Panel
+# Usage: bash <(curl -sL https://raw.githubusercontent.com/instax-dutta/elipso-theme/main/install.sh)
 
-if [[ ! -f "$PANEL_DIR/artisan" ]]; then
-    echo "Could not find a Pterodactyl panel at: $PANEL_DIR"
-    echo "Usage: sudo bash install.sh /path/to/pterodactyl"
+if (( $EUID != 0 )); then
+    echo "Please run as root (sudo bash)"
     exit 1
 fi
 
-mkdir -p "$BACKUP_DIR"
+clear
 
-copy_path() {
-    local source="$1"
-    local target="$PANEL_DIR/$source"
+echo "========================================"
+echo "  Elipso - Vercel Dark Theme for Pterodactyl"
+echo "========================================"
+echo ""
 
-    if [[ -e "$target" ]]; then
-        mkdir -p "$BACKUP_DIR/$(dirname "$source")"
-        cp -a "$target" "$BACKUP_DIR/$source"
-    fi
-
-    mkdir -p "$(dirname "$target")"
-    cp -a "$THEME_DIR/$source" "$target"
-}
-
-echo "Installing Elipso Vercel theme into $PANEL_DIR"
-
-copy_path "package.json"
-copy_path "tailwind.config.js"
-copy_path "resources/scripts/assets/css/GlobalStylesheet.ts"
-copy_path "resources/scripts/components/NavigationBar.tsx"
-copy_path "resources/scripts/components/elements/GreyRowBox.tsx"
-copy_path "resources/scripts/components/dashboard/ServerRow.tsx"
-copy_path "resources/scripts/components/elements/button/style.module.css"
-copy_path "resources/scripts/components/elements/Input.tsx"
-copy_path "resources/scripts/components/auth/LoginFormContainer.tsx"
-copy_path "resources/scripts/routers/AuthenticationRouter.tsx"
-copy_path "resources/views/templates/wrapper.blade.php"
-copy_path "resources/views/templates/base/core.blade.php"
-copy_path "public/themes/elipso-vercel/theme.css"
-
-cd "$PANEL_DIR"
-
-if [[ "${ELIPSO_BUILD:-0}" == "1" ]]; then
-    if command -v yarn >/dev/null 2>&1; then
-        yarn install --frozen-lockfile
-        yarn build:production
-    else
-        npm install --legacy-peer-deps
-        npm run build:production
-    fi
+# Detect panel directory
+PANEL_DIR=""
+if [ -f "/var/www/pterodactyl/artisan" ]; then
+    PANEL_DIR="/var/www/pterodactyl"
+elif [ -f "/var/www/panel/artisan" ]; then
+    PANEL_DIR="/var/www/panel"
+elif [ -f "/var/www/html/pterodactyl/artisan" ]; then
+    PANEL_DIR="/var/www/html/pterodactyl"
+elif [ -f "/var/www/html/panel/artisan" ]; then
+    PANEL_DIR="/var/www/html/panel"
 else
-    if [[ ! -f "$THEME_DIR/public/assets/manifest.json" ]]; then
-        echo "Prebuilt assets were not found in this bundle. Re-run with ELIPSO_BUILD=1."
+    echo "Could not find Pterodactyl panel."
+    echo "Please specify the panel directory:"
+    read -p "Enter path (e.g. /var/www/pterodactyl): " PANEL_DIR
+    if [ ! -f "$PANEL_DIR/artisan" ]; then
+        echo "Invalid panel directory. Exiting."
         exit 1
     fi
-
-    mkdir -p "$BACKUP_DIR/public/assets" "$PANEL_DIR/public/assets"
-    cp -a "$PANEL_DIR/public/assets/manifest.json" "$BACKUP_DIR/public/assets/manifest.json" 2>/dev/null || true
-    cp -a "$THEME_DIR/public/assets/." "$PANEL_DIR/public/assets/"
 fi
 
-php artisan view:clear
-php artisan cache:clear
-php artisan config:clear
+echo "Found panel at: $PANEL_DIR"
+echo ""
 
-if command -v chown >/dev/null 2>&1; then
-    chown -R www-data:www-data storage bootstrap/cache public/assets 2>/dev/null || true
+# Create backup
+BACKUP_DIR="/var/www/elipso-backup-$(date +%Y%m%d-%H%M%S)"
+echo "Creating backup at: $BACKUP_DIR"
+mkdir -p "$BACKUP_DIR"
+cp -a "$PANEL_DIR/resources/scripts/assets/css/GlobalStylesheet.ts" "$BACKUP_DIR/" 2>/dev/null || true
+cp -a "$PANEL_DIR/resources/views/templates/wrapper.blade.php" "$BACKUP_DIR/" 2>/dev/null || true
+cp -a "$PANEL_DIR/resources/views/templates/base/core.blade.php" "$BACKUP_DIR/" 2>/dev/null || true
+cp -a "$PANEL_DIR/public/themes/elipso-vercel" "$BACKUP_DIR/" 2>/dev/null || true
+echo "Backup complete."
+echo ""
+
+# Clone repo
+echo "Cloning Elipso theme..."
+cd /var/www
+rm -rf elipso-theme 2>/dev/null
+git clone https://github.com/instax-dutta/elipso-theme.git elipso-theme
+
+if [ ! -d "elipso-theme" ]; then
+    echo "Failed to clone repository. Exiting."
+    exit 1
 fi
 
-echo "Elipso Vercel theme installed. Backups are in: $BACKUP_DIR"
+cd elipso-theme
+
+# Copy files
+echo "Installing theme files..."
+THEME_DIR="$PANEL_DIR/resources/scripts/assets/css"
+mkdir -p "$THEME_DIR"
+cp -a resources/scripts/assets/css/GlobalStylesheet.ts "$THEME_DIR/"
+
+NAVBAR_DIR="$PANEL_DIR/resources/scripts/components"
+mkdir -p "$NAVBAR_DIR"
+cp -a resources/scripts/components/NavigationBar.tsx "$NAVBAR_DIR/"
+cp -a resources/scripts/components/auth/LoginFormContainer.tsx "$NAVBAR_DIR/auth/"
+cp -a resources/scripts/components/dashboard/ServerRow.tsx "$NAVBAR_DIR/dashboard/"
+mkdir -p "$NAVBAR_DIR/elements"
+cp -a resources/scripts/components/elements/Input.tsx "$NAVBAR_DIR/elements/"
+
+VIEWS_DIR="$PANEL_DIR/resources/views/templates"
+mkdir -p "$VIEWS_DIR/base"
+cp -a resources/views/templates/wrapper.blade.php "$VIEWS_DIR/"
+cp -a resources/views/templates/base/core.blade.php "$VIEWS_DIR/base/"
+
+mkdir -p "$PANEL_DIR/public/themes/elipso-vercel"
+cp -a public/themes/elipso-vercel/theme.css "$PANEL_DIR/public/themes/elipso-vercel/"
+
+cp -a tailwind.config.js "$PANEL_DIR/"
+
+echo "Files copied."
+echo ""
+
+# Build assets
+echo "Building assets..."
+cd "$PANEL_DIR"
+
+if command -v yarn >/dev/null 2>&1; then
+    yarn install --frozen-lockfile 2>/dev/null || yarn install
+    yarn build:production
+elif command -v npm >/dev/null 2>&1; then
+    npm install --legacy-peer-deps
+    npm run build:production
+else
+    echo "Warning: Neither yarn nor npm found. Skipping build."
+    echo "You may need to build manually or use prebuilt assets."
+fi
+
+# Clear cache
+echo "Clearing caches..."
+php artisan view:clear 2>/dev/null || true
+php artisan cache:clear 2>/dev/null || true
+php artisan config:clear 2>/dev/null || true
+php artisan optimize:clear 2>/dev/null || true
+
+# Set permissions
+chown -R www-data:www-data "$PANEL_DIR/public/assets" 2>/dev/null || true
+
+echo ""
+echo "========================================"
+echo "  Elipso theme installed successfully!"
+echo "========================================"
+echo ""
+echo "Backup location: $BACKUP_DIR"
+echo ""
+echo "Clear your browser cache or use incognito to see the new theme."
+echo ""
+echo "To uninstall/restore: $BACKUP_DIR"
