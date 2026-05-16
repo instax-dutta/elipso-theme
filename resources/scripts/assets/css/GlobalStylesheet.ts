@@ -97,9 +97,9 @@ export default createGlobalStyle`
     }
 
     h1, h2, h3, h4, h5, h6 {
-        ${tw`font-semibold font-header`};
-        color: var(--elipso-ink) !important;
+        font-family: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
         font-weight: 600;
+        color: var(--elipso-ink) !important;
         letter-spacing: -0.04em;
         line-height: 1.25;
     }

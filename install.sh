@@ -196,8 +196,9 @@ main() {
     cp -f public/themes/elipso-vercel/elipso.css "$PANEL_DIR/public/themes/elipso-vercel/"
     cp -f public/themes/elipso-vercel/theme.css "$PANEL_DIR/public/themes/elipso-vercel/"
 
-    # Tailwind config
-    cp -f tailwind.config.js "$PANEL_DIR/"
+    # NOTE: We do NOT replace tailwind.config.js
+    # Pterodactyl's React components use specific Tailwind classes
+    # The CSS overrides will handle styling at the document level
 
     echo "✓ Files installed."
     echo ""
@@ -248,7 +249,7 @@ main() {
         echo "Installing dependencies with Yarn..."
         yarn install --network-timeout 100000 --ignore-engines || yarn install --network-timeout 100000
         echo "Building production assets..."
-        yarn build:production --progress=false || yarn build:production
+        yarn build:production
     elif command -v npm >/dev/null 2>&1; then
         echo "Installing dependencies with npm..."
         npm install --legacy-peer-deps --no-audit --no-fund --ignore-engines
