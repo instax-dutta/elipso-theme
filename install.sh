@@ -82,9 +82,10 @@ resolve_source_dir() {
         return
     fi
 
-    local workdir
+    local workdir src_dir
     workdir="$(mktemp -d "$DEFAULT_TMP_DIR/elipso-install.XXXXXX")"
-    download_bundle "$workdir"
+    src_dir="$(download_bundle "$workdir")"
+    printf '%s\n' "$src_dir"
 }
 
 backup_files() {
