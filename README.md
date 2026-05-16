@@ -1,6 +1,6 @@
 # Elipso — Vercel Dark Theme for Pterodactyl Panel
 
-A Vercel-inspired dark theme for Pterodactyl Panel (release/v1.12.2) featuring Geist typography, near-black canvas surfaces with white ink text, and atmospheric mesh gradients.
+A Vercel-inspired dark-only Pterodactyl theme with a more restrained, professional finish across the client and the legacy AdminLTE admin panel.
 
 ## Requirements
 
@@ -10,14 +10,14 @@ A Vercel-inspired dark theme for Pterodactyl Panel (release/v1.12.2) featuring G
 
 ---
 
-## Installation (One-Liner)
+## Installation
 
 ### Method 1: Quick Install (Recommended)
 
-Run this command on your Pterodactyl server:
+Run this on your Pterodactyl server:
 
 ```bash
-curl -sL https://raw.githubusercontent.com/instax-dutta/elipso-theme/main/install.sh -o /tmp/elipso.sh && sudo bash /tmp/elipso.sh
+curl -fsSL https://raw.githubusercontent.com/instax-dutta/elipso-theme/main/install.sh | sudo bash
 ```
 
 ### Method 2: Using wget
@@ -28,59 +28,37 @@ wget -qO- https://raw.githubusercontent.com/instax-dutta/elipso-theme/main/insta
 
 ### Method 3: Manual Download
 
-1. Download the theme:
-   ```bash
-   cd /var/www
-   wget https://github.com/instax-dutta/elipso-theme/archive/main.zip
-   unzip main.zip
-   cd elipso-theme-main
-   ```
+```bash
+wget https://github.com/instax-dutta/elipso-theme/archive/refs/heads/main.zip
+unzip main.zip
+cd elipso-theme-main
+sudo bash install.sh
+```
 
-2. Run the installer:
-   ```bash
-   sudo bash install.sh
-   ```
-
-3. Clean up:
-   ```bash
-   cd /var/www
-   rm -rf elipso-theme-main main.zip
-   ```
-
-### Method 4: Clone from Git
+If your panel is not in `/var/www/pterodactyl`, pass the path explicitly:
 
 ```bash
-cd /var/www
-git clone https://github.com/instax-dutta/elipso-theme.git
-cd elipso-theme
-sudo bash install.sh
+curl -fsSL https://raw.githubusercontent.com/instax-dutta/elipso-theme/main/install.sh | sudo bash -s -- /path/to/panel
 ```
 
 ---
 
 ## After Installation
 
-1. **Clear your browser cache** or use incognito/private mode
-2. The theme is applied immediately — no additional configuration needed
+1. Open the panel in an incognito/private window or do one hard refresh.
+2. The installer already clears Laravel caches for you.
 
 ---
 
-## Building from Source
+## Build Notes
 
-The installer automatically builds assets. To rebuild manually:
-
-```bash
-cd /var/www/pterodactyl
-yarn install
-yarn build:production
-php artisan optimize:clear
-```
+This installer does not rebuild frontend assets. It ships a prebuilt `public/assets` bundle together with the required Blade and theme CSS files, so install stays fast and does not depend on Node being available on the production server.
 
 ---
 
-## Uninstalling
+## Restore / Uninstall
 
-The installer creates a backup at `/var/www/elipso-backup-YYYYMMDD-HHMMSS/`
+Every install creates a backup at `/var/www/elipso-backup-YYYYMMDD-HHMMSS/`.
 
 To restore:
 
@@ -89,13 +67,14 @@ To restore:
 cd /var/www/elipso-backup-YYYYMMDD-HHMMSS
 
 # Restore files to their original locations
-cp -f GlobalStylesheet.ts /var/www/pterodactyl/resources/scripts/assets/css/
 cp -f wrapper.blade.php /var/www/pterodactyl/resources/views/templates/
 cp -f core.blade.php /var/www/pterodactyl/resources/views/templates/base/
+cp -f admin.blade.php /var/www/pterodactyl/resources/views/layouts/
+cp -rf elipso-vercel /var/www/pterodactyl/public/themes/
+cp -rf assets /var/www/pterodactyl/public/
 
-# Rebuild and clear cache
+# Clear cache
 cd /var/www/pterodactyl
-yarn build:production
 php artisan optimize:clear
 ```
 
@@ -107,52 +86,45 @@ php artisan optimize:clear
 elipso-vercel-theme/
 ├── install.sh                    # Universal installer
 ├── README.md                     # This file
-├── package.json                  # Node dependencies
-├── tailwind.config.js            # Tailwind configuration
 ├── public/
+│   ├── assets/                  # Prebuilt frontend assets used at runtime
 │   └── themes/elipso-vercel/
+│       ├── elipso.css            # Shared client theme styles
 │       └── theme.css             # Admin panel styles
 └── resources/
-    ├── scripts/
-    │   ├── assets/css/GlobalStylesheet.ts
-    │   └── components/
-    │       ├── NavigationBar.tsx
-    │       ├── auth/LoginFormContainer.tsx
-    │       ├── dashboard/ServerRow.tsx
-    │       └── elements/Input.tsx
     └── views/
-        └── templates/
-            ├── wrapper.blade.php
-            └── base/core.blade.php
+        ├── templates/
+        │   ├── wrapper.blade.php
+        │   └── base/core.blade.php
+        └── layouts/
+            └── admin.blade.php
 ```
 
 ---
 
-## Color Palette
+## Theme Behavior
 
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `--elipso-canvas` | #0a0a0a | Page background |
-| `--elipso-canvas-soft` | #111111 | Sidebar, cards |
-| `--elipso-ink` | #ededed | Primary text |
-| `--elipso-body` | #a1a1a1 | Secondary text |
-| `--elipso-muted` | #666666 | Placeholders |
-| `--elipso-hairline` | #262626 | Borders |
-| `--elipso-primary` | #ffffff | Buttons, CTAs |
-| `--elipso-link` | #0070f3 | Links |
+- Dark-only interface with near-black canvas, quiet elevated surfaces, and restrained contrast.
+- Shared Geist and Geist Mono typography across the panel and admin area.
+- Prebuilt frontend assets included, so login, dashboard, and the rest of the client UI stay in the same dark-only visual system.
 
 ---
 
 ## Troubleshooting
 
 **Issue:** "Could not find Pterodactyl panel"
-- The installer couldn't detect your panel path. Enter it manually when prompted.
+- Rerun with the panel path explicitly: `sudo bash install.sh /var/www/pterodactyl`
 
-**Issue:** "Failed to clone from GitHub"
-- Check your internet connection, or try downloading the ZIP instead.
+**Issue:** Download failed
+- Check your internet connection, then retry with `curl` or `wget`.
 
 **Issue:** Theme not showing after install
 - Clear browser cache or use incognito mode.
+- Confirm `/public/assets/manifest.json` changed on the server after install.
+
+**Issue:** Admin panel still looks stock
+- Confirm `resources/views/layouts/admin.blade.php` was copied by the installer.
+- Run `php artisan view:clear && php artisan optimize:clear`.
 
 ---
 

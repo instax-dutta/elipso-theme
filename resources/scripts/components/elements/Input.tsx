@@ -7,96 +7,65 @@ export interface Props {
 }
 
 const light = css<Props>`
-    background: var(--elipso-canvas-soft) !important;
-    border-color: var(--elipso-hairline-strong) !important;
-    color: var(--elipso-ink) !important;
+    ${tw`bg-neutral-900 border-neutral-700 text-neutral-100`};
     &:focus {
-        border-color: var(--elipso-primary) !important;
+        ${tw`border-neutral-300`}
     }
 
     &:disabled {
-        opacity: 0.4;
+        ${tw`bg-neutral-900 border-neutral-800`};
     }
 `;
 
 const checkboxStyle = css<Props>`
-    background: var(--elipso-canvas-soft-2) !important;
-    border-color: var(--elipso-hairline) !important;
-    width: 16px;
-    height: 16px;
-    accent-color: var(--elipso-primary);
-    border-radius: 4px;
-    cursor: pointer;
-    appearance: none;
-    display: inline-block;
-    vertical-align: middle;
-    flex-shrink: 0;
+    ${tw`bg-neutral-500 cursor-pointer appearance-none inline-block align-middle select-none flex-shrink-0 w-4 h-4 text-primary-400 border border-neutral-300 rounded-sm`};
+    color-adjust: exact;
+    background-origin: border-box;
     transition: all 75ms linear, box-shadow 25ms linear;
 
     &:checked {
-        background-color: var(--elipso-primary);
-        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%230a0a0a' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+        ${tw`border-transparent bg-no-repeat bg-center`};
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+        background-color: currentColor;
         background-size: 100% 100%;
-        background-repeat: no-repeat;
     }
 
     &:focus {
-        border-color: var(--elipso-primary) !important;
-        box-shadow: 0 0 0 3px rgba(255,255,255,0.08) !important;
+        ${tw`outline-none border-primary-300`};
+        box-shadow: 0 0 0 1px rgba(9, 103, 210, 0.25);
     }
 `;
 
 const inputStyle = css<Props>`
+    // Reset to normal styling.
     resize: none;
-    appearance: none;
-    outline: none;
-    width: 100%;
-    min-width: 0;
-    background: var(--elipso-canvas-soft) !important;
-    border: 1px solid var(--elipso-hairline) !important;
-    border-radius: var(--radius-ui) !important;
-    color: var(--elipso-ink) !important;
-    font-family: var(--font-sans);
-    font-size: 14px;
-    line-height: 20px;
-    padding: 0 var(--space-sm);
-    height: 40px;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    ${tw`appearance-none outline-none w-full min-w-0`};
+    ${tw`border rounded-md text-sm transition-all duration-150 shadow-none focus:ring-0`};
+    padding: 0 1rem;
+    height: 3rem;
+    ${tw`bg-neutral-900 border-neutral-700 hover:border-neutral-600 text-neutral-100`};
 
     & + .input-help {
-        margin-top: 4px;
-        font-size: 12px;
-        color: var(--elipso-muted);
+        ${tw`mt-1 text-xs`};
+        ${(props) => (props.hasError ? tw`text-red-300` : tw`text-neutral-500`)};
     }
 
     &:required,
     &:invalid {
-        box-shadow: none;
+        ${tw`shadow-none`};
     }
 
     &:not(:disabled):not(:read-only):focus {
-        border-color: var(--elipso-primary) !important;
-        box-shadow: 0 0 0 3px rgba(255,255,255,0.08) !important;
+        ${tw`shadow-none border-neutral-400 ring-2 ring-neutral-500 ring-opacity-20`};
+        ${(props) => props.hasError && tw`border-red-300 ring-red-200`};
     }
 
     &:disabled {
-        opacity: 0.4;
-        cursor: not-allowed;
-    }
-
-    &::placeholder {
-        color: var(--elipso-muted) !important;
-    }
-
-    &:hover {
-        border-color: var(--elipso-hairline-strong) !important;
+        ${tw`opacity-75`};
     }
 
     ${(props) => props.isLight && light};
-    ${(props) => props.hasError && css`
-        border-color: var(--elipso-error) !important;
-        background: var(--elipso-error-soft) !important;
-    `};
+    ${(props) => props.hasError && tw`text-red-100 border-red-400 hover:border-red-300`};
 `;
 
 const Input = styled.input<Props>`
@@ -109,14 +78,12 @@ const Input = styled.input<Props>`
         ${checkboxStyle};
 
         &[type='radio'] {
-            border-radius: 9999px;
+            ${tw`rounded-full`};
         }
     }
 `;
 const Textarea = styled.textarea<Props>`
     ${inputStyle}
-    height: auto;
-    padding: var(--space-sm);
 `;
 
 export { Textarea };

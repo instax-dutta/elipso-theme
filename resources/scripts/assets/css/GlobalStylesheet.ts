@@ -1,123 +1,79 @@
+import tw from 'twin.macro';
 import { createGlobalStyle } from 'styled-components/macro';
+// @ts-expect-error untyped font file
+import font from '@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-latin-wght-normal.woff2';
 
 export default createGlobalStyle`
-    :root {
-        /* Core surfaces */
-        --elipso-canvas:          #0a0a0a;
-        --elipso-canvas-soft:     #111111;
-        --elipso-canvas-soft-2:   #1a1a1a;
-        --elipso-canvas-raised:   #141414;
-
-        /* Text */
-        --elipso-ink:             #ededed;
-        --elipso-body:            #a1a1a1;
-        --elipso-muted:           #666666;
-
-        /* Borders */
-        --elipso-hairline:        #262626;
-        --elipso-hairline-strong: #404040;
-
-        /* Primary action — white pill on dark surface */
-        --elipso-primary:         #ffffff;
-        --elipso-on-primary:      #0a0a0a;
-
-        /* Semantic */
-        --elipso-link:            #0070f3;
-        --elipso-link-deep:       #3291ff;
-        --elipso-success:         #00c950;
-        --elipso-success-soft:    rgba(0, 201, 80, 0.15);
-        --elipso-error:           #ff4444;
-        --elipso-error-soft:      rgba(255, 68, 68, 0.12);
-        --elipso-warning:         #f5a623;
-        --elipso-warning-soft:    rgba(245, 166, 35, 0.12);
-
-        /* Accents */
-        --elipso-violet:          #7928ca;
-        --elipso-cyan:            #50e3c2;
-        --elipso-highlight-pink:  #ff0080;
-
-        /* Elevation */
-        --shadow-1: inset 0 0 0 1px rgba(255,255,255,0.06);
-        --shadow-2: 0px 1px 1px rgba(0,0,0,0.3), 0px 2px 2px rgba(0,0,0,0.2), inset 0 0 0 1px rgba(255,255,255,0.06);
-        --shadow-3: 0px 2px 2px rgba(0,0,0,0.3), 0px 8px 8px -8px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.06);
-        --shadow-4: 0px 2px 2px rgba(0,0,0,0.3), 0px 8px 16px -4px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.06);
-        --shadow-5: 0px 1px 1px rgba(0,0,0,0.3), 0px 8px 16px -4px rgba(0,0,0,0.4), 0px 24px 32px -8px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.06);
-
-        /* Radius */
-        --radius-ui:      6px;
-        --radius-card:    8px;
-        --radius-card-lg: 12px;
-        --radius-pill:    100px;
-        --radius-full:    9999px;
+    @font-face {
+        font-family: 'IBM Plex Sans';
+        font-style: normal;
+        font-display: swap;
+        font-weight: 100 700;
+        src: url(${font}) format('woff2-variations');
+        unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
     }
 
     body {
-        background: var(--elipso-canvas);
-        color: var(--elipso-ink);
-        font-family: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 24px;
-        letter-spacing: -0.01em;
-        min-height: 100vh;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
+        ${tw`font-sans bg-neutral-800 text-neutral-200`};
+        letter-spacing: 0.015em;
+        background:
+            radial-gradient(circle at 12% 8%, rgba(40, 109, 255, 0.18), transparent 32rem),
+            radial-gradient(circle at 88% 12%, rgba(127, 29, 29, 0.16), transparent 30rem),
+            linear-gradient(180deg, #07090d 0%, #0c1016 100%);
+        color: #b1bac7;
     }
 
     h1, h2, h3, h4, h5, h6 {
-        font-family: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
-        font-weight: 600;
-        color: var(--elipso-ink) !important;
-        letter-spacing: -0.04em;
-        line-height: 1.25;
+        ${tw`font-medium tracking-normal font-header`};
     }
 
     p {
-        color: var(--elipso-body);
+        ${tw`text-neutral-200 leading-snug font-sans`};
     }
 
-    a {
-        color: var(--elipso-link) !important;
-        text-decoration: none;
+    form {
+        ${tw`m-0`};
     }
 
-    a:hover {
-        color: var(--elipso-link-deep) !important;
-        text-decoration: underline;
+    textarea, select, input, button, button:focus, button:focus-visible {
+        ${tw`outline-none`};
     }
 
-    code, pre, kbd, samp {
-        font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
-        font-size: 13px;
-        line-height: 20px;
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none !important;
+        margin: 0;
     }
 
-    ::selection {
-        background: #ffffff;
-        color: #0a0a0a;
+    input[type=number] {
+        -moz-appearance: textfield !important;
     }
 
-    textarea, select, input, button {
-        outline: none;
-    }
-
-    /* Scrollbar */
+    /* Scroll Bar Style */
     ::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: var(--elipso-canvas);
+        background: none;
+        width: 16px;
+        height: 16px;
     }
 
     ::-webkit-scrollbar-thumb {
-        background: var(--elipso-hairline-strong);
-        border-radius: var(--radius-full);
+        border: solid 0 rgb(0 0 0 / 0%);
+        border-right-width: 4px;
+        border-left-width: 4px;
+        -webkit-border-radius: 9px 4px;
+        -webkit-box-shadow: inset 0 0 0 1px hsl(211, 10%, 53%), inset 0 0 0 4px hsl(209deg 18% 30%);
     }
 
-    ::-webkit-scrollbar-thumb:hover {
-        background: var(--elipso-muted);
+    ::-webkit-scrollbar-track-piece {
+        margin: 4px 0;
+    }
+
+    ::-webkit-scrollbar-thumb:horizontal {
+        border-right-width: 0;
+        border-left-width: 0;
+        border-top-width: 4px;
+        border-bottom-width: 4px;
+        -webkit-border-radius: 4px 9px;
     }
 
     ::-webkit-scrollbar-corner {

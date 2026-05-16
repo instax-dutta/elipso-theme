@@ -1,62 +1,79 @@
-/* ============================================================
-   ELIPSO — Global base styles + Blue-Gray Kill Switch
-   ============================================================ */
+:root {
+  --elipso-canvas: #07090d;
+  --elipso-canvas-soft: #0c1016;
+  --elipso-canvas-soft-2: #121821;
+  --elipso-canvas-raised: #11161d;
+  --elipso-ink: #f3f4f6;
+  --elipso-body: #b1bac7;
+  --elipso-muted: #7d8796;
+  --elipso-hairline: #202733;
+  --elipso-hairline-strong: #2d3746;
+  --elipso-primary: #f5f7fb;
+  --elipso-on-primary: #0a0d12;
+  --elipso-link: #6bb8ff;
+  --elipso-link-deep: #91cbff;
+  --elipso-success: #56d4b0;
+  --elipso-error: #ff6b6b;
+  --elipso-warning: #f6c177;
+  --elipso-shadow-card: 0 1px 1px rgb(0 0 0 / 32%), 0 16px 36px rgb(0 0 0 / 30%);
+  --elipso-shadow-panel: 0 1px 1px rgb(0 0 0 / 34%), 0 24px 60px rgb(0 0 0 / 42%);
+  --elipso-mesh-a: rgb(40 109 255 / 0.18);
+  --elipso-mesh-b: rgb(56 189 248 / 0.12);
+  --elipso-mesh-c: rgb(76 29 149 / 0.12);
+  --elipso-mesh-d: rgb(127 29 29 / 0.14);
+  --elipso-mesh-e: rgb(245 158 11 / 0.08);
+  color-scheme: dark;
+}
 
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 html {
-  background: #0a0a0a;
-  color: #ededed;
-  font-family: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--elipso-canvas);
+  color: var(--elipso-ink);
+  font-family: 'Geist', Inter, system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: #0a0a0a !important;
-  color: #ededed !important;
-  font-family: 'Geist', 'Inter', system-ui, -apple-system, sans-serif !important;
   margin: 0;
   min-height: 100vh;
+  background:
+    radial-gradient(ellipse 75% 48% at 12% 8%, var(--elipso-mesh-a) 0%, transparent 60%),
+    radial-gradient(ellipse 48% 36% at 86% 16%, var(--elipso-mesh-d) 0%, transparent 62%),
+    linear-gradient(180deg, var(--elipso-canvas), var(--elipso-canvas-soft) 36rem) !important;
+  color: var(--elipso-body) !important;
+  font-family: 'Geist', Inter, system-ui, -apple-system, sans-serif !important;
 }
 
-/* Selection */
-::selection { background: #ffffff; color: #0a0a0a; }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--elipso-ink) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.04em !important;
+}
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #0a0a0a; }
-::-webkit-scrollbar-thumb { background: #404040; border-radius: 9999px; }
-::-webkit-scrollbar-thumb:hover { background: #666666; }
+p,
+span,
+label,
+li,
+td,
+th {
+  color: inherit;
+}
 
-/* Typography ceiling */
-h1, h2, h3, h4, h5, h6 { font-weight: 600 !important; color: #ededed !important; }
-strong, b { font-weight: 600 !important; }
-
-/* ============================================================
-   BLUE-GRAY KILL SWITCH
-   Targets every hex value from Tailwind's default gray/slate
-   scales that produce blue-tinted surfaces.
-   ============================================================ */
-
-/* Tailwind gray-900 / slate-900 / zinc-900 — the nav */
-[style*="background-color: rgb(17, 24, 39)"],
-[style*="background:#111827"],
-[style*="background: #111827"] { background: #0a0a0a !important; }
-
-/* Tailwind gray-800 / slate-800 — sub-nav, cards */
-[style*="background-color: rgb(31, 41, 55)"],
-[style*="background:#1f2937"],
-[style*="background: #1f2937"] { background: #111111 !important; }
-
-/* Tailwind gray-700 / slate-700 — stat cards */
-[style*="background-color: rgb(55, 65, 81)"],
-[style*="background:#374151"],
-[style*="background: #374151"] { background: #1a1a1a !important; }
-
-/* ============================================================
-   GLOBAL LINK COLOR RESET
-   ============================================================ */
+strong,
+b {
+  font-weight: 600 !important;
+}
 
 a {
   color: inherit !important;
@@ -64,228 +81,375 @@ a {
 }
 
 p a,
-.prose a,
-[class*="body"] a,
-[class*="content"] a,
 td a,
-.alert a {
-  color: #0070f3 !important;
-}
-p a:hover { color: #3291ff !important; text-decoration: underline; }
-
-/* ============================================================
-   NAV — Main top bar
-   ============================================================ */
-
-div[class*="NavigationBar"],
-div[class*="navigation-bar"],
-header,
-nav {
-  background: #0a0a0a !important;
-  border-bottom: 1px solid #262626 !important;
+.prose a,
+.content a,
+.alert a,
+.box a:not(.btn):not(.label):not(.badge),
+.card a:not(.btn):not(.label):not(.badge) {
+  color: var(--elipso-link) !important;
 }
 
-div[class*="NavigationBar"] a,
-header a[href="/"],
-.brand-link,
-.navbar-brand {
-  color: #ededed !important;
-  font-weight: 600 !important;
-  font-family: 'Geist', sans-serif !important;
-  letter-spacing: -0.04em !important;
+p a:hover,
+td a:hover,
+.content a:hover,
+.box a:not(.btn):not(.label):not(.badge):hover {
+  color: var(--elipso-link-deep) !important;
+  text-decoration: underline;
 }
 
-div[class*="NavigationBar"] button,
-header button {
-  color: #a1a1a1 !important;
-  background: transparent !important;
-  border: none !important;
-}
-div[class*="NavigationBar"] button:hover,
-header button:hover {
-  color: #ededed !important;
-  background: #1a1a1a !important;
-  border-radius: 6px !important;
+::selection {
+  background: var(--elipso-primary);
+  color: var(--elipso-on-primary);
 }
 
-/* ============================================================
-   SERVER SUB-NAV — the Console/Files/Databases tab row
-   ============================================================ */
-
-div[class*="SubNavigation"],
-div[class*="sub-navigation"],
-div[class*="ServerSubNavigation"],
-div[class*="NavigationRouter"],
-div[class*="SubNavBar"],
-header + div,
-nav + div {
-  background: #0a0a0a !important;
-  border-bottom: 1px solid #262626 !important;
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }
 
-div[class*="SubNavigation"] a,
-div[class*="ServerSubNavigation"] a,
-div[class*="NavigationRouter"] a {
-  color: #a1a1a1 !important;
-  font-size: 14px !important;
-  font-weight: 400 !important;
-  border-bottom: 2px solid transparent !important;
-  padding: 8px 16px !important;
-  transition: color 0.15s, border-color 0.15s !important;
-  background: transparent !important;
-  text-decoration: none !important;
-}
-div[class*="SubNavigation"] a:hover { color: #ededed !important; }
-div[class*="SubNavigation"] a[class*="active"],
-div[class*="SubNavigation"] a.active {
-  color: #ededed !important;
-  border-bottom-color: #ffffff !important;
-  font-weight: 500 !important;
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-/* ============================================================
-   STAT CARDS
-   ============================================================ */
-
-div[class*="StatBlock"],
-div[class*="stat-block"],
-div[class*="ServerDetails"],
-div[class*="NetworkStats"],
-.grid > div,
-.flex-col > div[class*="bg-"] {
-  background: #111111 !important;
-  border: none !important;
-  border-radius: 8px !important;
-  box-shadow: 0px 2px 2px rgba(0,0,0,0.3), 0px 8px 8px -8px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.06) !important;
+::-webkit-scrollbar-thumb {
+  background: var(--elipso-hairline-strong);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
-
-div[class*="StatBlock"] p {
-  color: #a1a1a1 !important;
-  font-family: 'Geist Mono', monospace !important;
-  font-size: 11px !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.08em !important;
-}
-
-div[class*="StatBlock"] span {
-  color: #ededed !important;
-  font-size: 20px !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.04em !important;
-}
-
-[class*="offline"], [class*="Offline"] { color: #a1a1a1 !important; }
-[class*="online"], [class*="Online"]   { color: #00c950 !important; }
-
-/* ============================================================
-   BUTTONS — Start/Restart/Stop
-   ============================================================ */
-
-button[class*="start"],
-button[class*="Start"],
-[data-action="start"],
-.btn-start {
-  background: #ffffff !important;
-  color: #0a0a0a !important;
-  border: none !important;
-  border-radius: 6px !important;
-  font-weight: 500 !important;
-}
-button[class*="start"]:hover { opacity: 0.85 !important; }
-
-button[class*="restart"],
-button[class*="Restart"],
-[data-action="restart"],
-.btn-restart {
-  background: #1a1a1a !important;
-  color: #ededed !important;
-  border: 1px solid #262626 !important;
-  border-radius: 6px !important;
-  font-weight: 500 !important;
-}
-button[class*="restart"]:hover { background: #262626 !important; }
-
-button[class*="stop"],
-button[class*="Stop"],
-[data-action="stop"],
-.btn-stop {
-  background: #ff4444 !important;
-  color: #ffffff !important;
-  border: none !important;
-  border-radius: 6px !important;
-  font-weight: 500 !important;
-}
-
-/* ============================================================
-   CONSOLE
-   ============================================================ */
-
-div[class*="Console"],
-div[class*="console"],
-div[class*="Terminal"],
-div[class*="terminal"],
-div[class*="xterm"] {
-  background: #050505 !important;
-  border: 1px solid #262626 !important;
-  border-radius: 8px !important;
-}
-
-.xterm-viewport { background: #050505 !important; }
-.xterm-screen canvas { background: #050505 !important; }
-
-/* ============================================================
-   PAGE BACKGROUND OVERRIDES
-   ============================================================ */
-
-.bg-gray-900, .bg-neutral-900, .bg-slate-900, .bg-zinc-900 { background-color: #0a0a0a !important; }
-.bg-gray-800, .bg-neutral-800, .bg-slate-800, .bg-zinc-800 { background-color: #111111 !important; }
-.bg-gray-750, .bg-neutral-750 { background-color: #141414 !important; }
-.bg-gray-700, .bg-neutral-700, .bg-slate-700, .bg-zinc-700 { background-color: #1a1a1a !important; }
-.bg-gray-600, .bg-neutral-600, .bg-slate-600, .bg-zinc-600 { background-color: #262626 !important; }
-
-.text-gray-100, .text-neutral-100, .text-slate-100 { color: #ededed !important; }
-.text-gray-200, .text-neutral-200, .text-slate-200 { color: #d4d4d4 !important; }
-.text-gray-300, .text-neutral-300, .text-slate-300 { color: #a1a1a1 !important; }
-.text-gray-400, .text-neutral-400, .text-slate-400 { color: #888888 !important; }
-.text-gray-500, .text-neutral-500, .text-slate-500 { color: #666666 !important; }
-
-.border-gray-600, .border-neutral-600, .border-slate-600, .border-zinc-600,
-.border-gray-700, .border-neutral-700, .border-slate-700, .border-zinc-700 {
-  border-color: #262626 !important;
-}
-.border-gray-500, .border-neutral-500 { border-color: #404040 !important; }
-
-/* ============================================================
-   ACTIVE TAB / FOCUS OVERRIDES
-   ============================================================ */
-
-.text-blue-400, .text-blue-500 { color: inherit !important; }
-a.text-blue-400, a.text-blue-500, button.text-blue-400 { color: #0070f3 !important; }
-
-[class*="border-blue"], [class*="border-cyan"] {
-  border-color: #ffffff !important;
-}
-
-/* ============================================================
-   MESH GRADIENT (Auth pages)
-   ============================================================ */
 
 .elipso-mesh {
   position: relative;
-  background: #0a0a0a;
 }
-.elipso-mesh::before {
+
+.elipso-canvas {
+  background:
+    radial-gradient(ellipse 75% 48% at 12% 8%, var(--elipso-mesh-a) 0%, transparent 60%),
+    linear-gradient(180deg, var(--elipso-canvas), var(--elipso-canvas-soft) 42rem) !important;
+}
+
+body.elipso-mesh form {
+  position: relative;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+body.elipso-mesh form > div,
+body.elipso-mesh form > .w-full,
+body.elipso-mesh form > [class*='bg-white'],
+body.elipso-mesh form > [class*='shadow'] {
+  display: block !important;
+  max-width: 540px !important;
+  margin: 0 auto !important;
+  padding: 36px !important;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--elipso-canvas-raised) 94%, var(--elipso-canvas-soft-2)) 0%, #0f141b 100%) !important;
+  border: 1px solid var(--elipso-hairline) !important;
+  border-radius: 20px !important;
+  box-shadow: var(--elipso-shadow-panel) !important;
+  backdrop-filter: blur(18px);
+}
+
+body.elipso-mesh form > div > div:first-child {
+  display: none !important;
+}
+
+body.elipso-mesh form > div > div:last-child {
+  width: 100% !important;
+  max-width: none !important;
+  flex: 1 1 auto !important;
+  margin: 0 !important;
+}
+
+body.elipso-mesh h2 {
+  max-width: 540px;
+  margin: 0 auto 20px !important;
+  font-size: 54px !important;
+  line-height: 1 !important;
+  letter-spacing: -0.06em !important;
+  text-align: left !important;
+}
+
+body.elipso-mesh form label,
+body.elipso-mesh form [class*='label'],
+body.elipso-mesh form .input-help {
+  color: var(--elipso-muted) !important;
+  font-size: 12px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+body.elipso-mesh form .input-help.error {
+  color: var(--elipso-error) !important;
+}
+
+body.elipso-mesh form input,
+body.elipso-mesh form textarea,
+body.elipso-mesh form select {
+  height: 48px !important;
+  padding: 0 16px !important;
+  background: #0b0f15 !important;
+  border: 1px solid var(--elipso-hairline) !important;
+  border-radius: 10px !important;
+  color: var(--elipso-ink) !important;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.02) !important;
+}
+
+body.elipso-mesh form input:hover,
+body.elipso-mesh form textarea:hover,
+body.elipso-mesh form select:hover {
+  border-color: var(--elipso-hairline-strong) !important;
+}
+
+body.elipso-mesh form button[type='submit'],
+body.elipso-mesh form .btn-primary,
+body.elipso-mesh form [class*='bg-blue'] {
+  height: 48px !important;
+  margin-top: 10px !important;
+  background: linear-gradient(180deg, #f4f6fb 0%, #dfe5ef 100%) !important;
+  border: 1px solid #d2dae8 !important;
+  border-radius: 10px !important;
+  color: #0c1118 !important;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.18) !important;
+}
+
+body.elipso-mesh form button[type='submit']:hover,
+body.elipso-mesh form .btn-primary:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+body.elipso-mesh form a[href*='password'],
+body.elipso-mesh form + p a,
+body.elipso-mesh > p a {
+  color: var(--elipso-muted) !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+body.elipso-mesh form a[href*='password']:hover {
+  color: var(--elipso-body) !important;
+  text-decoration: none;
+}
+
+body.elipso-mesh > p {
+  max-width: 540px;
+  margin: 18px auto 0 !important;
+  text-align: left !important;
+}
+
+.bg-gray-900,
+.bg-neutral-900,
+.bg-slate-900,
+.bg-zinc-900,
+.bg-white,
+.bg-light {
+  background-color: var(--elipso-canvas-soft) !important;
+}
+
+.bg-gray-800,
+.bg-neutral-800,
+.bg-slate-800,
+.bg-zinc-800,
+.bg-black {
+  background-color: var(--elipso-canvas-soft) !important;
+}
+
+.bg-gray-700,
+.bg-neutral-700,
+.bg-slate-700,
+.bg-zinc-700,
+.bg-gray-600,
+.bg-neutral-600 {
+  background-color: var(--elipso-canvas-soft-2) !important;
+}
+
+.text-gray-50,
+.text-gray-100,
+.text-neutral-100,
+.text-slate-100,
+.text-white {
+  color: var(--elipso-ink) !important;
+}
+
+.text-gray-200,
+.text-neutral-200,
+.text-slate-200,
+.text-gray-300,
+.text-neutral-300,
+.text-slate-300 {
+  color: var(--elipso-body) !important;
+}
+
+.text-gray-400,
+.text-neutral-400,
+.text-slate-400,
+.text-gray-500,
+.text-neutral-500 {
+  color: var(--elipso-muted) !important;
+}
+
+.border-gray-900,
+.border-gray-800,
+.border-gray-700,
+.border-gray-600,
+.border-neutral-700,
+.border-neutral-600,
+.border-slate-700,
+.border-zinc-700,
+.border,
+.border-top,
+.border-right,
+.border-bottom,
+.border-left {
+  border-color: var(--elipso-hairline) !important;
+}
+
+div[class*='NavigationBar'],
+div[class*='navigation-bar'],
+header,
+nav,
+div[class*='SubNavigation'],
+div[class*='sub-navigation'],
+div[class*='ServerSubNavigation'],
+div[class*='NavigationRouter'],
+div[class*='SubNavBar'] {
+  background: color-mix(in srgb, var(--elipso-canvas) 92%, transparent) !important;
+  border-color: var(--elipso-hairline) !important;
+}
+
+div[class*='StatBlock'],
+div[class*='ServerDetails'],
+div[class*='NetworkStats'],
+div[class*='GreyRowBox'],
+div[class*='TitledGreyBox'],
+.group > div[class*='bg-'],
+.grid > div[class*='bg-'] {
+  background: var(--elipso-canvas-raised) !important;
+  color: var(--elipso-ink) !important;
+  border: 1px solid var(--elipso-hairline) !important;
+  box-shadow: var(--elipso-shadow-card) !important;
+}
+
+div[class*='StatBlock'] {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--elipso-canvas-raised) 92%, var(--elipso-canvas-soft-2)) 0%, var(--elipso-canvas-raised) 100%) !important;
+}
+
+div[class*='StatBlock']::after {
   content: '';
   position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(0,124,240,0.18) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(0,223,216,0.14) 0%, transparent 60%),
-    radial-gradient(ellipse 70% 60% at 50% 80%, rgba(121,40,202,0.16) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 50% at 70% 60%, rgba(255,0,128,0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 80% 40% at 10% 70%, rgba(255,77,77,0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 90% 85%, rgba(249,203,40,0.1) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: 0;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--elipso-link), var(--elipso-cyan, #50e3c2));
+  opacity: 0.8;
 }
-.elipso-mesh > * { position: relative; z-index: 1; }
+
+div[class*='StatBlock'] .status-bar {
+  background: linear-gradient(180deg, var(--elipso-link), var(--elipso-cyan, #50e3c2)) !important;
+  opacity: 1 !important;
+  width: 4px !important;
+  right: 0 !important;
+}
+
+div[class*='StatBlock'] p,
+div[class*='StatBlock'] span {
+  color: var(--elipso-body) !important;
+}
+
+div[class*='StatBlock'] p:first-child {
+  color: var(--elipso-ink) !important;
+  font-weight: 600 !important;
+}
+
+div[class*='StatBlock'] svg {
+  color: var(--elipso-muted) !important;
+}
+
+div[class*='StatBlock'] .icon {
+  background: var(--elipso-canvas-soft-2) !important;
+  border: 1px solid var(--elipso-hairline) !important;
+}
+
+div[class*='StatBlock'] [class*='text-xs'],
+div[class*='StatBlock'] [class*='text-sm'] {
+  color: var(--elipso-muted) !important;
+}
+
+div[class*='StatBlock'] [class*='text-red'] {
+  color: var(--elipso-error) !important;
+}
+
+a[class*='GreyRowBox'],
+div[class*='GreyRowBox'],
+div[class*='TitledGreyBox'] {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--elipso-canvas-raised) 94%, var(--elipso-canvas-soft-2)) 0%, var(--elipso-canvas-raised) 100%) !important;
+  border-radius: 12px !important;
+}
+
+a[class*='GreyRowBox'] .icon,
+div[class*='GreyRowBox'] .icon {
+  background: var(--elipso-canvas-soft-2) !important;
+  border: 1px solid var(--elipso-hairline) !important;
+  color: var(--elipso-ink) !important;
+}
+
+a[class*='GreyRowBox']:hover,
+div[class*='GreyRowBox']:hover {
+  transform: translateY(-1px);
+  border-color: var(--elipso-hairline-strong) !important;
+}
+
+canvas {
+  background: transparent !important;
+}
+
+.xterm,
+.xterm-viewport,
+.xterm-screen,
+pre,
+code[class*='cm-'],
+.CodeMirror {
+  background: var(--elipso-canvas-soft) !important;
+  color: var(--elipso-ink) !important;
+  border-color: var(--elipso-hairline) !important;
+}
+
+.CodeMirror-gutters,
+.cm-s-default .CodeMirror-gutters,
+.cm-s-material .CodeMirror-gutters {
+  background: var(--elipso-canvas-soft-2) !important;
+  border-right-color: var(--elipso-hairline) !important;
+}
+
+input,
+textarea,
+select,
+.form-control {
+  background: var(--elipso-canvas-raised) !important;
+  color: var(--elipso-ink) !important;
+  border-color: var(--elipso-hairline) !important;
+}
+
+button:not(.elipso-theme-toggle),
+.btn,
+.nav-tabs .nav-link,
+.page-link,
+.dropdown-item {
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+.form-control:focus {
+  border-color: var(--elipso-primary) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--elipso-primary) 12%, transparent) !important;
+}
+
+button,
+.btn {
+  font-family: 'Geist', Inter, system-ui, sans-serif !important;
+}
