@@ -1,29 +1,6 @@
-import tw from 'twin.macro';
 import { createGlobalStyle } from 'styled-components/macro';
-// @ts-expect-error untyped font file
-import geist from '@fontsource-variable/geist/files/geist-latin-wght-normal.woff2';
-// @ts-expect-error untyped font file
-import geistMono from '@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2';
 
 export default createGlobalStyle`
-    @font-face {
-        font-family: 'Geist';
-        font-style: normal;
-        font-display: swap;
-        font-weight: 100 900;
-        src: url(${geist}) format('woff2-variations');
-        unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-U+02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-    }
-
-    @font-face {
-        font-family: 'Geist Mono';
-        font-style: normal;
-        font-display: swap;
-        font-weight: 100 900;
-        src: url(${geistMono}) format('woff2-variations');
-        unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-    }
-
     :root {
         /* Core surfaces */
         --elipso-canvas:          #0a0a0a;
@@ -59,14 +36,6 @@ export default createGlobalStyle`
         --elipso-cyan:            #50e3c2;
         --elipso-highlight-pink:  #ff0080;
 
-        /* Gradient stops */
-        --elipso-grad-dev-start:  #007cf0;
-        --elipso-grad-dev-end:    #00dfd8;
-        --elipso-grad-prev-start: #7928ca;
-        --elipso-grad-prev-end:   #ff0080;
-        --elipso-grad-ship-start: #ff4d4d;
-        --elipso-grad-ship-end:   #f9cb28;
-
         /* Elevation */
         --shadow-1: inset 0 0 0 1px rgba(255,255,255,0.06);
         --shadow-2: 0px 1px 1px rgba(0,0,0,0.3), 0px 2px 2px rgba(0,0,0,0.2), inset 0 0 0 1px rgba(255,255,255,0.06);
@@ -83,7 +52,6 @@ export default createGlobalStyle`
     }
 
     body {
-        ${tw`font-sans`};
         background: var(--elipso-canvas);
         color: var(--elipso-ink);
         font-family: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
@@ -105,15 +73,8 @@ export default createGlobalStyle`
     }
 
     p {
-        ${tw`leading-snug font-sans`};
         color: var(--elipso-body);
     }
-
-    /* Typography scale */
-    h1, .display-xl { font-size: 48px; font-weight: 600; line-height: 48px; letter-spacing: -0.15rem; }
-    h2, .display-lg { font-size: 32px; font-weight: 600; line-height: 40px; letter-spacing: -0.08rem; }
-    h3, .display-md { font-size: 24px; font-weight: 600; line-height: 32px; letter-spacing: -0.06rem; }
-    h4, .display-sm { font-size: 20px; font-weight: 600; line-height: 28px; letter-spacing: -0.04rem; }
 
     a {
         color: var(--elipso-link) !important;
@@ -136,22 +97,8 @@ export default createGlobalStyle`
         color: #0a0a0a;
     }
 
-    form {
-        ${tw`m-0`};
-    }
-
     textarea, select, input, button {
-        ${tw`outline-none`};
-    }
-
-    input[type=number]::-webkit-outer-spin-button,
-    input[type=number]::-webkit-inner-spin-button {
-        -webkit-appearance: none !important;
-        margin: 0;
-    }
-
-    input[type=number] {
-        -moz-appearance: textfield !important;
+        outline: none;
     }
 
     /* Scrollbar */

@@ -241,6 +241,13 @@ main() {
         npm install -g yarn
     fi
 
+    # Install font packages if needed
+    if [ ! -d "$PANEL_DIR/node_modules/@fontsource-variable/geist" ]; then
+        echo "📦 Installing font packages..."
+        cd "$PANEL_DIR"
+        yarn add @fontsource-variable/geist @fontsource-variable/geist-mono --ignore-engines
+    fi
+
     # Build assets
     echo "🔨 Building assets..."
     cd "$PANEL_DIR"
