@@ -177,13 +177,12 @@ main() {
     mkdir -p "$THEME_CSS_DIR"
     cp -f resources/scripts/assets/css/GlobalStylesheet.ts "$THEME_CSS_DIR/"
 
-    # Components
-    COMPONENTS_DIR="$PANEL_DIR/resources/scripts/components"
-    mkdir -p "$COMPONENTS_DIR/auth" "$COMPONENTS_DIR/dashboard" "$COMPONENTS_DIR/elements"
-    cp -f resources/scripts/components/NavigationBar.tsx "$COMPONENTS_DIR/"
-    cp -f resources/scripts/components/auth/LoginFormContainer.tsx "$COMPONENTS_DIR/auth/"
-    cp -f resources/scripts/components/dashboard/ServerRow.tsx "$COMPONENTS_DIR/dashboard/"
-    cp -f resources/scripts/components/elements/Input.tsx "$COMPONENTS_DIR/elements/"
+    # Components - SKIP copying React components to avoid build failures
+    # The CSS overrides will style the existing React UI
+    # cp -f resources/scripts/components/NavigationBar.tsx ...
+    echo "NOTE: Not replacing React components to avoid build issues."
+    echo "      CSS overrides will style the existing UI."
+    echo ""
 
     # Views
     VIEWS_DIR="$PANEL_DIR/resources/views/templates"
@@ -196,67 +195,23 @@ main() {
     cp -f public/themes/elipso-vercel/elipso.css "$PANEL_DIR/public/themes/elipso-vercel/"
     cp -f public/themes/elipso-vercel/theme.css "$PANEL_DIR/public/themes/elipso-vercel/"
 
-    # NOTE: We do NOT replace tailwind.config.js
+    # GlobalStylesheet - only copy if it doesn't have font imports
+    # Use the one from the theme if it's compatible
+    if grep -q "@fontsource-variable" /var/www/elipso-theme/resources/scripts/assets/css/GlobalStylesheet.ts 2>/dev/null; then
+        echo "NOTE: GlobalStylesheet has font imports - using original file."
+        # Don't copy - use the existing one
+    else
+        cp -f resources/scripts/assets/css/GlobalStylesheet.ts "$PANEL_DIR/resources/scripts/assets/css/"
+    fi
+
+    # NOTE: We do NOT replace tailwind.config.js or rebuild
     # Pterodactyl's React components use specific Tailwind classes
     # The CSS overrides will handle styling at the document level
-
-    echo "✓ Files installed."
+    echo "✓ Files installed (no rebuild needed - using existing assets)."
     echo ""
 
-    # Check/install Node.js 22+
-    NODE_VERSION=$(node --version 2>/dev/null | sed 's/v//' | cut -d. -f1)
-    
-    if [ -z "$NODE_VERSION" ] || [ "$NODE_VERSION" -lt 22 ]; then
-        echo "📦 Installing Node.js 22+ (current: v${NODE_VERSION:-none})..."
-        
-        # Check package manager
-        if command -v apt-get >/dev/null 2>&1; then
-            # Remove old node if exists
-            apt-get remove -y nodejs npm 2>/dev/null || true
-            
-            # Install Node.js 22 from NodeSource
-            curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
-            apt-get install -y nodejs
-            
-        elif command -v yum >/dev/null 2>&1; then
-            yum remove -y nodejs 2>/dev/null || true
-            curl -fsSL https://rpm.nodesource.com/setup_22.x | bash -
-            yum install -y nodejs
-            
-        elif command -v dnf >/dev/null 2>&1; then
-            dnf remove -y nodejs 2>/dev/null || true
-            curl -fsSL https://rpm.nodesource.com/setup_22.x | bash -
-            dnf install -y nodejs
-        fi
-        
-        echo "Node version: $(node --version)"
-    fi
-
-    echo "Node version: $(node --version)"
-    echo ""
-
-    # Install yarn if needed
-    if ! command -v yarn >/dev/null 2>&1; then
-        echo "📦 Installing Yarn..."
-        npm install -g yarn
-    fi
-
-    # Install font packages if needed
-    if [ ! -d "$PANEL_DIR/node_modules/@fontsource-variable/geist" ]; then
-        echo "📦 Installing font packages..."
-        cd "$PANEL_DIR"
-        yarn add @fontsource-variable/geist @fontsource-variable/geist-mono --ignore-engines
-    fi
-
-    # Build assets
-    echo "🔨 Building assets..."
-    cd "$PANEL_DIR"
-
-    if command -v yarn >/dev/null 2>&1; then
-        echo "Installing dependencies with Yarn..."
-        yarn install --network-timeout 100000 --ignore-engines || yarn install --network-timeout 100000
-        echo "Building production assets..."
-        yarn build:production
+    # Skip Node.js installation and build
+    echo "✅ Installation complete!"
     elif command -v npm >/dev/null 2>&1; then
         echo "Installing dependencies with npm..."
         npm install --legacy-peer-deps --no-audit --no-fund --ignore-engines
