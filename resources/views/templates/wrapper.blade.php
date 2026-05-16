@@ -16,7 +16,11 @@
             <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#bc6e3c">
             <link rel="shortcut icon" href="/favicons/favicon.ico">
             <meta name="msapplication-config" content="/favicons/browserconfig.xml">
-            <meta name="theme-color" content="#171717">
+            <meta name="theme-color" content="#0a0a0a">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="/themes/elipso-vercel/elipso.css">
             <link rel="stylesheet" href="/themes/elipso-vercel/theme.css">
         @show
 

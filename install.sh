@@ -193,6 +193,7 @@ main() {
 
     # Theme CSS
     mkdir -p "$PANEL_DIR/public/themes/elipso-vercel"
+    cp -f public/themes/elipso-vercel/elipso.css "$PANEL_DIR/public/themes/elipso-vercel/"
     cp -f public/themes/elipso-vercel/theme.css "$PANEL_DIR/public/themes/elipso-vercel/"
 
     # Tailwind config
