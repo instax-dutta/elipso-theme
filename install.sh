@@ -201,21 +201,33 @@ main() {
     echo "✓ Files installed."
     echo ""
 
-    # Install Node.js if needed
-    if ! command -v node >/dev/null 2>&1; then
-        echo "📦 Installing Node.js..."
+    # Check/install Node.js 22+
+    NODE_VERSION=$(node --version 2>/dev/null | sed 's/v//' | cut -d. -f1)
+    
+    if [ -z "$NODE_VERSION" ] || [ "$NODE_VERSION" -lt 22 ]; then
+        echo "📦 Installing Node.js 22+ (current: v${NODE_VERSION:-none})..."
+        
+        # Check package manager
         if command -v apt-get >/dev/null 2>&1; then
-            # Add NodeSource repository
-            if [ "$(uname -m)" = "x86_64" ]; then
-                curl -fsSL https://deb.nodesource.com/setup_20.x | bash - || apt-get install -y nodejs || true
-            else
-                curl -fsSL https://deb.nodesource.com/setup_20.x | bash - || apt-get install -y nodejs || true
-            fi
+            # Remove old node if exists
+            apt-get remove -y nodejs npm 2>/dev/null || true
+            
+            # Install Node.js 22 from NodeSource
+            curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
             apt-get install -y nodejs
+            
         elif command -v yum >/dev/null 2>&1; then
-            curl -fsSL https://rpm.nodesource.com/setup_20.x | bash -
+            yum remove -y nodejs 2>/dev/null || true
+            curl -fsSL https://rpm.nodesource.com/setup_22.x | bash -
             yum install -y nodejs
+            
+        elif command -v dnf >/dev/null 2>&1; then
+            dnf remove -y nodejs 2>/dev/null || true
+            curl -fsSL https://rpm.nodesource.com/setup_22.x | bash -
+            dnf install -y nodejs
         fi
+        
+        echo "Node version: $(node --version)"
     fi
 
     echo "Node version: $(node --version)"
@@ -233,12 +245,12 @@ main() {
 
     if command -v yarn >/dev/null 2>&1; then
         echo "Installing dependencies with Yarn..."
-        yarn install --network-timeout 100000 || yarn install --network-timeout 100000
+        yarn install --network-timeout 100000 --ignore-engines || yarn install --network-timeout 100000
         echo "Building production assets..."
         yarn build:production --progress=false || yarn build:production
     elif command -v npm >/dev/null 2>&1; then
         echo "Installing dependencies with npm..."
-        npm install --legacy-peer-deps --no-audit --no-fund
+        npm install --legacy-peer-deps --no-audit --no-fund --ignore-engines
         echo "Building production assets..."
         npm run build:production
     else
