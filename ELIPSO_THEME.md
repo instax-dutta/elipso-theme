@@ -1,14 +1,14 @@
-# Elipso Vercel Theme
+# Elipso Vercel Theme (Dark Mode)
 
-Elipso is a Vercel-inspired theme for Pterodactyl Panel `release/v1.12.2`.
+Elipso is a Vercel-inspired dark theme for Pterodactyl Panel `release/v1.12.2`.
 
 ## What It Changes
 
 - Geist and Geist Mono typography.
-- White canvas, ink text, compact radii, and hairline borders.
-- Black primary actions, restrained secondary actions, and blue link accents.
+- Near-black canvas (#0a0a0a), white ink text (#ffffff), compact radii, and subtle borders.
+- White primary actions, dark secondary actions, and blue link accents.
 - Gradient atmosphere on authentication pages.
-- Light themed React client surfaces and Blade/admin panel overrides.
+- Dark themed React client surfaces and Blade/admin panel overrides.
 
 ## Install On A Panel Server
 

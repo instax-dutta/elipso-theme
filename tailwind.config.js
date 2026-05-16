@@ -1,16 +1,16 @@
 const colors = require('tailwindcss/colors');
 
 const gray = {
-    50: '#ffffff',
-    100: '#fafafa',
-    200: '#f5f5f5',
-    300: '#ebebeb',
-    400: '#c7c7c7',
-    500: '#a1a1a1',
+    50: '#1a1a1a',
+    100: '#111111',
+    200: '#0a0a0a',
+    300: '#333333',
+    400: '#555555',
+    500: '#666666',
     600: '#888888',
-    700: '#666666',
-    800: '#4d4d4d',
-    900: '#171717',
+    700: '#a1a1a1',
+    800: '#e0e0e0',
+    900: '#ffffff',
 };
 
 module.exports = {
@@ -25,25 +25,23 @@ module.exports = {
                 mono: ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
             },
             colors: {
-                black: '#171717',
-                // "primary" and "neutral" are deprecated, prefer the use of "blue" and "gray"
-                // in new code.
+                black: '#000000',
                 primary: {
-                    50: '#ffffff',
-                    100: '#f2f2f2',
-                    200: '#ebebeb',
-                    300: '#c7c7c7',
-                    400: '#888888',
-                    500: '#171717',
-                    600: '#000000',
-                    700: '#000000',
-                    800: '#000000',
-                    900: '#000000',
+                    50: '#1a1a1a',
+                    100: '#111111',
+                    200: '#0a0a0a',
+                    300: '#333333',
+                    400: '#555555',
+                    500: '#ffffff',
+                    600: '#e0e0e0',
+                    700: '#cccccc',
+                    800: '#999999',
+                    900: '#666666',
                 },
                 blue: {
                     ...colors.blue,
                     500: '#0070f3',
-                    600: '#0070f3',
+                    600: '#3b9aff',
                     700: '#0761d1',
                 },
                 gray: gray,
@@ -67,7 +65,7 @@ module.exports = {
                 250: '250ms',
             },
             borderColor: theme => ({
-                default: theme('colors.neutral.400', 'currentColor'),
+                default: theme('colors.neutral.600', 'currentColor'),
             }),
         },
     },

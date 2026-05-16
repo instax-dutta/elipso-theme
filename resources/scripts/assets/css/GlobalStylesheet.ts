@@ -25,13 +25,13 @@ export default createGlobalStyle`
     }
 
     :root {
-        --elipso-ink: #171717;
-        --elipso-body: #4d4d4d;
-        --elipso-muted: #888888;
-        --elipso-hairline: #ebebeb;
-        --elipso-canvas: #ffffff;
-        --elipso-canvas-soft: #fafafa;
-        --elipso-canvas-soft-2: #f5f5f5;
+        --elipso-ink: #ffffff;
+        --elipso-body: #a1a1a1;
+        --elipso-muted: #666666;
+        --elipso-hairline: #333333;
+        --elipso-canvas: #0a0a0a;
+        --elipso-canvas-soft: #111111;
+        --elipso-canvas-soft-2: #1a1a1a;
         --elipso-link: #0070f3;
         --elipso-error: #ee0000;
         --elipso-warning: #f5a623;
@@ -39,16 +39,16 @@ export default createGlobalStyle`
         --elipso-violet: #7928ca;
         --elipso-pink: #ff0080;
         --elipso-ship: #f9cb28;
-        --elipso-shadow: 0 1px 1px rgb(0 0 0 / 3%), 0 8px 24px rgb(0 0 0 / 6%);
+        --elipso-shadow: 0 1px 1px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 30%);
     }
 
     body {
-        ${tw`font-sans bg-neutral-100 text-neutral-800`};
+        ${tw`font-sans bg-black text-neutral-400`};
         letter-spacing: 0;
         color: var(--elipso-body);
         background:
-            radial-gradient(circle at 18% -12%, rgb(0 124 240 / 16%), transparent 28rem),
-            radial-gradient(circle at 82% 0%, rgb(255 0 128 / 12%), transparent 26rem),
+            radial-gradient(circle at 18% -12%, rgb(0 124 240 / 12%), transparent 28rem),
+            radial-gradient(circle at 82% 0%, rgb(255 0 128 / 10%), transparent 26rem),
             linear-gradient(180deg, var(--elipso-canvas), var(--elipso-canvas-soft) 34rem);
         min-height: 100vh;
     }
@@ -69,7 +69,7 @@ export default createGlobalStyle`
     }
 
     ::selection {
-        color: #f2f2f2;
+        color: #000;
         background: var(--elipso-ink);
     }
 
@@ -103,7 +103,7 @@ export default createGlobalStyle`
         border-right-width: 4px;
         border-left-width: 4px;
         -webkit-border-radius: 9px 4px;
-        -webkit-box-shadow: inset 0 0 0 1px #ebebeb, inset 0 0 0 4px #c7c7c7;
+        -webkit-box-shadow: inset 0 0 0 1px #333333, inset 0 0 0 4px #555555;
     }
 
     ::-webkit-scrollbar-track-piece {

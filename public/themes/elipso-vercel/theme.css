@@ -1,25 +1,25 @@
 :root {
-    --elipso-ink: #171717;
-    --elipso-body: #4d4d4d;
-    --elipso-muted: #888888;
-    --elipso-hairline: #ebebeb;
-    --elipso-canvas: #ffffff;
-    --elipso-canvas-soft: #fafafa;
-    --elipso-canvas-soft-2: #f5f5f5;
+    --elipso-ink: #ffffff;
+    --elipso-body: #a1a1a1;
+    --elipso-muted: #666666;
+    --elipso-hairline: #333333;
+    --elipso-canvas: #0a0a0a;
+    --elipso-canvas-soft: #111111;
+    --elipso-canvas-soft-2: #1a1a1a;
     --elipso-link: #0070f3;
     --elipso-error: #ee0000;
     --elipso-warning: #f5a623;
     --elipso-cyan: #50e3c2;
     --elipso-violet: #7928ca;
     --elipso-pink: #ff0080;
-    --elipso-shadow: 0 1px 1px rgb(0 0 0 / 3%), 0 8px 24px rgb(0 0 0 / 6%);
+    --elipso-shadow: 0 1px 1px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 30%);
 }
 
 html,
 body {
     background:
-        radial-gradient(circle at 16% -14%, rgb(0 124 240 / 16%), transparent 30rem),
-        radial-gradient(circle at 82% -8%, rgb(255 0 128 / 12%), transparent 28rem),
+        radial-gradient(circle at 16% -14%, rgb(0 124 240 / 12%), transparent 30rem),
+        radial-gradient(circle at 82% -8%, rgb(255 0 128 / 10%), transparent 28rem),
         linear-gradient(180deg, var(--elipso-canvas), var(--elipso-canvas-soft) 36rem) !important;
     color: var(--elipso-body);
 }
@@ -43,7 +43,7 @@ pre,
 }
 
 ::selection {
-    color: #f2f2f2;
+    color: #000;
     background: var(--elipso-ink);
 }
 
@@ -53,7 +53,7 @@ a {
 
 a:hover,
 a:focus {
-    color: #0761d1;
+    color: #3b9aff;
 }
 
 .main-header,
@@ -66,7 +66,7 @@ a:focus {
 .skin-blue .main-header .logo,
 .skin-blue .main-sidebar,
 .skin-blue .left-side {
-    background: rgb(255 255 255 / 92%) !important;
+    background: rgb(17 17 17 / 95%) !important;
     color: var(--elipso-ink) !important;
     border-color: var(--elipso-hairline) !important;
     box-shadow: none !important;
@@ -162,10 +162,14 @@ h4 {
     font-weight: 400;
 }
 
+.table > tbody > tr > td {
+    background: var(--elipso-canvas-soft) !important;
+}
+
 .form-control,
 .select2-container--default .select2-selection--single,
 .select2-container--default .select2-selection--multiple {
-    background: var(--elipso-canvas) !important;
+    background: var(--elipso-canvas-soft) !important;
     border: 1px solid var(--elipso-hairline) !important;
     border-radius: 6px !important;
     color: var(--elipso-ink) !important;
@@ -176,7 +180,7 @@ h4 {
 .select2-container--default.select2-container--focus .select2-selection--multiple,
 .select2-container--default .select2-selection--single:focus {
     border-color: var(--elipso-ink) !important;
-    box-shadow: 0 0 0 3px rgb(23 23 23 / 10%) !important;
+    box-shadow: 0 0 0 3px rgb(255 255 255 / 10%) !important;
 }
 
 .btn {
@@ -190,26 +194,28 @@ h4 {
 .btn-success {
     background: var(--elipso-ink) !important;
     border-color: var(--elipso-ink) !important;
-    color: #fff !important;
+    color: #000 !important;
 }
 
 .btn-primary:hover,
 .btn-success:hover,
 .btn-primary:focus,
-.btn-success:focus {
-    background: #000 !important;
-    border-color: #000 !important;
+btn-success:focus {
+    background: #e0e0e0 !important;
+    border-color: #e0e0e0 !important;
 }
 
 .btn-default,
 .btn-secondary {
-    background: var(--elipso-canvas) !important;
+    background: var(--elipso-canvas-soft-2) !important;
     color: var(--elipso-ink) !important;
+    border-color: var(--elipso-hairline) !important;
 }
 
 .btn-danger {
     background: var(--elipso-error) !important;
     border-color: var(--elipso-error) !important;
+    color: #fff !important;
 }
 
 .label,
@@ -221,11 +227,13 @@ h4 {
 .label-primary,
 .badge-primary {
     background: var(--elipso-ink) !important;
+    color: #000 !important;
 }
 
 .label-warning,
 .badge-warning {
     background: var(--elipso-warning) !important;
+    color: #000 !important;
 }
 
 .label-danger,
@@ -238,6 +246,12 @@ h4 {
 .elipso-auth-shell {
     position: relative;
     overflow: hidden;
+}
+
+.login-page,
+.register-page,
+.elipso-auth-shell {
+    background: #000 !important;
 }
 
 .login-page::before,
@@ -254,7 +268,7 @@ h4 {
         radial-gradient(circle at 66% 45%, #ff0080, transparent 30%),
         radial-gradient(circle at 82% 56%, #f9cb28, transparent 30%);
     filter: blur(56px);
-    opacity: 0.24;
+    opacity: 0.32;
 }
 
 .xterm,

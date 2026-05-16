@@ -1,15 +1,15 @@
-# Elipso — Vercel Theme for Pterodactyl Panel
+# Elipso — Vercel Dark Theme for Pterodactyl Panel
 
-A Vercel-inspired theme for Pterodactyl Panel (release/v1.12.2) featuring Geist typography, clean white canvas surfaces with ink text, and atmospheric mesh gradients.
+A Vercel-inspired dark theme for Pterodactyl Panel (release/v1.12.2) featuring Geist typography, near-black canvas surfaces with white ink text, and atmospheric mesh gradients.
 
-![Theme Preview](https://via.placeholder.com/800x400?text=Elipso+Vercel+Theme)
+![Theme Preview](https://via.placeholder.com/800x400?text=Elipso+Vercel+Dark+Theme)
 
 ## Features
 
 - **Geist & Geist Mono Typography** — The signature Vercel font family for a modern, developer-focused aesthetic
-- **Clean Canvas Design** — White (#ffffff) surfaces with ink (#171717) text and subtle hairline borders (#ebebeb)
+- **Dark Canvas Design** — Near-black (#0a0a0a) surfaces with white (#ffffff) text and subtle borders (#333333)
 - **Atmospheric Gradients** — Multi-color mesh gradient backgrounds on authentication pages
-- **Pill-Shaped Buttons** — 100px radius primary actions in ink black
+- **Pill-Shaped Buttons** — 100px radius primary actions in white
 - **Restrained Color Palette** — Blue links (#0070f3), error red (#ee0000), warning amber (#f5a623)
 - **Floating Card Shadows** — Subtle elevation with layered shadows
 
@@ -71,12 +71,12 @@ php artisan config:clear
 
 | Token | Hex | Usage |
 |-------|-----|-------|
-| `--elipso-ink` | #171717 | Primary text, buttons, CTAs |
-| `--elipso-body` | #4d4d4d | Secondary text |
-| `--elipso-muted` | #888888 | Placeholders, disabled states |
-| `--elipso-hairline` | #ebebeb | Borders, dividers |
-| `--elipso-canvas` | #ffffff | Card backgrounds |
-| `--elipso-canvas-soft` | #fafafa | Page background |
+| `--elipso-ink` | #ffffff | Primary text, buttons, CTAs |
+| `--elipso-body` | #a1a1a1 | Secondary text |
+| `--elipso-muted` | #666666 | Placeholders, disabled states |
+| `--elipso-hairline` | #333333 | Borders, dividers |
+| `--elipso-canvas` | #0a0a0a | Card backgrounds |
+| `--elipso-canvas-soft` | #111111 | Page background |
 | `--elipso-link` | #0070f3 | Links |
 
 ## What's Included
