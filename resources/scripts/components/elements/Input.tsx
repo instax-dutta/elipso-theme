@@ -7,18 +7,18 @@ export interface Props {
 }
 
 const light = css<Props>`
-    ${tw`bg-white border-neutral-300 text-neutral-900`};
+    ${tw`bg-neutral-200 border-neutral-600 text-white`};
     &:focus {
-        ${tw`border-neutral-900`}
+        ${tw`border-white`}
     }
 
     &:disabled {
-        ${tw`bg-neutral-100 border-neutral-200`};
+        ${tw`bg-neutral-800 border-neutral-700`};
     }
 `;
 
 const checkboxStyle = css<Props>`
-    ${tw`bg-neutral-500 cursor-pointer appearance-none inline-block align-middle select-none flex-shrink-0 w-4 h-4 text-primary-400 border border-neutral-300 rounded-sm`};
+    ${tw`bg-neutral-700 cursor-pointer appearance-none inline-block align-middle select-none flex-shrink-0 w-4 h-4 text-primary-400 border border-neutral-500 rounded-sm`};
     color-adjust: exact;
     background-origin: border-box;
     transition: all 75ms linear, box-shadow 25ms linear;
@@ -41,11 +41,11 @@ const inputStyle = css<Props>`
     resize: none;
     ${tw`appearance-none outline-none w-full min-w-0`};
     ${tw`p-3 border rounded-md text-sm transition-all duration-150`};
-    ${tw`bg-white border-neutral-300 hover:border-neutral-500 text-neutral-900 shadow-none focus:ring-0`};
+    ${tw`bg-neutral-800 border-neutral-600 hover:border-neutral-400 text-white shadow-none focus:ring-0`};
 
     & + .input-help {
         ${tw`mt-1 text-xs`};
-        ${(props) => (props.hasError ? tw`text-red-600` : tw`text-neutral-600`)};
+        ${(props) => (props.hasError ? tw`text-red-400` : tw`text-neutral-400`)};
     }
 
     &:required,
@@ -54,8 +54,8 @@ const inputStyle = css<Props>`
     }
 
     &:not(:disabled):not(:read-only):focus {
-        ${tw`shadow-md border-neutral-900 ring-2 ring-neutral-300 ring-opacity-50`};
-        ${(props) => props.hasError && tw`border-red-300 ring-red-200`};
+        ${tw`shadow-md border-white ring-2 ring-neutral-500 ring-opacity-50`};
+        ${(props) => props.hasError && tw`border-red-400 ring-red-500`};
     }
 
     &:disabled {
@@ -63,7 +63,7 @@ const inputStyle = css<Props>`
     }
 
     ${(props) => props.isLight && light};
-    ${(props) => props.hasError && tw`text-red-100 border-red-400 hover:border-red-300`};
+    ${(props) => props.hasError && tw`text-red-300 border-red-500 hover:border-red-400`};
 `;
 
 const Input = styled.input<Props>`
