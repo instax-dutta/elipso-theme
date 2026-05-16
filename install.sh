@@ -1,126 +1,286 @@
 #!/bin/bash
 
-# Elipso Theme Installer - One-liner for Pterodactyl Panel
-# Usage: bash <(curl -sL https://raw.githubusercontent.com/instax-dutta/elipso-theme/main/install.sh)
+# Elipso Theme Installer - Universal One-Liner for Pterodactyl Panel
+# Compatible with all installation methods
 
-if (( $EUID != 0 )); then
-    echo "Please run as root (sudo bash)"
-    exit 1
-fi
+set -euo pipefail
 
-clear
+# Detect if script is being run via pipe/curl/wget vs direct execution
+detect_installer() {
+    if [[ -n "${ELIPSO_SOURCE:-}" ]]; then
+        return 0
+    fi
+    
+    # Check if running via: curl ... | bash  or  bash <(curl ...)
+    if [[ ! -t 0 ]] || [[ "$0" == "/dev/fd/"* ]]; then
+        return 0
+    fi
+    
+    return 1
+}
 
-echo "========================================"
-echo "  Elipso - Vercel Dark Theme for Pterodactyl"
-echo "========================================"
-echo ""
-
-# Detect panel directory
-PANEL_DIR=""
-if [ -f "/var/www/pterodactyl/artisan" ]; then
-    PANEL_DIR="/var/www/pterodactyl"
-elif [ -f "/var/www/panel/artisan" ]; then
-    PANEL_DIR="/var/www/panel"
-elif [ -f "/var/www/html/pterodactyl/artisan" ]; then
-    PANEL_DIR="/var/www/html/pterodactyl"
-elif [ -f "/var/www/html/panel/artisan" ]; then
-    PANEL_DIR="/var/www/html/panel"
-else
-    echo "Could not find Pterodactyl panel."
-    echo "Please specify the panel directory:"
-    read -p "Enter path (e.g. /var/www/pterodactyl): " PANEL_DIR
-    if [ ! -f "$PANEL_DIR/artisan" ]; then
-        echo "Invalid panel directory. Exiting."
+# Download installer if needed
+download_installer() {
+    local url="${1:-https://raw.githubusercontent.com/instax-dutta/elipso-theme/main/install.sh}"
+    local tmpfile="/tmp/elipso-install-$$.sh"
+    
+    echo "Downloading Elipso installer..."
+    
+    if command -v curl >/dev/null 2>&1; then
+        curl -sL "$url" -o "$tmpfile" || download_failed
+    elif command -v wget >/dev/null 2>&1; then
+        wget -qO "$tmpfile" "$url" || download_failed
+    else
+        echo "Error: Neither curl nor wget found. Please install one of them."
         exit 1
     fi
-fi
+    
+    chmod +x "$tmpfile"
+    exec bash "$tmpfile" ELIPSO_SOURCE=downloaded
+}
 
-echo "Found panel at: $PANEL_DIR"
-echo ""
-
-# Create backup
-BACKUP_DIR="/var/www/elipso-backup-$(date +%Y%m%d-%H%M%S)"
-echo "Creating backup at: $BACKUP_DIR"
-mkdir -p "$BACKUP_DIR"
-cp -a "$PANEL_DIR/resources/scripts/assets/css/GlobalStylesheet.ts" "$BACKUP_DIR/" 2>/dev/null || true
-cp -a "$PANEL_DIR/resources/views/templates/wrapper.blade.php" "$BACKUP_DIR/" 2>/dev/null || true
-cp -a "$PANEL_DIR/resources/views/templates/base/core.blade.php" "$BACKUP_DIR/" 2>/dev/null || true
-cp -a "$PANEL_DIR/public/themes/elipso-vercel" "$BACKUP_DIR/" 2>/dev/null || true
-echo "Backup complete."
-echo ""
-
-# Clone repo
-echo "Cloning Elipso theme..."
-cd /var/www
-rm -rf elipso-theme 2>/dev/null
-git clone https://github.com/instax-dutta/elipso-theme.git elipso-theme
-
-if [ ! -d "elipso-theme" ]; then
-    echo "Failed to clone repository. Exiting."
+download_failed() {
+    echo "Failed to download. Check your internet connection."
     exit 1
-fi
+}
 
-cd elipso-theme
+# Run main logic
+main() {
+    if (( $EUID != 0 )); then
+        echo "Please run as root: sudo bash install.sh"
+        echo "Or use: curl -sL https://raw.githubusercontent.com/instax-dutta/elipso-theme/main/install.sh | sudo bash"
+        exit 1
+    fi
 
-# Copy files
-echo "Installing theme files..."
-THEME_DIR="$PANEL_DIR/resources/scripts/assets/css"
-mkdir -p "$THEME_DIR"
-cp -a resources/scripts/assets/css/GlobalStylesheet.ts "$THEME_DIR/"
+    clear
 
-NAVBAR_DIR="$PANEL_DIR/resources/scripts/components"
-mkdir -p "$NAVBAR_DIR"
-cp -a resources/scripts/components/NavigationBar.tsx "$NAVBAR_DIR/"
-cp -a resources/scripts/components/auth/LoginFormContainer.tsx "$NAVBAR_DIR/auth/"
-cp -a resources/scripts/components/dashboard/ServerRow.tsx "$NAVBAR_DIR/dashboard/"
-mkdir -p "$NAVBAR_DIR/elements"
-cp -a resources/scripts/components/elements/Input.tsx "$NAVBAR_DIR/elements/"
+    echo "========================================"
+    echo "  Elipso - Vercel Dark Theme for Pterodactyl"
+    echo "========================================"
+    echo ""
 
-VIEWS_DIR="$PANEL_DIR/resources/views/templates"
-mkdir -p "$VIEWS_DIR/base"
-cp -a resources/views/templates/wrapper.blade.php "$VIEWS_DIR/"
-cp -a resources/views/templates/base/core.blade.php "$VIEWS_DIR/base/"
+    # Detect panel directory
+    PANEL_DIR=""
+    PANEL_FOUND=false
+    
+    for dir in "/var/www/pterodactyl" "/var/www/panel" "/var/www/html/pterodactyl" "/var/www/html/panel" "/opt/pterodactyl" "/opt/panel"; do
+        if [ -f "$dir/artisan" ]; then
+            PANEL_DIR="$dir"
+            PANEL_FOUND=true
+            break
+        fi
+    done
 
-mkdir -p "$PANEL_DIR/public/themes/elipso-vercel"
-cp -a public/themes/elipso-vercel/theme.css "$PANEL_DIR/public/themes/elipso-vercel/"
+    if [ "$PANEL_FOUND" = false ]; then
+        echo "Could not automatically find Pterodactyl panel."
+        echo ""
+        echo "Please enter the full path to your Pterodactyl installation."
+        echo "Common paths:"
+        echo "  - /var/www/pterodactyl"
+        echo "  - /var/www/panel"
+        echo "  - /var/www/html/pterodactyl"
+        echo "  - /opt/pterodactyl"
+        echo ""
+        read -p "Panel path: " PANEL_DIR
+        
+        if [ ! -f "$PANEL_DIR/artisan" ]; then
+            echo ""
+            echo "Error: Invalid path. Could not find artisan file at: $PANEL_DIR/artisan"
+            echo ""
+            echo "Please verify your panel installation path and try again."
+            exit 1
+        fi
+    fi
 
-cp -a tailwind.config.js "$PANEL_DIR/"
+    echo "✓ Found panel at: $PANEL_DIR"
+    echo ""
 
-echo "Files copied."
-echo ""
+    # Confirm installation
+    echo "This will install the Elipso dark theme on your Pterodactyl panel."
+    echo "A backup will be created before making any changes."
+    echo ""
+    read -p "Continue? [y/N]: " confirm
+    if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+        echo "Installation cancelled."
+        exit 0
+    fi
+    echo ""
 
-# Build assets
-echo "Building assets..."
-cd "$PANEL_DIR"
+    # Create backup
+    BACKUP_DIR="/var/www/elipso-backup-$(date +%Y%m%d-%H%M%S)"
+    echo "📦 Creating backup at: $BACKUP_DIR"
+    mkdir -p "$BACKUP_DIR"
+    
+    # Backup existing files
+    cp -a "$PANEL_DIR/resources/scripts/assets/css/GlobalStylesheet.ts" "$BACKUP_DIR/" 2>/dev/null || true
+    cp -a "$PANEL_DIR/resources/views/templates/wrapper.blade.php" "$BACKUP_DIR/" 2>/dev/null || true
+    cp -a "$PANEL_DIR/resources/views/templates/base/core.blade.php" "$BACKUP_DIR/" 2>/dev/null || true
+    cp -a "$PANEL_DIR/tailwind.config.js" "$BACKUP_DIR/" 2>/dev/null || true
+    
+    if [ -d "$PANEL_DIR/public/themes/elipso-vercel" ]; then
+        cp -a "$PANEL_DIR/public/themes/elipso-vercel" "$BACKUP_DIR/" 2>/dev/null || true
+    fi
+    
+    if [ -d "$PANEL_DIR/public/assets" ]; then
+        cp -a "$PANEL_DIR/public/assets" "$BACKUP_DIR/" 2>/dev/null || true
+    fi
+    
+    echo "✓ Backup complete."
+    echo ""
 
-if command -v yarn >/dev/null 2>&1; then
-    yarn install --frozen-lockfile 2>/dev/null || yarn install
-    yarn build:production
-elif command -v npm >/dev/null 2>&1; then
-    npm install --legacy-peer-deps
-    npm run build:production
-else
-    echo "Warning: Neither yarn nor npm found. Skipping build."
-    echo "You may need to build manually or use prebuilt assets."
-fi
+    # Clone repo
+    echo "📥 Cloning Elipso theme..."
+    cd /var/www
+    
+    if [ -d "elipso-theme" ]; then
+        rm -rf elipso-theme
+    fi
+    
+    # Try with https first, fallback to git protocol
+    if ! git clone https://github.com/instax-dutta/elipso-theme.git elipso-theme 2>/dev/null; then
+        echo "HTTPS failed, trying git protocol..."
+        if ! git clone git://github.com/instax-dutta/elipso-theme.git elipso-theme 2>/dev/null; then
+            echo "Failed to clone. Trying with access token..."
+            read -p "Enter GitHub token (or press enter to try manual download): " GH_TOKEN
+            if [ -n "$GH_TOKEN" ]; then
+                git clone "https://${GH_TOKEN}@github.com/instax-dutta/elipso-theme.git" elipso-theme || clone_failed
+            else
+                clone_failed
+            fi
+        fi
+    fi
 
-# Clear cache
-echo "Clearing caches..."
-php artisan view:clear 2>/dev/null || true
-php artisan cache:clear 2>/dev/null || true
-php artisan config:clear 2>/dev/null || true
-php artisan optimize:clear 2>/dev/null || true
+    clone_failed() {
+        echo ""
+        echo "Failed to clone from GitHub."
+        echo "Please check your internet connection or try manually:"
+        echo "  1. Download: https://github.com/instax-dutta/elipso-theme/archive/main.zip"
+        echo "  2. Upload to /var/www/"
+        echo "  3. Extract and run: cd elipso-theme && sudo bash install.sh"
+        exit 1
+    }
 
-# Set permissions
-chown -R www-data:www-data "$PANEL_DIR/public/assets" 2>/dev/null || true
+    if [ ! -d "elipso-theme" ]; then
+        clone_failed
+    fi
 
-echo ""
-echo "========================================"
-echo "  Elipso theme installed successfully!"
-echo "========================================"
-echo ""
-echo "Backup location: $BACKUP_DIR"
-echo ""
-echo "Clear your browser cache or use incognito to see the new theme."
-echo ""
-echo "To uninstall/restore: $BACKUP_DIR"
+    cd elipso-theme
+
+    echo "✓ Cloned successfully."
+    echo ""
+
+    # Copy files
+    echo "📁 Installing theme files..."
+
+    # CSS
+    THEME_CSS_DIR="$PANEL_DIR/resources/scripts/assets/css"
+    mkdir -p "$THEME_CSS_DIR"
+    cp -f resources/scripts/assets/css/GlobalStylesheet.ts "$THEME_CSS_DIR/"
+
+    # Components
+    COMPONENTS_DIR="$PANEL_DIR/resources/scripts/components"
+    mkdir -p "$COMPONENTS_DIR/auth" "$COMPONENTS_DIR/dashboard" "$COMPONENTS_DIR/elements"
+    cp -f resources/scripts/components/NavigationBar.tsx "$COMPONENTS_DIR/"
+    cp -f resources/scripts/components/auth/LoginFormContainer.tsx "$COMPONENTS_DIR/auth/"
+    cp -f resources/scripts/components/dashboard/ServerRow.tsx "$COMPONENTS_DIR/dashboard/"
+    cp -f resources/scripts/components/elements/Input.tsx "$COMPONENTS_DIR/elements/"
+
+    # Views
+    VIEWS_DIR="$PANEL_DIR/resources/views/templates"
+    mkdir -p "$VIEWS_DIR/base"
+    cp -f resources/views/templates/wrapper.blade.php "$VIEWS_DIR/"
+    cp -f resources/views/templates/base/core.blade.php "$VIEWS_DIR/base/"
+
+    # Theme CSS
+    mkdir -p "$PANEL_DIR/public/themes/elipso-vercel"
+    cp -f public/themes/elipso-vercel/theme.css "$PANEL_DIR/public/themes/elipso-vercel/"
+
+    # Tailwind config
+    cp -f tailwind.config.js "$PANEL_DIR/"
+
+    echo "✓ Files installed."
+    echo ""
+
+    # Install Node.js if needed
+    if ! command -v node >/dev/null 2>&1; then
+        echo "📦 Installing Node.js..."
+        if command -v apt-get >/dev/null 2>&1; then
+            # Add NodeSource repository
+            if [ "$(uname -m)" = "x86_64" ]; then
+                curl -fsSL https://deb.nodesource.com/setup_20.x | bash - || apt-get install -y nodejs || true
+            else
+                curl -fsSL https://deb.nodesource.com/setup_20.x | bash - || apt-get install -y nodejs || true
+            fi
+            apt-get install -y nodejs
+        elif command -v yum >/dev/null 2>&1; then
+            curl -fsSL https://rpm.nodesource.com/setup_20.x | bash -
+            yum install -y nodejs
+        fi
+    fi
+
+    echo "Node version: $(node --version)"
+    echo ""
+
+    # Install yarn if needed
+    if ! command -v yarn >/dev/null 2>&1; then
+        echo "📦 Installing Yarn..."
+        npm install -g yarn
+    fi
+
+    # Build assets
+    echo "🔨 Building assets..."
+    cd "$PANEL_DIR"
+
+    if command -v yarn >/dev/null 2>&1; then
+        echo "Installing dependencies with Yarn..."
+        yarn install --network-timeout 100000 || yarn install --network-timeout 100000
+        echo "Building production assets..."
+        yarn build:production --progress=false || yarn build:production
+    elif command -v npm >/dev/null 2>&1; then
+        echo "Installing dependencies with npm..."
+        npm install --legacy-peer-deps --no-audit --no-fund
+        echo "Building production assets..."
+        npm run build:production
+    else
+        echo "⚠️ Warning: Neither yarn nor npm found. Skipping build."
+        echo "Please build manually:"
+        echo "  cd $PANEL_DIR"
+        echo "  yarn install && yarn build:production"
+    fi
+
+    echo ""
+
+    # Clear caches
+    echo "🧹 Clearing caches..."
+    php artisan view:clear 2>/dev/null || true
+    php artisan cache:clear 2>/dev/null || true
+    php artisan config:clear 2>/dev/null || true
+    php artisan optimize:clear 2>/dev/null || true
+
+    # Set permissions
+    chown -R www-data:www-data "$PANEL_DIR/public/assets" 2>/dev/null || true
+    chown -R www-data:www-data "$PANEL_DIR/bootstrap/cache" 2>/dev/null || true
+
+    echo ""
+    echo "========================================"
+    echo "  ✅ Elipso theme installed successfully!"
+    echo "========================================"
+    echo ""
+    echo "📦 Backup location: $BACKUP_DIR"
+    echo ""
+    echo "⚠️  Important: Clear your browser cache or use incognito/private mode"
+    echo "    to see the new theme. Regular refresh may show old cached styles."
+    echo ""
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "  Uninstall Instructions"
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "To restore your previous theme:"
+    echo "  1. Navigate to: $BACKUP_DIR"
+    echo "  2. Copy backed up files back to their original locations"
+    echo "  3. Run: cd $PANEL_DIR && yarn build:production"
+    echo "  4. Run: php artisan optimize:clear"
+    echo ""
+}
+
+# Run main
+main "$@"

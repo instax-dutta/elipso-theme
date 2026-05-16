@@ -2,127 +2,165 @@
 
 A Vercel-inspired dark theme for Pterodactyl Panel (release/v1.12.2) featuring Geist typography, near-black canvas surfaces with white ink text, and atmospheric mesh gradients.
 
-![Theme Preview](https://via.placeholder.com/800x400?text=Elipso+Vercel+Dark+Theme)
-
-## Features
-
-- **Geist & Geist Mono Typography** — The signature Vercel font family for a modern, developer-focused aesthetic
-- **Dark Canvas Design** — Near-black (#0a0a0a) surfaces with white (#ffffff) text and subtle borders (#333333)
-- **Atmospheric Gradients** — Multi-color mesh gradient backgrounds on authentication pages
-- **Pill-Shaped Buttons** — 100px radius primary actions in white
-- **Restrained Color Palette** — Blue links (#0070f3), error red (#ee0000), warning amber (#f5a623)
-- **Floating Card Shadows** — Subtle elevation with layered shadows
-
 ## Requirements
 
 - Pterodactyl Panel v1.12.2
 - Linux server with bash
 - sudo/root access to the panel installation
 
-## Installation
+---
 
-### Option 1: Quick Install (Recommended)
+## Installation (One-Liner)
 
-Upload the theme archive to your server, extract it, and run the installer:
+### Method 1: Quick Install (Recommended)
+
+Run this command on your Pterodactyl server:
 
 ```bash
-cd /path/to/elipso-vercel-theme
-sudo bash install.sh /var/www/pterodactyl
+curl -sL https://raw.githubusercontent.com/instax-dutta/elipso-theme/main/install.sh -o /tmp/elipso.sh && sudo bash /tmp/elipso.sh
 ```
 
-### Option 2: Manual Install
+### Method 2: Using wget
 
-1. Upload the theme files to your Pterodactyl panel directory
-2. Copy the following files to their respective locations:
-   - `public/themes/elipso-vercel/theme.css` → `/var/www/pterodactyl/public/themes/elipso-vercel/theme.css`
-   - `resources/views/templates/wrapper.blade.php` → `/var/www/pterodactyl/resources/views/templates/wrapper.blade.php`
-   - `resources/views/templates/base/core.blade.php` → `/var/www/pterodactyl/resources/views/templates/base/core.blade.php`
-   - React components to `resources/scripts/components/`
-3. Clear Laravel caches:
+```bash
+wget -qO- https://raw.githubusercontent.com/instax-dutta/elipso-theme/main/install.sh | sudo bash
+```
+
+### Method 3: Manual Download
+
+1. Download the theme:
    ```bash
-   cd /var/www/pterodactyl
-   php artisan view:clear
-   php artisan cache:clear
-   php artisan config:clear
+   cd /var/www
+   wget https://github.com/instax-dutta/elipso-theme/archive/main.zip
+   unzip main.zip
+   cd elipso-theme-main
    ```
+
+2. Run the installer:
+   ```bash
+   sudo bash install.sh
+   ```
+
+3. Clean up:
+   ```bash
+   cd /var/www
+   rm -rf elipso-theme-main main.zip
+   ```
+
+### Method 4: Clone from Git
+
+```bash
+cd /var/www
+git clone https://github.com/instax-dutta/elipso-theme.git
+cd elipso-theme
+sudo bash install.sh
+```
+
+---
+
+## After Installation
+
+1. **Clear your browser cache** or use incognito/private mode
+2. The theme is applied immediately — no additional configuration needed
+
+---
 
 ## Building from Source
 
-By default, the theme uses prebuilt assets. If you want to rebuild:
+The installer automatically builds assets. To rebuild manually:
 
 ```bash
-cd /path/to/elipso-vercel-theme
-sudo ELIPSO_BUILD=1 bash install.sh /var/www/pterodactyl
-```
-
-This requires Node.js 22+ and Yarn on the server.
-
-### Manual Build Commands
-
-```bash
-yarn install --frozen-lockfile
+cd /var/www/pterodactyl
+yarn install
 yarn build:production
-php artisan view:clear
-php artisan cache:clear
-php artisan config:clear
+php artisan optimize:clear
 ```
+
+---
+
+## Uninstalling
+
+The installer creates a backup at `/var/www/elipso-backup-YYYYMMDD-HHMMSS/`
+
+To restore:
+
+```bash
+# Navigate to backup location
+cd /var/www/elipso-backup-YYYYMMDD-HHMMSS
+
+# Restore files to their original locations
+cp -f GlobalStylesheet.ts /var/www/pterodactyl/resources/scripts/assets/css/
+cp -f wrapper.blade.php /var/www/pterodactyl/resources/views/templates/
+cp -f core.blade.php /var/www/pterodactyl/resources/views/templates/base/
+
+# Rebuild and clear cache
+cd /var/www/pterodactyl
+yarn build:production
+php artisan optimize:clear
+```
+
+---
+
+## File Structure
+
+```
+elipso-vercel-theme/
+├── install.sh                    # Universal installer
+├── README.md                     # This file
+├── package.json                  # Node dependencies
+├── tailwind.config.js            # Tailwind configuration
+├── public/
+│   └── themes/elipso-vercel/
+│       └── theme.css             # Admin panel styles
+└── resources/
+    ├── scripts/
+    │   ├── assets/css/GlobalStylesheet.ts
+    │   └── components/
+    │       ├── NavigationBar.tsx
+    │       ├── auth/LoginFormContainer.tsx
+    │       ├── dashboard/ServerRow.tsx
+    │       └── elements/Input.tsx
+    └── views/
+        └── templates/
+            ├── wrapper.blade.php
+            └── base/core.blade.php
+```
+
+---
 
 ## Color Palette
 
 | Token | Hex | Usage |
 |-------|-----|-------|
-| `--elipso-ink` | #ffffff | Primary text, buttons, CTAs |
+| `--elipso-canvas` | #0a0a0a | Page background |
+| `--elipso-canvas-soft` | #111111 | Sidebar, cards |
+| `--elipso-ink` | #ededed | Primary text |
 | `--elipso-body` | #a1a1a1 | Secondary text |
-| `--elipso-muted` | #666666 | Placeholders, disabled states |
-| `--elipso-hairline` | #333333 | Borders, dividers |
-| `--elipso-canvas` | #0a0a0a | Card backgrounds |
-| `--elipso-canvas-soft` | #111111 | Page background |
+| `--elipso-muted` | #666666 | Placeholders |
+| `--elipso-hairline` | #262626 | Borders |
+| `--elipso-primary` | #ffffff | Buttons, CTAs |
 | `--elipso-link` | #0070f3 | Links |
 
-## What's Included
+---
 
-```
-elipso-vercel-theme/
-├── install.sh                    # Theme installer
-├── package.json                  # Node dependencies
-├── tailwind.config.js            # Tailwind configuration
-├── public/
-│   ├── assets/                   # Prebuilt React assets
-│   └── themes/elipso-vercel/
-│       └── theme.css             # Admin panel styles
-└── resources/
-    ├── scripts/
-    │   ├── assets/css/           # Global styles
-    │   ├── components/          # React components
-    │   └── routers/             # Router configurations
-    └── views/
-        └── templates/            # Blade templates
-```
+## Troubleshooting
 
-## Backups
+**Issue:** "Could not find Pterodactyl panel"
+- The installer couldn't detect your panel path. Enter it manually when prompted.
 
-The installer automatically backs up any modified files to `backups/YYYYMMDD-HHMMSS/` in the theme directory before replacing them.
+**Issue:** "Failed to clone from GitHub"
+- Check your internet connection, or try downloading the ZIP instead.
 
-## Uninstalling
+**Issue:** Theme not showing after install
+- Clear browser cache or use incognito mode.
 
-To revert to the default theme, restore the backed-up files:
-
-```bash
-cd /path/to/elipso-vercel-theme/backups
-# Review backup directories and restore as needed
-```
-
-Then clear caches:
-```bash
-cd /var/www/pterodactyl
-php artisan view:clear
-php artisan cache:clear
-php artisan config:clear
-```
+---
 
 ## License
 
 MIT License — Feel free to use, modify, and distribute.
+
+---
 
 ## Credits
 
