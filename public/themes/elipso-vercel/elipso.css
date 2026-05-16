@@ -1,6 +1,5 @@
 /* ============================================================
-   ELIPSO — Global base styles
-   These override anything Pterodactyl sets at the document level.
+   ELIPSO — Global base styles + Blue-Gray Kill Switch
    ============================================================ */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -31,40 +30,246 @@ body {
 ::-webkit-scrollbar-thumb:hover { background: #666666; }
 
 /* Typography ceiling */
-h1, h2, h3, h4, h5, h6 { font-weight: 600 !important; }
+h1, h2, h3, h4, h5, h6 { font-weight: 600 !important; color: #ededed !important; }
 strong, b { font-weight: 600 !important; }
-/* Never 700+ */
 
-/* Links */
-a { color: #0070f3; text-decoration: none; }
-a:hover { color: #3291ff; text-decoration: underline; }
+/* ============================================================
+   BLUE-GRAY KILL SWITCH
+   Targets every hex value from Tailwind's default gray/slate
+   scales that produce blue-tinted surfaces.
+   ============================================================ */
 
-/* Code / mono — restricted to technical contexts only */
-code, pre, kbd, samp, .font-mono, [class*="font-mono"] {
-  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace !important;
-  font-size: 13px;
-  line-height: 20px;
+/* Tailwind gray-900 / slate-900 / zinc-900 — the nav */
+[style*="background-color: rgb(17, 24, 39)"],
+[style*="background:#111827"],
+[style*="background: #111827"] { background: #0a0a0a !important; }
+
+/* Tailwind gray-800 / slate-800 — sub-nav, cards */
+[style*="background-color: rgb(31, 41, 55)"],
+[style*="background:#1f2937"],
+[style*="background: #1f2937"] { background: #111111 !important; }
+
+/* Tailwind gray-700 / slate-700 — stat cards */
+[style*="background-color: rgb(55, 65, 81)"],
+[style*="background:#374151"],
+[style*="background: #374151"] { background: #1a1a1a !important; }
+
+/* ============================================================
+   GLOBAL LINK COLOR RESET
+   ============================================================ */
+
+a {
+  color: inherit !important;
+  text-decoration: none;
 }
 
-/* Inline code */
-:not(pre) > code {
-  background: #1a1a1a;
-  border: 1px solid #262626;
-  border-radius: 4px;
-  padding: 1px 6px;
-  color: #ededed;
+p a,
+.prose a,
+[class*="body"] a,
+[class*="content"] a,
+td a,
+.alert a {
+  color: #0070f3 !important;
+}
+p a:hover { color: #3291ff !important; text-decoration: underline; }
+
+/* ============================================================
+   NAV — Main top bar
+   ============================================================ */
+
+div[class*="NavigationBar"],
+div[class*="navigation-bar"],
+header,
+nav {
+  background: #0a0a0a !important;
+  border-bottom: 1px solid #262626 !important;
 }
 
-pre {
+div[class*="NavigationBar"] a,
+header a[href="/"],
+.brand-link,
+.navbar-brand {
+  color: #ededed !important;
+  font-weight: 600 !important;
+  font-family: 'Geist', sans-serif !important;
+  letter-spacing: -0.04em !important;
+}
+
+div[class*="NavigationBar"] button,
+header button {
+  color: #a1a1a1 !important;
+  background: transparent !important;
+  border: none !important;
+}
+div[class*="NavigationBar"] button:hover,
+header button:hover {
+  color: #ededed !important;
+  background: #1a1a1a !important;
+  border-radius: 6px !important;
+}
+
+/* ============================================================
+   SERVER SUB-NAV — the Console/Files/Databases tab row
+   ============================================================ */
+
+div[class*="SubNavigation"],
+div[class*="sub-navigation"],
+div[class*="ServerSubNavigation"],
+div[class*="NavigationRouter"],
+div[class*="SubNavBar"],
+header + div,
+nav + div {
+  background: #0a0a0a !important;
+  border-bottom: 1px solid #262626 !important;
+}
+
+div[class*="SubNavigation"] a,
+div[class*="ServerSubNavigation"] a,
+div[class*="NavigationRouter"] a {
+  color: #a1a1a1 !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  border-bottom: 2px solid transparent !important;
+  padding: 8px 16px !important;
+  transition: color 0.15s, border-color 0.15s !important;
+  background: transparent !important;
+  text-decoration: none !important;
+}
+div[class*="SubNavigation"] a:hover { color: #ededed !important; }
+div[class*="SubNavigation"] a[class*="active"],
+div[class*="SubNavigation"] a.active {
+  color: #ededed !important;
+  border-bottom-color: #ffffff !important;
+  font-weight: 500 !important;
+}
+
+/* ============================================================
+   STAT CARDS
+   ============================================================ */
+
+div[class*="StatBlock"],
+div[class*="stat-block"],
+div[class*="ServerDetails"],
+div[class*="NetworkStats"],
+.grid > div,
+.flex-col > div[class*="bg-"] {
   background: #111111 !important;
-  border: 1px solid #262626;
-  border-radius: 6px;
-  padding: 16px;
-  overflow-x: auto;
-  color: #ededed;
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: 0px 2px 2px rgba(0,0,0,0.3), 0px 8px 8px -8px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.06) !important;
 }
 
-/* Mesh gradient for auth pages */
+div[class*="StatBlock"] p {
+  color: #a1a1a1 !important;
+  font-family: 'Geist Mono', monospace !important;
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+
+div[class*="StatBlock"] span {
+  color: #ededed !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.04em !important;
+}
+
+[class*="offline"], [class*="Offline"] { color: #a1a1a1 !important; }
+[class*="online"], [class*="Online"]   { color: #00c950 !important; }
+
+/* ============================================================
+   BUTTONS — Start/Restart/Stop
+   ============================================================ */
+
+button[class*="start"],
+button[class*="Start"],
+[data-action="start"],
+.btn-start {
+  background: #ffffff !important;
+  color: #0a0a0a !important;
+  border: none !important;
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+}
+button[class*="start"]:hover { opacity: 0.85 !important; }
+
+button[class*="restart"],
+button[class*="Restart"],
+[data-action="restart"],
+.btn-restart {
+  background: #1a1a1a !important;
+  color: #ededed !important;
+  border: 1px solid #262626 !important;
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+}
+button[class*="restart"]:hover { background: #262626 !important; }
+
+button[class*="stop"],
+button[class*="Stop"],
+[data-action="stop"],
+.btn-stop {
+  background: #ff4444 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+}
+
+/* ============================================================
+   CONSOLE
+   ============================================================ */
+
+div[class*="Console"],
+div[class*="console"],
+div[class*="Terminal"],
+div[class*="terminal"],
+div[class*="xterm"] {
+  background: #050505 !important;
+  border: 1px solid #262626 !important;
+  border-radius: 8px !important;
+}
+
+.xterm-viewport { background: #050505 !important; }
+.xterm-screen canvas { background: #050505 !important; }
+
+/* ============================================================
+   PAGE BACKGROUND OVERRIDES
+   ============================================================ */
+
+.bg-gray-900, .bg-neutral-900, .bg-slate-900, .bg-zinc-900 { background-color: #0a0a0a !important; }
+.bg-gray-800, .bg-neutral-800, .bg-slate-800, .bg-zinc-800 { background-color: #111111 !important; }
+.bg-gray-750, .bg-neutral-750 { background-color: #141414 !important; }
+.bg-gray-700, .bg-neutral-700, .bg-slate-700, .bg-zinc-700 { background-color: #1a1a1a !important; }
+.bg-gray-600, .bg-neutral-600, .bg-slate-600, .bg-zinc-600 { background-color: #262626 !important; }
+
+.text-gray-100, .text-neutral-100, .text-slate-100 { color: #ededed !important; }
+.text-gray-200, .text-neutral-200, .text-slate-200 { color: #d4d4d4 !important; }
+.text-gray-300, .text-neutral-300, .text-slate-300 { color: #a1a1a1 !important; }
+.text-gray-400, .text-neutral-400, .text-slate-400 { color: #888888 !important; }
+.text-gray-500, .text-neutral-500, .text-slate-500 { color: #666666 !important; }
+
+.border-gray-600, .border-neutral-600, .border-slate-600, .border-zinc-600,
+.border-gray-700, .border-neutral-700, .border-slate-700, .border-zinc-700 {
+  border-color: #262626 !important;
+}
+.border-gray-500, .border-neutral-500 { border-color: #404040 !important; }
+
+/* ============================================================
+   ACTIVE TAB / FOCUS OVERRIDES
+   ============================================================ */
+
+.text-blue-400, .text-blue-500 { color: inherit !important; }
+a.text-blue-400, a.text-blue-500, button.text-blue-400 { color: #0070f3 !important; }
+
+[class*="border-blue"], [class*="border-cyan"] {
+  border-color: #ffffff !important;
+}
+
+/* ============================================================
+   MESH GRADIENT (Auth pages)
+   ============================================================ */
+
 .elipso-mesh {
   position: relative;
   background: #0a0a0a;
