@@ -28,6 +28,10 @@ Clear browser cache or use incognito mode to see the theme.
 
 Restore from backup at `/var/www/elipso-backup-YYYYMMDD-HHMMSS/`
 
+## Acknowledgments
+
+Special thanks to [getdesign.md](https://getdesign.md) for providing the Vercel-inspired design assets that served as the foundation for this theme. Their work has been instrumental in bringing this project to life.
+
 ## License
 
 MIT
