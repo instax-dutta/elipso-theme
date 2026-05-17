@@ -470,6 +470,29 @@ body.elipso-canvas a[class*='GreyRowBox'] > *,
 body.elipso-canvas div[class*='GreyRowBox'] > *,
 body.elipso-canvas [class*='FileObject'] > *,
 body.elipso-canvas [class*='FileManager'] > * {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+body.elipso-canvas div[class*='FileObjectRow'],
+body.elipso-canvas a[class*='FileObjectRow'],
+body.elipso-canvas div[class*='FileObjectRow___StyledDiv'],
+body.elipso-canvas div[class*='FileManagerContainer___StyledDiv'] {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--elipso-canvas-raised) 96%, var(--elipso-canvas-soft-2)) 0%, var(--elipso-canvas-raised) 100%) !important;
+  background-color: var(--elipso-canvas-raised) !important;
+  border-color: var(--elipso-hairline) !important;
+  color: var(--elipso-body) !important;
+}
+
+body.elipso-canvas div[class*='FileObjectRow']:hover,
+body.elipso-canvas a[class*='FileObjectRow']:hover {
+  background: var(--elipso-canvas-soft-2) !important;
+  background-color: var(--elipso-canvas-soft-2) !important;
+}
+
+body.elipso-canvas div[class*='FileObjectRow'] > *,
+body.elipso-canvas a[class*='FileObjectRow'] > * {
+  background: transparent !important;
   background-color: transparent !important;
 }
 
