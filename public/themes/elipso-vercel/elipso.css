@@ -12,8 +12,10 @@
   --elipso-on-primary: #0a0d12;
   --elipso-link: #6bb8ff;
   --elipso-link-deep: #91cbff;
+  --elipso-cyan: #50e3c2;
   --elipso-success: #56d4b0;
   --elipso-error: #ff6b6b;
+  --elipso-error-soft: rgb(255 107 107 / 0.1);
   --elipso-warning: #f6c177;
   --elipso-shadow-card: 0 1px 1px rgb(0 0 0 / 32%), 0 16px 36px rgb(0 0 0 / 30%);
   --elipso-shadow-panel: 0 1px 1px rgb(0 0 0 / 34%), 0 24px 60px rgb(0 0 0 / 42%);

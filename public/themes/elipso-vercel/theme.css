@@ -1,19 +1,31 @@
 /* ============================================================
    ELIPSO — AdminLTE 2 / Pterodactyl admin overrides
+   Direction: quiet operations console
    ============================================================ */
+
+:root {
+  --elipso-admin-sidebar: #090d13;
+  --elipso-admin-topbar: rgb(7 10 15 / 0.94);
+  --elipso-admin-active: rgb(255 255 255 / 0.055);
+  --elipso-admin-hover: rgb(255 255 255 / 0.038);
+  --elipso-admin-rule: rgb(255 255 255 / 0.07);
+  --elipso-admin-rule-soft: rgb(255 255 255 / 0.045);
+}
 
 body,
 .wrapper,
 .content-wrapper,
 .right-side {
-  background: var(--elipso-canvas-soft) !important;
+  background:
+    radial-gradient(ellipse 90rem 40rem at 34% -18rem, rgb(107 184 255 / 0.07), transparent 58%),
+    var(--elipso-canvas) !important;
   color: var(--elipso-body) !important;
 }
 
 .skin-blue .wrapper,
 .skin-blue .main-sidebar,
 .skin-blue .left-side {
-  background: var(--elipso-canvas-soft) !important;
+  background: var(--elipso-admin-sidebar) !important;
 }
 
 .skin-blue .main-header .logo,
@@ -21,28 +33,61 @@ body,
 .main-header .logo,
 .main-header .navbar,
 .navbar-static-top {
-  background: color-mix(in srgb, var(--elipso-canvas) 92%, transparent) !important;
+  background: var(--elipso-admin-topbar) !important;
   color: var(--elipso-ink) !important;
-  border-bottom: 1px solid var(--elipso-hairline) !important;
+  border-bottom: 1px solid var(--elipso-admin-rule) !important;
   box-shadow: none !important;
+  min-height: 56px !important;
 }
 
 .skin-blue .main-header .logo {
-  border-right: 1px solid var(--elipso-hairline) !important;
+  border-right: 1px solid var(--elipso-admin-rule) !important;
   font-weight: 600 !important;
-  letter-spacing: -0.04em !important;
+  letter-spacing: -0.035em !important;
+  line-height: 56px !important;
+  height: 56px !important;
+  font-size: 20px !important;
+  text-align: left !important;
+  padding-left: 28px !important;
 }
 
 .skin-blue .main-header .logo:hover,
 .skin-blue .main-header .navbar .sidebar-toggle:hover,
 .skin-blue .main-header .navbar .nav > li > a:hover,
 .skin-blue .main-header .navbar .nav > li > a:focus {
-  background: var(--elipso-canvas-soft-2) !important;
+  background: var(--elipso-admin-hover) !important;
   color: var(--elipso-ink) !important;
 }
 
+.main-header .navbar .sidebar-toggle {
+  height: 56px !important;
+  padding: 18px 17px !important;
+  color: var(--elipso-body) !important;
+}
+
+.main-header .navbar .nav > li > a {
+  height: 56px !important;
+  padding-top: 18px !important;
+  padding-bottom: 18px !important;
+  color: var(--elipso-body) !important;
+}
+
+.navbar-nav > .user-menu > a {
+  display: flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+}
+
+.navbar-nav > .user-menu .user-image {
+  width: 24px !important;
+  height: 24px !important;
+  margin-top: 0 !important;
+  border: 1px solid var(--elipso-admin-rule) !important;
+}
+
 .skin-blue .main-sidebar {
-  border-right: 1px solid var(--elipso-hairline) !important;
+  border-right: 1px solid var(--elipso-admin-rule) !important;
+  padding-top: 56px !important;
 }
 
 .skin-blue .sidebar a,
@@ -50,27 +95,47 @@ body,
   color: var(--elipso-body) !important;
 }
 
+.sidebar {
+  padding: 10px 10px 18px !important;
+}
+
 .skin-blue .sidebar-menu > li.header {
   background: transparent !important;
   color: var(--elipso-muted) !important;
   font-family: 'Geist Mono', ui-monospace, monospace !important;
   font-size: 11px !important;
-  letter-spacing: 0.08em !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
+  padding: 17px 9px 8px !important;
 }
 
 .skin-blue .sidebar-menu > li > a {
-  border-left: 3px solid transparent !important;
-  margin: 2px 10px !important;
-  border-radius: 8px !important;
+  border-left: 1px solid transparent !important;
+  margin: 1px 0 !important;
+  padding: 11px 12px !important;
+  border-radius: 7px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
 }
 
 .skin-blue .sidebar-menu > li:hover > a,
 .skin-blue .sidebar-menu > li.active > a,
 .skin-blue .sidebar-menu > li.menu-open > a {
-  background: var(--elipso-canvas-raised) !important;
+  background: var(--elipso-admin-active) !important;
   color: var(--elipso-ink) !important;
   border-left-color: var(--elipso-primary) !important;
+}
+
+.skin-blue .sidebar-menu > li > a > i {
+  width: 18px !important;
+  margin-right: 8px !important;
+  color: var(--elipso-muted) !important;
+  text-align: center !important;
+}
+
+.skin-blue .sidebar-menu > li.active > a > i,
+.skin-blue .sidebar-menu > li:hover > a > i {
+  color: var(--elipso-ink) !important;
 }
 
 .skin-blue .sidebar-menu > li > .treeview-menu {
@@ -94,6 +159,40 @@ body,
   color: var(--elipso-ink) !important;
 }
 
+.content-wrapper {
+  min-height: calc(100vh - 56px) !important;
+}
+
+.content-header {
+  padding: 18px 28px 8px !important;
+}
+
+.content-header > h1 {
+  font-size: 23px !important;
+  line-height: 1.15 !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.035em !important;
+}
+
+.content-header > h1 > small {
+  display: inline-block !important;
+  margin-left: 4px !important;
+  font-size: 13px !important;
+  letter-spacing: 0 !important;
+  font-weight: 400 !important;
+}
+
+.content-header > .breadcrumb {
+  top: 20px !important;
+  right: 28px !important;
+  font-size: 12px !important;
+  color: var(--elipso-muted) !important;
+}
+
+.content {
+  padding: 8px 28px 28px !important;
+}
+
 .content-header > h1 > small,
 .main-footer,
 .small.text-gray,
@@ -109,15 +208,15 @@ body,
 .nav-tabs-custom,
 .modal-content,
 .well {
-  background: linear-gradient(180deg, color-mix(in srgb, var(--elipso-canvas-raised) 94%, var(--elipso-canvas-soft-2)) 0%, var(--elipso-canvas-raised) 100%) !important;
+  background: color-mix(in srgb, var(--elipso-canvas-raised) 92%, #151b24) !important;
   color: var(--elipso-body) !important;
-  border: 1px solid var(--elipso-hairline) !important;
-  border-radius: 8px !important;
-  box-shadow: var(--elipso-shadow-card) !important;
+  border: 1px solid var(--elipso-admin-rule) !important;
+  border-radius: 7px !important;
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.025), 0 18px 42px rgb(0 0 0 / 0.18) !important;
 }
 
 .box-header {
-  padding: 16px 20px 12px !important;
+  padding: 15px 20px 13px !important;
 }
 
 .box-body {
@@ -130,7 +229,7 @@ body,
 .modal-header,
 .modal-footer {
   background: transparent !important;
-  border-color: var(--elipso-hairline) !important;
+  border-color: var(--elipso-admin-rule-soft) !important;
 }
 
 .box.box-primary,
@@ -138,7 +237,13 @@ body,
 .box.box-success,
 .box.box-warning,
 .box.box-danger {
-  border-top-color: var(--elipso-primary) !important;
+  border-top-color: var(--elipso-admin-rule) !important;
+}
+
+.box-title {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
 }
 
 .table,
@@ -147,7 +252,7 @@ body,
 .table > tfoot > tr > td,
 .table > thead > tr > th {
   color: var(--elipso-body) !important;
-  border-color: var(--elipso-hairline) !important;
+  border-color: var(--elipso-admin-rule-soft) !important;
 }
 
 .table > thead > tr > th {
@@ -159,28 +264,32 @@ body,
   letter-spacing: 0.08em !important;
 }
 
+.table > tbody > tr > td {
+  vertical-align: middle !important;
+}
+
 .table-hover > tbody > tr:hover,
 .table-striped > tbody > tr:nth-of-type(odd) {
-  background: color-mix(in srgb, var(--elipso-canvas-soft-2) 78%, transparent) !important;
+  background: var(--elipso-admin-hover) !important;
 }
 
 .small-box {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--elipso-canvas-soft-2) 75%, var(--elipso-canvas-raised)) 0%, var(--elipso-canvas-raised) 100%) !important;
+  background: color-mix(in srgb, var(--elipso-canvas-raised) 88%, var(--elipso-canvas-soft-2)) !important;
 }
 
 .small-box::after {
   content: '';
   position: absolute;
   inset: auto 0 0 0;
-  height: 3px;
+  height: 2px;
   background: linear-gradient(90deg, var(--elipso-link), var(--elipso-success));
-  opacity: 0.85;
+  opacity: 0.62;
 }
 
 .info-box {
-  background: linear-gradient(180deg, color-mix(in srgb, var(--elipso-canvas-soft-2) 68%, var(--elipso-canvas-raised)) 0%, var(--elipso-canvas-raised) 100%) !important;
+  background: color-mix(in srgb, var(--elipso-canvas-raised) 90%, var(--elipso-canvas-soft-2)) !important;
 }
 
 .form-control,
@@ -188,9 +297,10 @@ body,
 .select2-container--default .select2-selection--multiple {
   background: var(--elipso-canvas) !important;
   color: var(--elipso-ink) !important;
-  border: 1px solid var(--elipso-hairline) !important;
+  border: 1px solid var(--elipso-admin-rule) !important;
   border-radius: 6px !important;
   box-shadow: none !important;
+  min-height: 36px !important;
 }
 
 .form-control:focus,
@@ -205,25 +315,27 @@ body,
 }
 
 .btn {
-  border-radius: 999px !important;
+  border-radius: 7px !important;
   font-size: 14px !important;
   font-weight: 500 !important;
   border-width: 1px !important;
   box-shadow: none !important;
+  padding: 7px 12px !important;
+  line-height: 1.35 !important;
 }
 
 .btn-primary,
 .btn-success,
 .label-primary {
-  background: var(--elipso-primary) !important;
-  border-color: var(--elipso-primary) !important;
-  color: var(--elipso-on-primary) !important;
+  background: #edf1f7 !important;
+  border-color: #edf1f7 !important;
+  color: #0b1017 !important;
 }
 
 .btn-default,
 .btn-secondary {
-  background: var(--elipso-canvas) !important;
-  border-color: var(--elipso-hairline) !important;
+  background: var(--elipso-admin-hover) !important;
+  border-color: var(--elipso-admin-rule) !important;
   color: var(--elipso-ink) !important;
 }
 
@@ -243,7 +355,8 @@ body,
 
 .btn:hover,
 .btn:focus {
-  opacity: 0.92;
+  opacity: 1;
+  transform: translateY(-1px);
 }
 
 .alert {
@@ -268,9 +381,12 @@ body,
 }
 
 .main-footer {
-  background: transparent !important;
-  border-top: 1px solid var(--elipso-hairline) !important;
+  background: var(--elipso-canvas) !important;
+  border-top: 1px solid var(--elipso-admin-rule) !important;
   color: var(--elipso-muted) !important;
+  min-height: 26px !important;
+  padding: 7px 18px !important;
+  font-size: 12px !important;
 }
 
 .main-footer a {
@@ -283,8 +399,8 @@ body,
 
 .dropdown-menu {
   background: var(--elipso-canvas-raised) !important;
-  border: 1px solid var(--elipso-hairline) !important;
-  border-radius: 8px !important;
+  border: 1px solid var(--elipso-admin-rule) !important;
+  border-radius: 7px !important;
   box-shadow: var(--elipso-shadow-panel) !important;
 }
 
@@ -309,14 +425,9 @@ body,
 
 .pagination > .active > a,
 .pagination > .active > span {
-  background: var(--elipso-primary) !important;
-  border-color: var(--elipso-primary) !important;
-  color: var(--elipso-on-primary) !important;
-}
-
-.main-footer {
-  background: transparent !important;
-  border-top: 1px solid var(--elipso-hairline) !important;
+  background: #edf1f7 !important;
+  border-color: #edf1f7 !important;
+  color: #0b1017 !important;
 }
 
 .user-panel > .info,
@@ -324,4 +435,16 @@ body,
 .sidebar-form input[type='text'],
 .sidebar-form .btn {
   color: var(--elipso-body) !important;
+}
+
+.label,
+.badge {
+  border-radius: 5px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+}
+
+.progress,
+.progress-bar {
+  border-radius: 999px !important;
 }
