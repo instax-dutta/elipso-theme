@@ -510,3 +510,34 @@ button,
 .btn {
   font-family: 'Geist', Inter, system-ui, sans-serif !important;
 }
+
+/* Pterodactyl file manager CSS-module rows.
+   These classes are injected by the files chunk after the base stylesheet,
+   so this override must be both exact and important. */
+body.elipso-canvas .style-module_HHpjDvv7 {
+  background: var(--elipso-canvas-raised) !important;
+  background-color: var(--elipso-canvas-raised) !important;
+  border: 1px solid var(--elipso-hairline) !important;
+  border-radius: 8px !important;
+  color: var(--elipso-body) !important;
+  margin-bottom: 4px !important;
+}
+
+body.elipso-canvas .style-module_HHpjDvv7:hover {
+  background: var(--elipso-canvas-soft-2) !important;
+  background-color: var(--elipso-canvas-soft-2) !important;
+  border-color: var(--elipso-hairline-strong) !important;
+  color: var(--elipso-ink) !important;
+}
+
+body.elipso-canvas .style-module_HHpjDvv7 > .style-module_le7taa7N,
+body.elipso-canvas .style-module_HHpjDvv7 > .style-module_le7taa7N > * {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+body.elipso-canvas .style-module_HHpjDvv7 .style-module_le7taa7N,
+body.elipso-canvas .style-module_HHpjDvv7 .style-module_le7taa7N span,
+body.elipso-canvas .style-module_HHpjDvv7 .style-module_le7taa7N a {
+  color: var(--elipso-body) !important;
+}
