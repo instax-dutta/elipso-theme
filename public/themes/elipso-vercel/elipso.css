@@ -276,23 +276,6 @@ body.elipso-mesh > p {
   background-color: var(--elipso-canvas-soft-2) !important;
 }
 
-body.elipso-canvas [class*='bg-gray-700'],
-body.elipso-canvas [class*='bg-neutral-700'],
-body.elipso-canvas [class*='bg-slate-700'],
-body.elipso-canvas [class*='bg-zinc-700'],
-body.elipso-canvas [class*='bg-gray-600'],
-body.elipso-canvas [class*='bg-neutral-600'],
-body.elipso-canvas [class*='bg-gray-500'],
-body.elipso-canvas [class*='bg-neutral-500'],
-body.elipso-canvas [class*='bg-gray-400'],
-body.elipso-canvas [class*='bg-neutral-400'],
-body.elipso-canvas [class*='bg-gray-300'],
-body.elipso-canvas [class*='bg-neutral-300'],
-body.elipso-canvas [class*='bg-gray-200'],
-body.elipso-canvas [class*='bg-neutral-200'] {
-  background-color: var(--elipso-canvas-raised) !important;
-}
-
 .text-gray-50,
 .text-gray-100,
 .text-neutral-100,
@@ -368,11 +351,8 @@ div[class*='TitledGreyBox'],
   box-shadow: var(--elipso-shadow-card) !important;
 }
 
-body.elipso-canvas .grid > div,
-body.elipso-canvas .group > div,
-body.elipso-canvas main div[class*='rounded'][class*='bg-'],
-body.elipso-canvas section div[class*='rounded'][class*='bg-'],
-body.elipso-canvas article div[class*='rounded'][class*='bg-'] {
+body.elipso-canvas .grid > div[class*='StatBlock'],
+body.elipso-canvas .group > div[class*='StatBlock'] {
   background: var(--elipso-canvas-raised) !important;
   border-color: var(--elipso-hairline) !important;
 }
@@ -466,49 +446,6 @@ body.elipso-canvas div[class*='GreyRowBox'] svg {
   color: var(--elipso-muted) !important;
 }
 
-body.elipso-canvas a[class*='GreyRowBox'] > *,
-body.elipso-canvas div[class*='GreyRowBox'] > *,
-body.elipso-canvas [class*='FileObject'] > *,
-body.elipso-canvas [class*='FileManager'] > * {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-body.elipso-canvas div[class*='FileObjectRow'],
-body.elipso-canvas a[class*='FileObjectRow'],
-body.elipso-canvas div[class*='FileObjectRow___StyledDiv'],
-body.elipso-canvas div[class*='FileManagerContainer___StyledDiv'] {
-  background: linear-gradient(180deg, color-mix(in srgb, var(--elipso-canvas-raised) 96%, var(--elipso-canvas-soft-2)) 0%, var(--elipso-canvas-raised) 100%) !important;
-  background-color: var(--elipso-canvas-raised) !important;
-  border-color: var(--elipso-hairline) !important;
-  color: var(--elipso-body) !important;
-}
-
-body.elipso-canvas div[class*='FileObjectRow']:hover,
-body.elipso-canvas a[class*='FileObjectRow']:hover {
-  background: var(--elipso-canvas-soft-2) !important;
-  background-color: var(--elipso-canvas-soft-2) !important;
-}
-
-body.elipso-canvas div[class*='FileObjectRow'] > *,
-body.elipso-canvas a[class*='FileObjectRow'] > * {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-body.elipso-canvas [class*='FileObject'] a,
-body.elipso-canvas [class*='FileObject'] span,
-body.elipso-canvas [class*='FileManager'] a,
-body.elipso-canvas [class*='FileManager'] span {
-  background: transparent !important;
-  color: var(--elipso-body) !important;
-}
-
-body.elipso-canvas [class*='FileObject'] svg,
-body.elipso-canvas [class*='FileManager'] svg {
-  color: var(--elipso-muted) !important;
-}
-
 a[class*='GreyRowBox'] .icon,
 div[class*='GreyRowBox'] .icon {
   background: var(--elipso-canvas-soft-2) !important;
@@ -572,13 +509,4 @@ select:focus,
 button,
 .btn {
   font-family: 'Geist', Inter, system-ui, sans-serif !important;
-}
-
-body.elipso-canvas div[style*='background-color: rgb(75, 85, 99)'],
-body.elipso-canvas div[style*='background-color:#4b5563'],
-body.elipso-canvas div[style*='background:#4b5563'],
-body.elipso-canvas div[style*='background-color: rgb(55, 65, 81)'],
-body.elipso-canvas div[style*='background-color:#374151'],
-body.elipso-canvas div[style*='background:#374151'] {
-  background: var(--elipso-canvas-raised) !important;
 }
