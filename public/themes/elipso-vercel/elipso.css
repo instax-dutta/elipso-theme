@@ -262,8 +262,35 @@ body.elipso-mesh > p {
 .bg-slate-700,
 .bg-zinc-700,
 .bg-gray-600,
-.bg-neutral-600 {
+.bg-neutral-600,
+.bg-gray-500,
+.bg-neutral-500,
+.bg-slate-500,
+.bg-zinc-500,
+.bg-gray-400,
+.bg-neutral-400,
+.bg-gray-300,
+.bg-neutral-300,
+.bg-gray-200,
+.bg-neutral-200 {
   background-color: var(--elipso-canvas-soft-2) !important;
+}
+
+body.elipso-canvas [class*='bg-gray-700'],
+body.elipso-canvas [class*='bg-neutral-700'],
+body.elipso-canvas [class*='bg-slate-700'],
+body.elipso-canvas [class*='bg-zinc-700'],
+body.elipso-canvas [class*='bg-gray-600'],
+body.elipso-canvas [class*='bg-neutral-600'],
+body.elipso-canvas [class*='bg-gray-500'],
+body.elipso-canvas [class*='bg-neutral-500'],
+body.elipso-canvas [class*='bg-gray-400'],
+body.elipso-canvas [class*='bg-neutral-400'],
+body.elipso-canvas [class*='bg-gray-300'],
+body.elipso-canvas [class*='bg-neutral-300'],
+body.elipso-canvas [class*='bg-gray-200'],
+body.elipso-canvas [class*='bg-neutral-200'] {
+  background-color: var(--elipso-canvas-raised) !important;
 }
 
 .text-gray-50,
@@ -295,8 +322,16 @@ body.elipso-mesh > p {
 .border-gray-800,
 .border-gray-700,
 .border-gray-600,
+.border-gray-500,
+.border-gray-400,
+.border-gray-300,
+.border-gray-200,
 .border-neutral-700,
 .border-neutral-600,
+.border-neutral-500,
+.border-neutral-400,
+.border-neutral-300,
+.border-neutral-200,
 .border-slate-700,
 .border-zinc-700,
 .border,
@@ -333,11 +368,47 @@ div[class*='TitledGreyBox'],
   box-shadow: var(--elipso-shadow-card) !important;
 }
 
+body.elipso-canvas .grid > div,
+body.elipso-canvas .group > div,
+body.elipso-canvas main div[class*='rounded'][class*='bg-'],
+body.elipso-canvas section div[class*='rounded'][class*='bg-'],
+body.elipso-canvas article div[class*='rounded'][class*='bg-'] {
+  background: var(--elipso-canvas-raised) !important;
+  border-color: var(--elipso-hairline) !important;
+}
+
+body.elipso-canvas main [class*='bg-neutral-200'],
+body.elipso-canvas main [class*='bg-neutral-300'],
+body.elipso-canvas main [class*='bg-neutral-400'],
+body.elipso-canvas main [class*='bg-neutral-500'],
+body.elipso-canvas main [class*='bg-neutral-600'],
+body.elipso-canvas main [class*='bg-neutral-700'],
+body.elipso-canvas main [class*='bg-gray-200'],
+body.elipso-canvas main [class*='bg-gray-300'],
+body.elipso-canvas main [class*='bg-gray-400'],
+body.elipso-canvas main [class*='bg-gray-500'],
+body.elipso-canvas main [class*='bg-gray-600'],
+body.elipso-canvas main [class*='bg-gray-700'] {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--elipso-canvas-raised) 94%, var(--elipso-canvas-soft-2)) 0%, var(--elipso-canvas-raised) 100%) !important;
+}
+
 div[class*='StatBlock'] {
   position: relative;
   overflow: hidden;
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--elipso-canvas-raised) 92%, var(--elipso-canvas-soft-2)) 0%, var(--elipso-canvas-raised) 100%) !important;
+}
+
+body.elipso-canvas canvas + *,
+body.elipso-canvas [class*='Chart'] {
+  color: var(--elipso-body) !important;
+}
+
+body.elipso-canvas [class*='Chart'] > div,
+body.elipso-canvas [class*='TitledGreyBox'] > div,
+body.elipso-canvas [class*='NetworkStats'] > div {
+  background: transparent !important;
+  border-color: var(--elipso-hairline) !important;
 }
 
 div[class*='StatBlock']::after {
@@ -389,6 +460,33 @@ div[class*='GreyRowBox'],
 div[class*='TitledGreyBox'] {
   background: linear-gradient(180deg, color-mix(in srgb, var(--elipso-canvas-raised) 94%, var(--elipso-canvas-soft-2)) 0%, var(--elipso-canvas-raised) 100%) !important;
   border-radius: 12px !important;
+}
+
+body.elipso-canvas a[class*='GreyRowBox'],
+body.elipso-canvas div[class*='GreyRowBox'],
+body.elipso-canvas div[class*='TitledGreyBox'],
+body.elipso-canvas [role='row'],
+body.elipso-canvas [class*='FileObject'],
+body.elipso-canvas [class*='FileManager'],
+body.elipso-canvas [class*='Directory'] {
+  background: var(--elipso-canvas-raised) !important;
+  border-color: var(--elipso-hairline) !important;
+  color: var(--elipso-body) !important;
+}
+
+body.elipso-canvas a[class*='GreyRowBox']:hover,
+body.elipso-canvas div[class*='GreyRowBox']:hover,
+body.elipso-canvas [role='row']:hover,
+body.elipso-canvas [class*='FileObject']:hover {
+  background: var(--elipso-canvas-soft-2) !important;
+  border-color: var(--elipso-hairline-strong) !important;
+}
+
+body.elipso-canvas [class*='FileObject'] svg,
+body.elipso-canvas [class*='FileManager'] svg,
+body.elipso-canvas a[class*='GreyRowBox'] svg,
+body.elipso-canvas div[class*='GreyRowBox'] svg {
+  color: var(--elipso-muted) !important;
 }
 
 a[class*='GreyRowBox'] .icon,
