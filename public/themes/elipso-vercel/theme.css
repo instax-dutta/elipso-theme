@@ -7,11 +7,11 @@
   --elipso-admin-sidebar: #090d13;
   --elipso-admin-topbar: rgb(7 10 15 / 0.94);
   --elipso-admin-active: rgb(107 184 255 / 0.08);
-  --elipso-admin-hover: rgb(255 255 255 / 0.032);
-  --elipso-admin-rule: rgb(255 255 255 / 0.055);
-  --elipso-admin-rule-soft: rgb(255 255 255 / 0.035);
-  --elipso-admin-surface: #0b1017;
-  --elipso-admin-surface-raised: #101721;
+  --elipso-admin-hover: rgb(107 184 255 / 0.045);
+  --elipso-admin-rule: rgb(255 255 255 / 0.045);
+  --elipso-admin-rule-soft: rgb(255 255 255 / 0.03);
+  --elipso-admin-surface: #090d13;
+  --elipso-admin-surface-raised: #0d121a;
 }
 
 body,
@@ -120,7 +120,7 @@ body * {
   position: relative !important;
   border-left: 0 !important;
   margin: 1px 0 !important;
-  padding: 10px 12px 10px 14px !important;
+  padding: 10px 12px 10px 18px !important;
   border-radius: 0 !important;
   font-weight: 500 !important;
   letter-spacing: 0 !important;
@@ -151,7 +151,7 @@ body * {
 }
 
 .skin-blue .sidebar-menu > li.active > a {
-  background: linear-gradient(90deg, rgb(107 184 255 / 0.09), transparent 78%) !important;
+  background: transparent !important;
 }
 
 .skin-blue .sidebar-menu > li > a > i {
@@ -236,16 +236,16 @@ body * {
 .nav-tabs-custom,
 .modal-content,
 .well {
-  background: var(--elipso-admin-surface) !important;
+  background: linear-gradient(180deg, #0b1017 0%, #090d13 100%) !important;
   color: var(--elipso-body) !important;
   border: 1px solid var(--elipso-admin-rule) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 18px 44px rgb(0 0 0 / 0.16) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.18) !important;
 }
 
 .box-header {
   padding: 16px 20px 14px !important;
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.018), transparent) !important;
+  background: transparent !important;
 }
 
 .box-body {
@@ -283,6 +283,7 @@ body * {
 .table > thead > tr > th {
   color: var(--elipso-body) !important;
   border-color: var(--elipso-admin-rule-soft) !important;
+  background: transparent !important;
 }
 
 .table > thead > tr > th {
@@ -301,6 +302,13 @@ body * {
 .table-hover > tbody > tr:hover,
 .table-striped > tbody > tr:nth-of-type(odd) {
   background: var(--elipso-admin-hover) !important;
+}
+
+.box .table,
+.box .table-bordered,
+.box .table-responsive,
+.box .dataTables_wrapper {
+  background: transparent !important;
 }
 
 .small-box {
@@ -357,9 +365,9 @@ body * {
 .btn-primary,
 .btn-success,
 .label-primary {
-  background: rgb(237 241 247 / 0.92) !important;
-  border-color: rgb(237 241 247 / 0.92) !important;
-  color: #0b1017 !important;
+  background: rgb(255 255 255 / 0.055) !important;
+  border-color: rgb(255 255 255 / 0.12) !important;
+  color: var(--elipso-ink) !important;
 }
 
 .btn-default,
@@ -399,7 +407,11 @@ body * {
 }
 
 .content .btn-block,
-.content a.btn-block {
+.content a.btn-block,
+.content .box-tools .btn,
+.content .box-footer .btn,
+.content .btn-primary,
+.content a.btn-primary {
   background: rgb(255 255 255 / 0.045) !important;
   border: 1px solid var(--elipso-admin-rule) !important;
   color: var(--elipso-ink) !important;
@@ -419,10 +431,21 @@ body * {
 }
 
 .content .btn-block:hover,
-.content .btn-block:focus {
+.content .btn-block:focus,
+.content .box-tools .btn:hover,
+.content .box-tools .btn:focus,
+.content .btn-primary:hover,
+.content .btn-primary:focus {
   background: rgb(255 255 255 / 0.075) !important;
   border-color: rgb(255 255 255 / 0.12) !important;
   color: var(--elipso-ink) !important;
+}
+
+.content .box-tools .input-group,
+.content .box-tools .input-group-btn,
+.content .box-tools input,
+.content .box-tools .form-control {
+  background: transparent !important;
 }
 
 .alert {

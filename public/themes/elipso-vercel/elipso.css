@@ -553,3 +553,17 @@ button,
 .btn {
   font-family: 'Geist', Inter, system-ui, sans-serif !important;
 }
+
+body.elipso-canvas div[style*='background-color: rgb(75, 85, 99)'],
+body.elipso-canvas div[style*='background-color:#4b5563'],
+body.elipso-canvas div[style*='background:#4b5563'],
+body.elipso-canvas div[style*='background-color: rgb(55, 65, 81)'],
+body.elipso-canvas div[style*='background-color:#374151'],
+body.elipso-canvas div[style*='background:#374151'] {
+  background: var(--elipso-canvas-raised) !important;
+}
+
+body.elipso-canvas div[class],
+body.elipso-canvas a[class] {
+  border-color: var(--elipso-hairline);
+}
