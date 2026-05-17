@@ -304,6 +304,26 @@ body * {
   background: var(--elipso-admin-hover) !important;
 }
 
+.content code,
+.content kbd,
+.content pre,
+.content samp,
+.content td code,
+.content td kbd,
+.content td pre,
+.content td samp,
+.content .label-default,
+.content .badge {
+  background: rgb(255 255 255 / 0.045) !important;
+  border: 1px solid var(--elipso-admin-rule) !important;
+  border-radius: 5px !important;
+  color: var(--elipso-body) !important;
+  font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  padding: 2px 5px !important;
+}
+
 .box .table,
 .box .table-bordered,
 .box .table-responsive,
