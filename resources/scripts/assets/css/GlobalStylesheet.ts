@@ -19,8 +19,8 @@ export default createGlobalStyle`
         background:
             radial-gradient(circle at 12% 8%, rgba(40, 109, 255, 0.18), transparent 32rem),
             radial-gradient(circle at 88% 12%, rgba(127, 29, 29, 0.16), transparent 30rem),
-            linear-gradient(180deg, #07090d 0%, #0c1016 100%);
-        color: #b1bac7;
+            linear-gradient(180deg, var(--elipso-canvas, #07090d) 0%, var(--elipso-canvas-soft, #0c1016) 100%);
+        color: var(--elipso-body, #b1bac7);
     }
 
     h1, h2, h3, h4, h5, h6 {

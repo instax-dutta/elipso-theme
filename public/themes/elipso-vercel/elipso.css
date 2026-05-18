@@ -523,13 +523,6 @@ body.elipso-canvas .style-module_HHpjDvv7 {
   margin-bottom: 4px !important;
 }
 
-body.elipso-canvas .style-module_HHpjDvv7:hover {
-  background: var(--elipso-canvas-soft-2) !important;
-  background-color: var(--elipso-canvas-soft-2) !important;
-  border-color: var(--elipso-hairline-strong) !important;
-  color: var(--elipso-ink) !important;
-}
-
 body.elipso-canvas .style-module_HHpjDvv7 > .style-module_le7taa7N,
 body.elipso-canvas .style-module_HHpjDvv7 > .style-module_le7taa7N > * {
   background: transparent !important;
@@ -540,4 +533,45 @@ body.elipso-canvas .style-module_HHpjDvv7 .style-module_le7taa7N,
 body.elipso-canvas .style-module_HHpjDvv7 .style-module_le7taa7N span,
 body.elipso-canvas .style-module_HHpjDvv7 .style-module_le7taa7N a {
   color: var(--elipso-body) !important;
+}
+
+/* File row checked/selected state */
+body.elipso-canvas .style-module_HHpjDvv7:has(input[type="checkbox"]:checked) {
+  background: color-mix(in srgb, var(--elipso-primary) 6%, var(--elipso-canvas-raised)) !important;
+  background-color: color-mix(in srgb, var(--elipso-primary) 6%, var(--elipso-canvas-raised)) !important;
+  border-color: color-mix(in srgb, var(--elipso-primary) 30%, var(--elipso-hairline)) !important;
+}
+
+body.elipso-canvas .style-module_HHpjDvv7:has(input[type="checkbox"]:checked) .style-module_le7taa7N,
+body.elipso-canvas .style-module_HHpjDvv7:has(input[type="checkbox"]:checked) .style-module_le7taa7N span,
+body.elipso-canvas .style-module_HHpjDvv7:has(input[type="checkbox"]:checked) .style-module_le7taa7N a {
+  color: var(--elipso-ink) !important;
+}
+
+/* File row hover — avoid hover state overlaying checked state */
+body.elipso-canvas .style-module_HHpjDvv7:hover:not(:has(input[type="checkbox"]:checked)) {
+  background: var(--elipso-canvas-soft-2) !important;
+  background-color: var(--elipso-canvas-soft-2) !important;
+  border-color: var(--elipso-hairline-strong) !important;
+  color: var(--elipso-ink) !important;
+}
+
+/* File manager checkbox — unchecked state */
+body.elipso-canvas .style-module_HHpjDvv7 input[type="checkbox"],
+body.elipso-canvas .style-module_fqm1ZNax input[type="checkbox"] {
+  border-color: var(--elipso-hairline-strong) !important;
+  background-color: transparent !important;
+}
+
+body.elipso-canvas .style-module_HHpjDvv7 input[type="checkbox"]:hover,
+body.elipso-canvas .style-module_fqm1ZNax input[type="checkbox"]:hover {
+  border-color: var(--elipso-primary) !important;
+}
+
+/* File manager checkbox — checked state */
+body.elipso-canvas .style-module_HHpjDvv7 input[type="checkbox"]:checked,
+body.elipso-canvas .style-module_fqm1ZNax input[type="checkbox"]:checked {
+  background-color: var(--elipso-link) !important;
+  border-color: var(--elipso-link) !important;
+  color: var(--elipso-link) !important;
 }

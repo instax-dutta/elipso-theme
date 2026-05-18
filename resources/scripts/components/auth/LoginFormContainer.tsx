@@ -26,16 +26,16 @@ const Container = styled.div`
 const Shell = styled.div`
     ${tw`w-full mx-auto p-8 md:p-10 overflow-hidden`};
     border-radius: 1.25rem;
-    border: 1px solid #202733;
+    border: 1px solid var(--elipso-hairline, #202733);
     background:
-        linear-gradient(180deg, rgba(17, 22, 29, 0.98) 0%, rgba(12, 16, 22, 0.98) 100%);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.34), 0 24px 60px rgba(0, 0, 0, 0.42);
+        linear-gradient(180deg, color-mix(in srgb, var(--elipso-canvas-raised) 98%, transparent) 0%, color-mix(in srgb, var(--elipso-canvas-soft) 98%, transparent) 100%);
+    box-shadow: var(--elipso-shadow-panel, 0 1px 1px rgba(0, 0, 0, 0.34), 0 24px 60px rgba(0, 0, 0, 0.42));
     backdrop-filter: blur(18px);
 `;
 
 const Eyebrow = styled.p`
     ${tw`text-xs uppercase mb-3`};
-    color: #7d8796;
+    color: var(--elipso-muted, #7d8796);
     letter-spacing: 0.08em;
 `;
 
@@ -45,7 +45,7 @@ const Mark = styled.div`
 
 const Brand = styled.div`
     ${tw`text-sm font-medium`};
-    color: #b1bac7;
+    color: var(--elipso-body, #b1bac7);
     letter-spacing: 0.02em;
 `;
 
@@ -53,8 +53,8 @@ const Dot = styled.div`
     width: 0.65rem;
     height: 0.65rem;
     border-radius: 9999px;
-    background: linear-gradient(135deg, #6bb8ff 0%, #56d4b0 100%);
-    box-shadow: 0 0 0 0.35rem rgba(86, 212, 176, 0.08);
+    background: linear-gradient(135deg, var(--elipso-link, #6bb8ff) 0%, var(--elipso-cyan, #56d4b0) 100%);
+    box-shadow: 0 0 0 0.35rem color-mix(in srgb, var(--elipso-cyan, #56d4b0) 8%, transparent);
 `;
 
 export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => (
