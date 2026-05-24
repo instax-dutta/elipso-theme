@@ -144,11 +144,50 @@ fix_permissions() {
     fi
 }
 
+restore_default_panel() {
+    local panel_dir="$1"
+    log "restoring panel to default files to ensure default theme baseline"
+    
+    cd "$panel_dir"
+    php artisan down || true
+    
+    log "downloading and extracting latest panel release files..."
+    curl -L https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz | tar -xzv
+    
+    log "setting baseline folder permissions..."
+    chmod -R 755 storage/* bootstrap/cache
+    
+    log "running composer installation..."
+    composer install --no-dev --optimize-autoloader
+    
+    log "clearing Laravel caches..."
+    php artisan view:clear
+    php artisan config:clear
+    
+    log "running database migrations..."
+    php artisan migrate --seed --force
+    
+    log "setting ownership permissions to www-data..."
+    if id -u www-data >/dev/null 2>&1; then
+        chown -R www-data:www-data "$panel_dir"/* >/dev/null 2>&1 || true
+    fi
+    
+    log "restarting queue workers..."
+    php artisan queue:restart
+    php artisan up
+    
+    log "restarting nginx, redis-server, and pteroq systemctl services..."
+    systemctl restart nginx redis-server pteroq || true
+}
+
 main() {
     need_root
     need_cmd php
     need_cmd cp
     need_cmd install
+    need_cmd curl
+    need_cmd tar
+    need_cmd composer
 
     local panel_dir
     panel_dir="$(detect_panel_dir "${1:-}")"
@@ -161,6 +200,8 @@ main() {
     log "panel detected at $panel_dir"
     log "creating backup at $backup_dir"
     backup_files "$panel_dir" "$backup_dir"
+
+    restore_default_panel "$panel_dir"
 
     log "installing theme files"
     install_theme "$source_dir" "$panel_dir"
