@@ -20,8 +20,8 @@
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
-            <link rel="stylesheet" href="/themes/elipso-vercel/elipso.css?v=20260517-07">
-            <link rel="stylesheet" href="/themes/elipso-vercel/theme.css?v=20260517-07">
+            <link rel="stylesheet" href="/themes/elipso-vercel/elipso.css?v={{ file_exists(public_path('themes/elipso-vercel/elipso.css')) ? filemtime(public_path('themes/elipso-vercel/elipso.css')) : time() }}">
+            <link rel="stylesheet" href="/themes/elipso-vercel/theme.css?v={{ file_exists(public_path('themes/elipso-vercel/theme.css')) ? filemtime(public_path('themes/elipso-vercel/theme.css')) : time() }}">
         @show
 
         @section('user-data')

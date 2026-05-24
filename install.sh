@@ -119,6 +119,10 @@ install_theme() {
     sudo_cmd install -m 0644 "$source_dir/public/themes/elipso-vercel/elipso.css" "$panel_dir/public/themes/elipso-vercel/elipso.css"
     sudo_cmd install -m 0644 "$source_dir/public/themes/elipso-vercel/theme.css" "$panel_dir/public/themes/elipso-vercel/theme.css"
 
+    log "copying React component source files..."
+    sudo_cmd mkdir -p "$panel_dir/resources/scripts"
+    sudo_cmd cp -r "$source_dir/resources/scripts/." "$panel_dir/resources/scripts/"
+
     if [[ -d "$source_dir/public/assets" ]] && [[ -f "$source_dir/public/assets/manifest.json" ]]; then
         assets_tmp="$panel_dir/public/assets.elipso.$$"
         sudo_cmd rm -rf "$assets_tmp"
@@ -182,6 +186,25 @@ restore_default_panel() {
     sudo_cmd systemctl restart nginx redis-server pteroq || true
 }
 
+build_assets() {
+    local panel_dir="$1"
+    
+    # Check if yarn command is available on target system
+    if command -v yarn >/dev/null 2>&1; then
+        log "installing node dependencies and compiling production assets inside panel"
+        cd "$panel_dir"
+        
+        # Set OpenSSL legacy provider to ensure compatibility with Webpack
+        export NODE_OPTIONS=--openssl-legacy-provider
+        
+        sudo_cmd yarn install
+        sudo_cmd yarn build:production
+    else
+        log "WARNING: 'yarn' command not found. Skipping server-side compilation."
+        log "Please run 'yarn install && yarn build:production' inside $panel_dir manually to compile React components."
+    fi
+}
+
 main() {
     need_cmd php
     need_cmd cp
@@ -206,6 +229,9 @@ main() {
 
     log "installing theme files"
     install_theme "$source_dir" "$panel_dir"
+    
+    build_assets "$panel_dir"
+    
     clear_panel_cache "$panel_dir"
     fix_permissions "$panel_dir"
 

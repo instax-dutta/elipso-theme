@@ -28,8 +28,8 @@
             {!! Theme::css('vendor/sweetalert/sweetalert.min.css?t={cache-version}') !!}
             {!! Theme::css('vendor/animate/animate.min.css?t={cache-version}') !!}
             {!! Theme::css('css/pterodactyl.css?t={cache-version}') !!}
-            <link rel="stylesheet" href="/themes/elipso-vercel/elipso.css?v=20260517-07">
-            <link rel="stylesheet" href="/themes/elipso-vercel/theme.css?v=20260517-07">
+            <link rel="stylesheet" href="/themes/elipso-vercel/elipso.css?v={{ file_exists(public_path('themes/elipso-vercel/elipso.css')) ? filemtime(public_path('themes/elipso-vercel/elipso.css')) : time() }}">
+            <link rel="stylesheet" href="/themes/elipso-vercel/theme.css?v={{ file_exists(public_path('themes/elipso-vercel/theme.css')) ? filemtime(public_path('themes/elipso-vercel/theme.css')) : time() }}">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 
