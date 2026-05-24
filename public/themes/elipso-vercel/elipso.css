@@ -1,26 +1,27 @@
 :root {
-  --elipso-canvas: #0a0a0a;
-  --elipso-canvas-soft: #111111;
-  --elipso-canvas-soft-2: #191919;
-  --elipso-canvas-raised: #141414;
-  --elipso-ink: #ededed;
-  --elipso-body: #a1a1a1;
-  --elipso-muted: #666666;
-  --elipso-hairline: #1f1f1f;
-  --elipso-hairline-strong: #333333;
+  --elipso-canvas: #07090e;
+  --elipso-canvas-soft: #0b0f19;
+  --elipso-canvas-soft-2: #131926;
+  --elipso-canvas-raised: #0f1420;
+  --elipso-ink: #f3f4f6;
+  --elipso-body: #94a3b8;
+  --elipso-muted: #64748b;
+  --elipso-hairline: #1e293b;
+  --elipso-hairline-strong: #334155;
   --elipso-primary: #ffffff;
   --elipso-on-primary: #000000;
-  --elipso-link: #3291ff;
-  --elipso-link-deep: #0070f3;
+  --elipso-link: #3b82f6;
+  --elipso-link-deep: #2563eb;
   --elipso-cyan: #50e3c2;
-  --elipso-success: #56d4b0;
-  --elipso-error: #ee0000;
-  --elipso-error-soft: rgb(238 0 0 / 0.1);
+  --elipso-success: #10b981;
+  --elipso-error: #ef4444;
+  --elipso-error-soft: rgb(239 68 68 / 0.1);
   --elipso-warning: #f5a623;
   --elipso-shadow-card: 0 2px 4px rgb(0 0 0 / 0.18);
   --elipso-shadow-panel: 0 4px 12px rgb(0 0 0 / 0.25);
-  --elipso-mesh-a: rgb(40 109 255 / 0.08);
-  --elipso-mesh-b: rgb(56 189 248 / 0.05);
+  --elipso-mesh-a: rgba(0, 124, 240, 0.08);  /* Develop Blue */
+  --elipso-mesh-b: rgba(121, 40, 202, 0.05); /* Preview Violet */
+  --elipso-mesh-c: rgba(255, 77, 77, 0.04);  /* Ship Coral */
   color-scheme: dark;
 }
 
@@ -43,6 +44,8 @@ body {
   min-height: 100vh;
   background:
     radial-gradient(ellipse 80% 50% at 20% 0%, var(--elipso-mesh-a) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 80% 15%, var(--elipso-mesh-b) 0%, transparent 55%),
+    radial-gradient(ellipse 35% 25% at 50% 30%, var(--elipso-mesh-c) 0%, transparent 45%),
     linear-gradient(180deg, var(--elipso-canvas), var(--elipso-canvas-soft) 40rem) !important;
   color: var(--elipso-body) !important;
   font-family: 'Geist', Inter, system-ui, -apple-system, sans-serif !important;
@@ -124,6 +127,8 @@ td a:hover,
 .elipso-canvas {
   background:
     radial-gradient(ellipse 80% 50% at 20% 0%, var(--elipso-mesh-a) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 80% 15%, var(--elipso-mesh-b) 0%, transparent 55%),
+    radial-gradient(ellipse 35% 25% at 50% 30%, var(--elipso-mesh-c) 0%, transparent 45%),
     linear-gradient(180deg, var(--elipso-canvas), var(--elipso-canvas-soft) 42rem) !important;
 }
 

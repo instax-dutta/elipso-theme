@@ -26,14 +26,14 @@ const Container = styled.div`
 const Shell = styled.div`
     ${tw`w-full mx-auto p-8 md:p-10 overflow-hidden`};
     border-radius: 0.75rem;
-    border: 1px solid var(--elipso-hairline, #1f1f1f);
-    background: var(--elipso-canvas-raised, #141414);
+    border: 1px solid var(--elipso-hairline, #1e293b);
+    background: var(--elipso-canvas-raised, #0f1420);
     box-shadow: var(--elipso-shadow-panel, 0 4px 12px rgba(0, 0, 0, 0.25));
 `;
 
 const Eyebrow = styled.p`
     ${tw`text-xs uppercase mb-3`};
-    color: var(--elipso-muted, #666666);
+    color: var(--elipso-muted, #64748b);
     letter-spacing: 0.08em;
 `;
 
@@ -43,7 +43,7 @@ const Mark = styled.div`
 
 const Brand = styled.div`
     ${tw`text-sm font-medium`};
-    color: var(--elipso-body, #a1a1a1);
+    color: var(--elipso-body, #94a3b8);
     letter-spacing: 0.02em;
 `;
 
@@ -51,8 +51,8 @@ const Dot = styled.div`
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 9999px;
-    background: linear-gradient(135deg, var(--elipso-link, #3291ff) 0%, var(--elipso-cyan, #50e3c2) 100%);
-    box-shadow: 0 0 0 0.25rem rgb(50 145 255 / 0.06);
+    background: linear-gradient(135deg, var(--elipso-link, #3b82f6) 0%, var(--elipso-cyan, #50e3c2) 100%);
+    box-shadow: 0 0 0 0.25rem rgb(59 130 246 / 0.08);
 `;
 
 export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => (

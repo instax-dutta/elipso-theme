@@ -4,14 +4,14 @@
    ============================================================ */
 
 :root {
-  --elipso-admin-sidebar: #0a0a0a;
-  --elipso-admin-topbar: rgb(10 10 10 / 0.92);
-  --elipso-admin-active: rgb(255 255 255 / 0.06);
-  --elipso-admin-hover: rgb(255 255 255 / 0.04);
-  --elipso-admin-rule: rgb(255 255 255 / 0.06);
-  --elipso-admin-rule-soft: rgb(255 255 255 / 0.04);
-  --elipso-admin-surface: #0a0a0a;
-  --elipso-admin-surface-raised: #111111;
+  --elipso-admin-sidebar: #07090e;
+  --elipso-admin-topbar: rgb(7 9 14 / 0.94);
+  --elipso-admin-active: rgb(59 130 246 / 0.08);
+  --elipso-admin-hover: rgb(59 130 246 / 0.04);
+  --elipso-admin-rule: rgb(255 255 255 / 0.05);
+  --elipso-admin-rule-soft: rgb(255 255 255 / 0.03);
+  --elipso-admin-surface: #07090e;
+  --elipso-admin-surface-raised: #0d111a;
 }
 
 body,
@@ -19,7 +19,7 @@ body,
 .content-wrapper,
 .right-side {
   background:
-    radial-gradient(ellipse 80% 40% at 30% 0%, rgb(255 255 255 / 0.02), transparent 60%),
+    radial-gradient(ellipse 80% 40% at 30% 0%, rgb(59 130 246 / 0.03), transparent 60%),
     var(--elipso-canvas) !important;
   color: var(--elipso-body) !important;
 }
@@ -236,7 +236,7 @@ body * {
 .nav-tabs-custom,
 .modal-content,
 .well {
-  background: #111111 !important;
+  background: #0b0f19 !important;
   color: var(--elipso-body) !important;
   border: 1px solid var(--elipso-admin-rule) !important;
   border-radius: 8px !important;
