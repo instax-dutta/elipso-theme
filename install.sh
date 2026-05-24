@@ -14,9 +14,11 @@ die() {
     exit 1
 }
 
-need_root() {
+sudo_cmd() {
     if [[ "${EUID}" -ne 0 ]]; then
-        die "run as root or with sudo"
+        sudo "$@"
+    else
+        "$@"
     fi
 }
 
@@ -49,7 +51,7 @@ detect_panel_dir() {
         fi
     done
 
-    die "could not detect your Pterodactyl panel path automatically; rerun with: sudo bash install.sh /path/to/panel"
+    die "could not detect your Pterodactyl panel path automatically; rerun with: bash install.sh /path/to/panel"
 }
 
 download_bundle() {
@@ -93,13 +95,13 @@ backup_files() {
     local panel_dir="$1"
     local backup_dir="$2"
 
-    mkdir -p "$backup_dir"
+    sudo_cmd mkdir -p "$backup_dir"
 
-    [[ -f "$panel_dir/resources/views/templates/wrapper.blade.php" ]] && cp -a "$panel_dir/resources/views/templates/wrapper.blade.php" "$backup_dir/wrapper.blade.php"
-    [[ -f "$panel_dir/resources/views/templates/base/core.blade.php" ]] && cp -a "$panel_dir/resources/views/templates/base/core.blade.php" "$backup_dir/core.blade.php"
-    [[ -f "$panel_dir/resources/views/layouts/admin.blade.php" ]] && cp -a "$panel_dir/resources/views/layouts/admin.blade.php" "$backup_dir/admin.blade.php"
-    [[ -d "$panel_dir/public/themes/elipso-vercel" ]] && cp -a "$panel_dir/public/themes/elipso-vercel" "$backup_dir/"
-    [[ -d "$panel_dir/public/assets" ]] && cp -a "$panel_dir/public/assets" "$backup_dir/"
+    [[ -f "$panel_dir/resources/views/templates/wrapper.blade.php" ]] && sudo_cmd cp -a "$panel_dir/resources/views/templates/wrapper.blade.php" "$backup_dir/wrapper.blade.php"
+    [[ -f "$panel_dir/resources/views/templates/base/core.blade.php" ]] && sudo_cmd cp -a "$panel_dir/resources/views/templates/base/core.blade.php" "$backup_dir/core.blade.php"
+    [[ -f "$panel_dir/resources/views/layouts/admin.blade.php" ]] && sudo_cmd cp -a "$panel_dir/resources/views/layouts/admin.blade.php" "$backup_dir/admin.blade.php"
+    [[ -d "$panel_dir/public/themes/elipso-vercel" ]] && sudo_cmd cp -a "$panel_dir/public/themes/elipso-vercel" "$backup_dir/"
+    [[ -d "$panel_dir/public/assets" ]] && sudo_cmd cp -a "$panel_dir/public/assets" "$backup_dir/"
 }
 
 install_theme() {
@@ -107,23 +109,23 @@ install_theme() {
     local panel_dir="$2"
     local assets_tmp=""
 
-    install -d "$panel_dir/resources/views/templates/base"
-    install -d "$panel_dir/resources/views/layouts"
-    install -d "$panel_dir/public/themes/elipso-vercel"
+    sudo_cmd install -d "$panel_dir/resources/views/templates/base"
+    sudo_cmd install -d "$panel_dir/resources/views/layouts"
+    sudo_cmd install -d "$panel_dir/public/themes/elipso-vercel"
 
-    install -m 0644 "$source_dir/resources/views/templates/wrapper.blade.php" "$panel_dir/resources/views/templates/wrapper.blade.php"
-    install -m 0644 "$source_dir/resources/views/templates/base/core.blade.php" "$panel_dir/resources/views/templates/base/core.blade.php"
-    install -m 0644 "$source_dir/resources/views/layouts/admin.blade.php" "$panel_dir/resources/views/layouts/admin.blade.php"
-    install -m 0644 "$source_dir/public/themes/elipso-vercel/elipso.css" "$panel_dir/public/themes/elipso-vercel/elipso.css"
-    install -m 0644 "$source_dir/public/themes/elipso-vercel/theme.css" "$panel_dir/public/themes/elipso-vercel/theme.css"
+    sudo_cmd install -m 0644 "$source_dir/resources/views/templates/wrapper.blade.php" "$panel_dir/resources/views/templates/wrapper.blade.php"
+    sudo_cmd install -m 0644 "$source_dir/resources/views/templates/base/core.blade.php" "$panel_dir/resources/views/templates/base/core.blade.php"
+    sudo_cmd install -m 0644 "$source_dir/resources/views/layouts/admin.blade.php" "$panel_dir/resources/views/layouts/admin.blade.php"
+    sudo_cmd install -m 0644 "$source_dir/public/themes/elipso-vercel/elipso.css" "$panel_dir/public/themes/elipso-vercel/elipso.css"
+    sudo_cmd install -m 0644 "$source_dir/public/themes/elipso-vercel/theme.css" "$panel_dir/public/themes/elipso-vercel/theme.css"
 
     if [[ -d "$source_dir/public/assets" ]] && [[ -f "$source_dir/public/assets/manifest.json" ]]; then
         assets_tmp="$panel_dir/public/assets.elipso.$$"
-        rm -rf "$assets_tmp"
-        mkdir -p "$assets_tmp"
-        cp -a "$source_dir/public/assets/." "$assets_tmp/"
-        rm -rf "$panel_dir/public/assets"
-        mv "$assets_tmp" "$panel_dir/public/assets"
+        sudo_cmd rm -rf "$assets_tmp"
+        sudo_cmd mkdir -p "$assets_tmp"
+        sudo_cmd cp -a "$source_dir/public/assets/." "$assets_tmp/"
+        sudo_cmd rm -rf "$panel_dir/public/assets"
+        sudo_cmd mv "$assets_tmp" "$panel_dir/public/assets"
     fi
 }
 
@@ -131,16 +133,16 @@ clear_panel_cache() {
     local panel_dir="$1"
 
     log "clearing Laravel caches"
-    php "$panel_dir/artisan" view:clear >/dev/null || true
-    php "$panel_dir/artisan" cache:clear >/dev/null || true
-    php "$panel_dir/artisan" config:clear >/dev/null || true
-    php "$panel_dir/artisan" optimize:clear >/dev/null || true
+    sudo_cmd php "$panel_dir/artisan" view:clear >/dev/null || true
+    sudo_cmd php "$panel_dir/artisan" cache:clear >/dev/null || true
+    sudo_cmd php "$panel_dir/artisan" config:clear >/dev/null || true
+    sudo_cmd php "$panel_dir/artisan" optimize:clear >/dev/null || true
 }
 
 fix_permissions() {
     local panel_dir="$1"
     if id -u www-data >/dev/null 2>&1; then
-        chown -R www-data:www-data "$panel_dir/resources/views" "$panel_dir/public/themes/elipso-vercel" "$panel_dir/public/assets" >/dev/null 2>&1 || true
+        sudo_cmd chown -R www-data:www-data "$panel_dir/resources/views" "$panel_dir/public/themes/elipso-vercel" "$panel_dir/public/assets" >/dev/null 2>&1 || true
     fi
 }
 
@@ -149,39 +151,38 @@ restore_default_panel() {
     log "restoring panel to default files to ensure default theme baseline"
     
     cd "$panel_dir"
-    php artisan down || true
+    sudo_cmd php artisan down || true
     
     log "downloading and extracting latest panel release files..."
-    curl -L https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz | tar -xzv
+    curl -L https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz | sudo_cmd tar -xzv
     
     log "setting baseline folder permissions..."
-    chmod -R 755 storage/* bootstrap/cache
+    sudo_cmd chmod -R 755 storage/* bootstrap/cache
     
     log "running composer installation..."
-    composer install --no-dev --optimize-autoloader
+    sudo_cmd composer install --no-dev --optimize-autoloader
     
     log "clearing Laravel caches..."
-    php artisan view:clear
-    php artisan config:clear
+    sudo_cmd php artisan view:clear
+    sudo_cmd php artisan config:clear
     
     log "running database migrations..."
-    php artisan migrate --seed --force
+    sudo_cmd php artisan migrate --seed --force
     
     log "setting ownership permissions to www-data..."
     if id -u www-data >/dev/null 2>&1; then
-        chown -R www-data:www-data "$panel_dir"/* >/dev/null 2>&1 || true
+        sudo_cmd chown -R www-data:www-data "$panel_dir"/* >/dev/null 2>&1 || true
     fi
     
     log "restarting queue workers..."
-    php artisan queue:restart
-    php artisan up
+    sudo_cmd php artisan queue:restart
+    sudo_cmd php artisan up
     
     log "restarting nginx, redis-server, and pteroq systemctl services..."
-    systemctl restart nginx redis-server pteroq || true
+    sudo_cmd systemctl restart nginx redis-server pteroq || true
 }
 
 main() {
-    need_root
     need_cmd php
     need_cmd cp
     need_cmd install
