@@ -17,10 +17,9 @@ export default createGlobalStyle`
         ${tw`font-sans bg-neutral-800 text-neutral-200`};
         letter-spacing: 0.015em;
         background:
-            radial-gradient(circle at 12% 8%, rgba(40, 109, 255, 0.18), transparent 32rem),
-            radial-gradient(circle at 88% 12%, rgba(127, 29, 29, 0.16), transparent 30rem),
-            linear-gradient(180deg, var(--elipso-canvas, #07090d) 0%, var(--elipso-canvas-soft, #0c1016) 100%);
-        color: var(--elipso-body, #b1bac7);
+            radial-gradient(ellipse 80% 50% at 20% 0%, rgba(40, 109, 255, 0.08), transparent 65%),
+            linear-gradient(180deg, var(--elipso-canvas, #0a0a0a) 0%, var(--elipso-canvas-soft, #111111) 100%);
+        color: var(--elipso-body, #a1a1a1);
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -61,7 +60,7 @@ export default createGlobalStyle`
         border-right-width: 4px;
         border-left-width: 4px;
         -webkit-border-radius: 9px 4px;
-        -webkit-box-shadow: inset 0 0 0 1px hsl(211, 10%, 53%), inset 0 0 0 4px hsl(209deg 18% 30%);
+        background: #333333;
     }
 
     ::-webkit-scrollbar-track-piece {

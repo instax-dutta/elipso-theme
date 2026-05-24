@@ -4,14 +4,14 @@
    ============================================================ */
 
 :root {
-  --elipso-admin-sidebar: #090d13;
-  --elipso-admin-topbar: rgb(7 10 15 / 0.94);
-  --elipso-admin-active: rgb(107 184 255 / 0.08);
-  --elipso-admin-hover: rgb(107 184 255 / 0.045);
-  --elipso-admin-rule: rgb(255 255 255 / 0.045);
-  --elipso-admin-rule-soft: rgb(255 255 255 / 0.03);
-  --elipso-admin-surface: #090d13;
-  --elipso-admin-surface-raised: #0d121a;
+  --elipso-admin-sidebar: #0a0a0a;
+  --elipso-admin-topbar: rgb(10 10 10 / 0.92);
+  --elipso-admin-active: rgb(255 255 255 / 0.06);
+  --elipso-admin-hover: rgb(255 255 255 / 0.04);
+  --elipso-admin-rule: rgb(255 255 255 / 0.06);
+  --elipso-admin-rule-soft: rgb(255 255 255 / 0.04);
+  --elipso-admin-surface: #0a0a0a;
+  --elipso-admin-surface-raised: #111111;
 }
 
 body,
@@ -19,7 +19,7 @@ body,
 .content-wrapper,
 .right-side {
   background:
-    radial-gradient(ellipse 90rem 40rem at 34% -18rem, rgb(107 184 255 / 0.07), transparent 58%),
+    radial-gradient(ellipse 80% 40% at 30% 0%, rgb(255 255 255 / 0.02), transparent 60%),
     var(--elipso-canvas) !important;
   color: var(--elipso-body) !important;
 }
@@ -111,7 +111,7 @@ body * {
   color: var(--elipso-muted) !important;
   font-family: 'Geist Mono', ui-monospace, monospace !important;
   font-size: 11px !important;
-  letter-spacing: 0.12em !important;
+  letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
   padding: 17px 9px 8px !important;
 }
@@ -236,11 +236,11 @@ body * {
 .nav-tabs-custom,
 .modal-content,
 .well {
-  background: linear-gradient(180deg, #0b1017 0%, #090d13 100%) !important;
+  background: #111111 !important;
   color: var(--elipso-body) !important;
   border: 1px solid var(--elipso-admin-rule) !important;
-  border-radius: 10px !important;
-  box-shadow: 0 12px 32px rgb(0 0 0 / 0.18) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.12) !important;
 }
 
 .box-header {
@@ -341,9 +341,9 @@ body * {
   content: '';
   position: absolute;
   inset: auto 0 0 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--elipso-link), var(--elipso-success));
-  opacity: 0.62;
+  height: 1px;
+  background: var(--elipso-admin-rule);
+  opacity: 1;
 }
 
 .info-box {
@@ -364,8 +364,8 @@ body * {
 .form-control:focus,
 .select2-container--default.select2-container--focus .select2-selection--multiple,
 .select2-container--default .select2-selection--single:focus {
-  border-color: var(--elipso-primary) !important;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--elipso-primary) 12%, transparent) !important;
+  border-color: var(--elipso-hairline-strong, #333333) !important;
+  box-shadow: 0 0 0 2px rgb(255 255 255 / 0.08) !important;
 }
 
 .form-control::placeholder {
@@ -413,8 +413,8 @@ body * {
 
 .btn:hover,
 .btn:focus {
-  opacity: 1;
-  transform: translateY(-1px);
+  opacity: 0.9;
+  transform: none;
 }
 
 .btn-block {
@@ -470,7 +470,7 @@ body * {
 
 .alert {
   border-radius: 8px !important;
-  border: 1px solid var(--elipso-hairline) !important;
+  border: 1px solid var(--elipso-admin-rule) !important;
   box-shadow: none !important;
 }
 

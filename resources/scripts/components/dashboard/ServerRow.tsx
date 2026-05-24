@@ -35,7 +35,7 @@ const StatusIndicatorBox = styled(GreyRowBox)<{ $status: ServerPowerState | unde
     position: relative;
 
     & .status-bar {
-        width: 8px;
+        width: 4px;
         position: absolute;
         right: 0;
         z-index: 20;

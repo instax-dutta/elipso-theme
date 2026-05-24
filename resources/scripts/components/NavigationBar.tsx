@@ -56,9 +56,9 @@ export default () => {
     return (
         <div
             style={{
-                background: 'rgba(10,10,10,0.85)',
-                backdropFilter: 'blur(12px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+                background: 'rgba(10,10,10,0.80)',
+                backdropFilter: 'blur(10px) saturate(160%)',
+                WebkitBackdropFilter: 'blur(10px) saturate(160%)',
             }}
             className={'w-full border-b border-[var(--elipso-hairline)] shadow-none overflow-x-auto'}
         >
