@@ -49,7 +49,7 @@ export default () => {
     const onTriggerLogout = () => {
         setIsLoggingOut(true);
         http.post('/auth/logout').finally(() => {
-            window.location = '/';
+            window.location.href = '/';
         });
     };
 

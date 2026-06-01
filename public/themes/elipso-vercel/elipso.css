@@ -152,10 +152,6 @@ body.elipso-mesh form > [class*='shadow'] {
   box-shadow: var(--elipso-shadow-panel) !important;
 }
 
-body.elipso-mesh form > div > div:first-child {
-  display: none !important;
-}
-
 body.elipso-mesh form > div > div:last-child {
   width: 100% !important;
   max-width: none !important;
@@ -464,9 +460,13 @@ canvas {
 .xterm,
 .xterm-viewport,
 .xterm-screen,
-pre,
-code[class*='cm-'],
 .CodeMirror {
+  background: var(--elipso-canvas-soft) !important;
+  color: var(--elipso-ink) !important;
+  border-color: var(--elipso-hairline) !important;
+}
+
+pre:not(.CodeMirror-line):not(.CodeMirror-placeholder) {
   background: var(--elipso-canvas-soft) !important;
   color: var(--elipso-ink) !important;
   border-color: var(--elipso-hairline) !important;
@@ -474,9 +474,63 @@ code[class*='cm-'],
 
 .CodeMirror-gutters,
 .cm-s-default .CodeMirror-gutters,
-.cm-s-material .CodeMirror-gutters {
+.cm-s-material .CodeMirror-gutters,
+.cm-s-ayu-mirage .CodeMirror-gutters {
   background: var(--elipso-canvas-soft-2) !important;
   border-right-color: var(--elipso-hairline) !important;
+}
+
+.CodeMirror-linenumber,
+.cm-s-ayu-mirage .CodeMirror-linenumber {
+  color: var(--elipso-muted) !important;
+}
+
+.CodeMirror-cursor,
+.cm-s-ayu-mirage .CodeMirror-cursor {
+  border-left: 1px solid var(--elipso-ink) !important;
+}
+
+.CodeMirror-activeline-background,
+.cm-s-ayu-mirage .CodeMirror-activeline-background {
+  background: rgb(255 255 255 / 0.025) !important;
+}
+
+.CodeMirror-selected,
+.cm-s-ayu-mirage .CodeMirror-selected,
+.CodeMirror-focused .CodeMirror-selected {
+  background: rgb(59 130 246 / 0.22) !important;
+}
+
+.CodeMirror-line::selection,
+.CodeMirror-line > span::selection,
+.CodeMirror-line > span > span::selection {
+  background: rgb(59 130 246 / 0.32) !important;
+  color: inherit !important;
+}
+
+.CodeMirror-matchingbracket,
+.cm-s-ayu-mirage .CodeMirror-matchingbracket {
+  color: var(--elipso-cyan) !important;
+  background: rgb(80 227 194 / 0.12) !important;
+}
+
+.CodeMirror-foldgutter,
+.CodeMirror-foldmarker {
+  color: var(--elipso-muted) !important;
+}
+
+.CodeMirror-foldmarker {
+  text-shadow: none !important;
+}
+
+.CodeMirror-guttermarker,
+.CodeMirror-guttermarker-subtle {
+  color: var(--elipso-muted) !important;
+}
+
+.CodeMirror-scrollbar-filler,
+.CodeMirror-gutter-filler {
+  background: var(--elipso-canvas-soft-2) !important;
 }
 
 input,
