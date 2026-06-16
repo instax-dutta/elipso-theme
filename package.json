@@ -1,5 +1,6 @@
 {
     "name": "pterodactyl-panel",
+    "description": "Premium dark theme for self-hosted Pterodactyl game server panels. Vercel-inspired design with Geist typography.",
     "engines": {
         "node": ">=22"
     },

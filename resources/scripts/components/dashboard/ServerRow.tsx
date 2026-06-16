@@ -75,7 +75,7 @@ export default ({ server, className }: { server: Server; className?: string }) =
     }, [stats?.isSuspended, server.status]);
 
     useEffect(() => {
-        if (isSuspended) return;
+        if (isSuspended || server.isNodeUnderMaintenance) return;
 
         getStats().then(() => {
             interval.current = setInterval(() => getStats(), 30000);
@@ -84,7 +84,7 @@ export default ({ server, className }: { server: Server; className?: string }) =
         return () => {
             interval.current && clearInterval(interval.current);
         };
-    }, [isSuspended]);
+    }, [isSuspended, server.isNodeUnderMaintenance]);
 
     const alarms = { cpu: false, memory: false, disk: false };
     if (stats) {
@@ -125,11 +125,17 @@ export default ({ server, className }: { server: Server; className?: string }) =
                 </div>
             </div>
             <div className={'hidden col-span-7 lg:col-span-4 sm:flex items-baseline justify-center'}>
-                {!stats || isSuspended ? (
+                {!stats || isSuspended || server.isNodeUnderMaintenance ? (
                     isSuspended ? (
                         <div style={{ flex: 1, textAlign: 'center' }}>
                             <span style={{ background: 'var(--elipso-error-soft)', borderRadius: '9999px', border: '1px solid var(--elipso-error)', padding: '4px 8px', color: 'var(--elipso-error)', fontSize: '12px', fontFamily: 'var(--font-mono)' }}>
                                 {server.status === 'suspended' ? 'Suspended' : 'Connection Error'}
+                            </span>
+                        </div>
+                    ) : server.isNodeUnderMaintenance ? (
+                        <div style={{ flex: 1, textAlign: 'center' }}>
+                            <span style={{ background: 'var(--elipso-warning-soft)', borderRadius: '9999px', border: '1px solid var(--elipso-warning)', padding: '4px 8px', color: 'var(--elipso-warning)', fontSize: '12px', fontFamily: 'var(--font-mono)' }}>
+                                Under Maintenance
                             </span>
                         </div>
                     ) : server.isTransferring || server.status ? (
