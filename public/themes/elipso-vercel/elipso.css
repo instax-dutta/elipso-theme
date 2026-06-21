@@ -49,17 +49,13 @@ body {
   letter-spacing: 0.015em;
 }
 
-body:has(.elipso-auth-shell),
-body.elipso-mesh:has(.elipso-auth-shell) {
+body.elipso-mesh,
+body:has(.elipso-auth-shell) {
   background:
     radial-gradient(ellipse 80% 50% at 20% 0%, var(--elipso-mesh-a) 0%, transparent 65%),
     radial-gradient(ellipse 50% 40% at 80% 15%, var(--elipso-mesh-b) 0%, transparent 55%),
     radial-gradient(ellipse 35% 25% at 50% 30%, var(--elipso-mesh-c) 0%, transparent 45%),
     linear-gradient(180deg, var(--elipso-canvas), var(--elipso-canvas-soft) 40rem) !important;
-}
-
-body:not(:has(.elipso-auth-shell)) {
-  background: var(--elipso-canvas) !important;
 }
 
 h1,
@@ -139,6 +135,7 @@ td a:hover,
   background: var(--elipso-canvas) !important;
 }
 
+body.elipso-mesh .elipso-canvas,
 body:has(.elipso-auth-shell) .elipso-canvas {
   background:
     radial-gradient(ellipse 80% 50% at 20% 0%, var(--elipso-mesh-a) 0%, transparent 65%),

@@ -16,16 +16,12 @@ export default createGlobalStyle`
     body {
         ${tw`font-sans bg-neutral-800 text-neutral-200`};
         letter-spacing: 0.015em;
-        background: var(--elipso-canvas, #07090e);
-        color: var(--elipso-body, #94a3b8);
-    }
-
-    body:has(.elipso-auth-shell) {
         background:
             radial-gradient(ellipse 80% 50% at 20% 0%, rgba(0, 124, 240, 0.08), transparent 65%),
             radial-gradient(ellipse 50% 40% at 80% 15%, rgba(121, 40, 202, 0.05), transparent 55%),
             radial-gradient(ellipse 35% 25% at 50% 30%, rgba(255, 77, 77, 0.04), transparent 45%),
             linear-gradient(180deg, var(--elipso-canvas, #07090e) 0%, var(--elipso-canvas-soft, #0b0f19) 100%);
+        color: var(--elipso-body, #94a3b8);
     }
 
     h1, h2, h3, h4, h5, h6 {
