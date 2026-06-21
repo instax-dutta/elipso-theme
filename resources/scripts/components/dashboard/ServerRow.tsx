@@ -49,7 +49,7 @@ const StatusIndicatorBox = styled(GreyRowBox)<{ $status: ServerPowerState | unde
             !$status || $status === 'offline'
                 ? 'background: var(--elipso-error)'
                 : $status === 'running'
-                ? 'background: var(--elipso-cyan)'
+                ? 'background: var(--elipso-success)'
                 : 'background: var(--elipso-warning)'};
     }
 

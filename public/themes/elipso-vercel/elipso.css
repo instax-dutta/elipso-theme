@@ -1,28 +1,28 @@
 :root {
-  --elipso-canvas: #07090e;
-  --elipso-canvas-soft: #0b0f19;
-  --elipso-canvas-soft-2: #131926;
-  --elipso-canvas-raised: #0f1420;
-  --elipso-ink: #f3f4f6;
-  --elipso-body: #94a3b8;
-  --elipso-muted: #64748b;
-  --elipso-hairline: #1e293b;
-  --elipso-hairline-strong: #334155;
+  --elipso-canvas: #000000;
+  --elipso-canvas-soft: #0a0a0a;
+  --elipso-canvas-soft-2: #171717;
+  --elipso-canvas-raised: #0a0a0a;
+  --elipso-ink: #ffffff;
+  --elipso-body: #a3a3a3;
+  --elipso-muted: #666666;
+  --elipso-hairline: #1f1f1f;
+  --elipso-hairline-strong: #333333;
   --elipso-primary: #ffffff;
   --elipso-on-primary: #000000;
-  --elipso-link: #3b82f6;
-  --elipso-link-deep: #2563eb;
-  --elipso-cyan: #50e3c2;
-  --elipso-success: #10b981;
-  --elipso-error: #ef4444;
-  --elipso-error-soft: rgb(239 68 68 / 0.1);
+  --elipso-link: #0070f3;
+  --elipso-link-deep: #0051c3;
+  --elipso-cyan: #10b981;
+  --elipso-success: #00c950;
+  --elipso-error: #ff4444;
+  --elipso-error-soft: rgb(255 68 68 / 0.1);
   --elipso-warning: #f5a623;
   --elipso-warning-soft: rgb(245 166 35 / 0.1);
-  --elipso-shadow-card: 0 2px 4px rgb(0 0 0 / 0.18);
-  --elipso-shadow-panel: 0 4px 12px rgb(0 0 0 / 0.25);
-  --elipso-mesh-a: rgba(0, 124, 240, 0.08);  /* Develop Blue */
-  --elipso-mesh-b: rgba(121, 40, 202, 0.05); /* Preview Violet */
-  --elipso-mesh-c: rgba(255, 77, 77, 0.04);  /* Ship Coral */
+  --elipso-shadow-card: 0 0 0 1px var(--elipso-hairline);
+  --elipso-shadow-panel: 0 0 0 1px var(--elipso-hairline);
+  --elipso-mesh-a: rgba(0, 112, 243, 0.15);  /* Vercel Blue */
+  --elipso-mesh-b: rgba(121, 40, 202, 0.12); /* Vercel Purple */
+  --elipso-mesh-c: rgba(255, 0, 128, 0.08);   /* Vercel Pink */
   color-scheme: dark;
 }
 
@@ -43,13 +43,23 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  background: var(--elipso-canvas) !important;
+  color: var(--elipso-body) !important;
+  font-family: 'Geist', Inter, system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.015em;
+}
+
+body:has(.elipso-auth-shell),
+body.elipso-mesh:has(.elipso-auth-shell) {
   background:
     radial-gradient(ellipse 80% 50% at 20% 0%, var(--elipso-mesh-a) 0%, transparent 65%),
     radial-gradient(ellipse 50% 40% at 80% 15%, var(--elipso-mesh-b) 0%, transparent 55%),
     radial-gradient(ellipse 35% 25% at 50% 30%, var(--elipso-mesh-c) 0%, transparent 45%),
     linear-gradient(180deg, var(--elipso-canvas), var(--elipso-canvas-soft) 40rem) !important;
-  color: var(--elipso-body) !important;
-  font-family: 'Geist', Inter, system-ui, -apple-system, sans-serif !important;
+}
+
+body:not(:has(.elipso-auth-shell)) {
+  background: var(--elipso-canvas) !important;
 }
 
 h1,
@@ -126,6 +136,10 @@ td a:hover,
 }
 
 .elipso-canvas {
+  background: var(--elipso-canvas) !important;
+}
+
+body:has(.elipso-auth-shell) .elipso-canvas {
   background:
     radial-gradient(ellipse 80% 50% at 20% 0%, var(--elipso-mesh-a) 0%, transparent 65%),
     radial-gradient(ellipse 50% 40% at 80% 15%, var(--elipso-mesh-b) 0%, transparent 55%),
@@ -133,16 +147,16 @@ td a:hover,
     linear-gradient(180deg, var(--elipso-canvas), var(--elipso-canvas-soft) 42rem) !important;
 }
 
-body.elipso-mesh form {
+body:has(.elipso-auth-shell) form {
   position: relative;
   max-width: 540px;
   margin: 0 auto;
 }
 
-body.elipso-mesh form > div,
-body.elipso-mesh form > .w-full,
-body.elipso-mesh form > [class*='bg-white'],
-body.elipso-mesh form > [class*='shadow'] {
+body:has(.elipso-auth-shell) form > div,
+body:has(.elipso-auth-shell) form > .w-full,
+body:has(.elipso-auth-shell) form > [class*='bg-white'],
+body:has(.elipso-auth-shell) form > [class*='shadow'] {
   display: block !important;
   max-width: 540px !important;
   margin: 0 auto !important;
@@ -153,14 +167,14 @@ body.elipso-mesh form > [class*='shadow'] {
   box-shadow: var(--elipso-shadow-panel) !important;
 }
 
-body.elipso-mesh form > div > div:last-child {
+body:has(.elipso-auth-shell) form > div > div:last-child {
   width: 100% !important;
   max-width: none !important;
   flex: 1 1 auto !important;
   margin: 0 !important;
 }
 
-body.elipso-mesh h2 {
+body:has(.elipso-auth-shell) h2 {
   max-width: 540px;
   margin: 0 auto 20px !important;
   font-size: 36px !important;
@@ -169,22 +183,22 @@ body.elipso-mesh h2 {
   text-align: left !important;
 }
 
-body.elipso-mesh form label,
-body.elipso-mesh form [class*='label'],
-body.elipso-mesh form .input-help {
+body:has(.elipso-auth-shell) form label,
+body:has(.elipso-auth-shell) form [class*='label'],
+body:has(.elipso-auth-shell) form .input-help {
   color: var(--elipso-muted) !important;
   font-size: 12px !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
 }
 
-body.elipso-mesh form .input-help.error {
+body:has(.elipso-auth-shell) form .input-help.error {
   color: var(--elipso-error) !important;
 }
 
-body.elipso-mesh form input,
-body.elipso-mesh form textarea,
-body.elipso-mesh form select {
+body:has(.elipso-auth-shell) form input,
+body:has(.elipso-auth-shell) form textarea,
+body:has(.elipso-auth-shell) form select {
   height: 44px !important;
   padding: 0 16px !important;
   background: var(--elipso-canvas) !important;
@@ -194,15 +208,15 @@ body.elipso-mesh form select {
   box-shadow: none !important;
 }
 
-body.elipso-mesh form input:hover,
-body.elipso-mesh form textarea:hover,
-body.elipso-mesh form select:hover {
+body:has(.elipso-auth-shell) form input:hover,
+body:has(.elipso-auth-shell) form textarea:hover,
+body:has(.elipso-auth-shell) form select:hover {
   border-color: var(--elipso-hairline-strong) !important;
 }
 
-body.elipso-mesh form button[type='submit'],
-body.elipso-mesh form .btn-primary,
-body.elipso-mesh form [class*='bg-blue'] {
+body:has(.elipso-auth-shell) form button[type='submit'],
+body:has(.elipso-auth-shell) form .btn-primary,
+body:has(.elipso-auth-shell) form [class*='bg-blue'] {
   height: 44px !important;
   margin-top: 10px !important;
   background: #ffffff !important;
@@ -212,71 +226,83 @@ body.elipso-mesh form [class*='bg-blue'] {
   box-shadow: none !important;
 }
 
-body.elipso-mesh form button[type='submit']:hover,
-body.elipso-mesh form .btn-primary:hover {
+body:has(.elipso-auth-shell) form button[type='submit']:hover,
+body:has(.elipso-auth-shell) form .btn-primary:hover {
   background: #e8e8e8 !important;
   transform: none;
 }
 
-body.elipso-mesh form a[href*='password'],
-body.elipso-mesh form + p a,
-body.elipso-mesh > p a {
+body:has(.elipso-auth-shell) form a[href*='password'],
+body:has(.elipso-auth-shell) form + p a,
+body:has(.elipso-auth-shell) > p a {
   color: var(--elipso-muted) !important;
   text-transform: none !important;
   letter-spacing: 0 !important;
 }
 
-body.elipso-mesh form a[href*='password']:hover {
+body:has(.elipso-auth-shell) form a[href*='password']:hover {
   color: var(--elipso-body) !important;
   text-decoration: none;
 }
 
-body.elipso-mesh > p {
+body:has(.elipso-auth-shell) > p {
   max-width: 540px;
   margin: 18px auto 0 !important;
   text-align: left !important;
 }
 
+/* Background overrides mapping to Vercel elevations */
+.bg-gray-950,
+.bg-neutral-950,
+.bg-slate-950,
+.bg-zinc-950,
+.bg-black {
+  background-color: var(--elipso-canvas) !important;
+}
+
 .bg-gray-900,
 .bg-neutral-900,
 .bg-slate-900,
-.bg-zinc-900,
-.bg-white,
-.bg-light {
+.bg-zinc-900 {
   background-color: var(--elipso-canvas-soft) !important;
 }
 
 .bg-gray-800,
 .bg-neutral-800,
 .bg-slate-800,
-.bg-zinc-800,
-.bg-black {
-  background-color: var(--elipso-canvas-soft) !important;
+.bg-zinc-800 {
+  background-color: var(--elipso-canvas-soft-2) !important;
 }
 
 .bg-gray-700,
 .bg-neutral-700,
 .bg-slate-700,
-.bg-zinc-700,
+.bg-zinc-700 {
+  background-color: #262626 !important;
+}
+
 .bg-gray-600,
 .bg-neutral-600,
+.bg-slate-600,
+.bg-zinc-600,
 .bg-gray-500,
 .bg-neutral-500,
 .bg-slate-500,
-.bg-zinc-500,
-.bg-gray-400,
-.bg-neutral-400,
-.bg-gray-300,
-.bg-neutral-300,
-.bg-gray-200,
-.bg-neutral-200 {
-  background-color: var(--elipso-canvas-soft-2) !important;
+.bg-zinc-500 {
+  background-color: #404040 !important;
+}
+
+.bg-white,
+.bg-light {
+  background-color: var(--elipso-canvas-soft) !important;
+  color: var(--elipso-ink) !important;
 }
 
 .text-gray-50,
 .text-gray-100,
 .text-neutral-100,
 .text-slate-100,
+.text-zinc-100,
 .text-white {
   color: var(--elipso-ink) !important;
 }
@@ -284,34 +310,48 @@ body.elipso-mesh > p {
 .text-gray-200,
 .text-neutral-200,
 .text-slate-200,
+.text-zinc-200,
 .text-gray-300,
 .text-neutral-300,
-.text-slate-300 {
+.text-slate-300,
+.text-zinc-300 {
   color: var(--elipso-body) !important;
 }
 
 .text-gray-400,
 .text-neutral-400,
 .text-slate-400,
+.text-zinc-400,
 .text-gray-500,
-.text-neutral-500 {
+.text-neutral-500,
+.text-slate-500,
+.text-zinc-500 {
   color: var(--elipso-muted) !important;
 }
 
+.border-gray-950,
+.border-neutral-950,
+.border-slate-950,
+.border-zinc-950 {
+  border-color: var(--elipso-canvas) !important;
+}
+
 .border-gray-900,
+.border-neutral-900,
+.border-slate-900,
+.border-zinc-900 {
+  border-color: var(--elipso-hairline) !important;
+}
+
 .border-gray-800,
+.border-neutral-800,
+.border-slate-800,
+.border-zinc-800 {
+  border-color: #262626 !important;
+}
+
 .border-gray-700,
-.border-gray-600,
-.border-gray-500,
-.border-gray-400,
-.border-gray-300,
-.border-gray-200,
 .border-neutral-700,
-.border-neutral-600,
-.border-neutral-500,
-.border-neutral-400,
-.border-neutral-300,
-.border-neutral-200,
 .border-slate-700,
 .border-zinc-700,
 .border,
@@ -319,7 +359,7 @@ body.elipso-mesh > p {
 .border-right,
 .border-bottom,
 .border-left {
-  border-color: var(--elipso-hairline) !important;
+  border-color: var(--elipso-hairline-strong) !important;
 }
 
 div[class*='NavigationBar'],
@@ -339,17 +379,15 @@ div[class*='StatBlock'],
 div[class*='ServerDetails'],
 div[class*='NetworkStats'],
 div[class*='GreyRowBox'],
-div[class*='TitledGreyBox'],
-.group > div[class*='bg-'],
-.grid > div[class*='bg-'] {
+div[class*='TitledGreyBox'] {
   background: var(--elipso-canvas-raised) !important;
   color: var(--elipso-ink) !important;
   border: 1px solid var(--elipso-hairline) !important;
   box-shadow: var(--elipso-shadow-card) !important;
 }
 
-body.elipso-canvas .grid > div[class*='StatBlock'],
-body.elipso-canvas .group > div[class*='StatBlock'] {
+.grid > div[class*='StatBlock'],
+.group > div[class*='StatBlock'] {
   background: var(--elipso-canvas-raised) !important;
   border-color: var(--elipso-hairline) !important;
 }
@@ -360,14 +398,14 @@ div[class*='StatBlock'] {
   background: var(--elipso-canvas-raised) !important;
 }
 
-body.elipso-canvas canvas + *,
-body.elipso-canvas [class*='Chart'] {
+canvas + *,
+[class*='Chart'] {
   color: var(--elipso-body) !important;
 }
 
-body.elipso-canvas [class*='Chart'] > div,
-body.elipso-canvas [class*='TitledGreyBox'] > div,
-body.elipso-canvas [class*='NetworkStats'] > div {
+[class*='Chart'] > div,
+[class*='TitledGreyBox'] > div,
+[class*='NetworkStats'] > div {
   background: transparent !important;
   border-color: var(--elipso-hairline) !important;
 }
@@ -423,22 +461,22 @@ div[class*='TitledGreyBox'] {
   border-radius: 10px !important;
 }
 
-body.elipso-canvas a[class*='GreyRowBox'],
-body.elipso-canvas div[class*='GreyRowBox'],
-body.elipso-canvas div[class*='TitledGreyBox'] {
+a[class*='GreyRowBox'],
+div[class*='GreyRowBox'],
+div[class*='TitledGreyBox'] {
   background: var(--elipso-canvas-raised) !important;
   border-color: var(--elipso-hairline) !important;
   color: var(--elipso-body) !important;
 }
 
-body.elipso-canvas a[class*='GreyRowBox']:hover,
-body.elipso-canvas div[class*='GreyRowBox']:hover {
+a[class*='GreyRowBox']:hover,
+div[class*='GreyRowBox']:hover {
   background: var(--elipso-canvas-soft-2) !important;
   border-color: var(--elipso-hairline-strong) !important;
 }
 
-body.elipso-canvas a[class*='GreyRowBox'] svg,
-body.elipso-canvas div[class*='GreyRowBox'] svg {
+a[class*='GreyRowBox'] svg,
+div[class*='GreyRowBox'] svg {
   color: var(--elipso-muted) !important;
 }
 
@@ -534,13 +572,29 @@ pre:not(.CodeMirror-line):not(.CodeMirror-placeholder) {
   background: var(--elipso-canvas-soft-2) !important;
 }
 
-input,
+input:not([type='checkbox']):not([type='radio']),
 textarea,
 select,
 .form-control {
-  background: var(--elipso-canvas-raised) !important;
+  background: var(--elipso-canvas-soft) !important;
   color: var(--elipso-ink) !important;
-  border-color: var(--elipso-hairline) !important;
+  border: 1px solid var(--elipso-hairline) !important;
+  border-radius: 6px !important;
+}
+
+input:not([type='checkbox']):not([type='radio']):hover,
+textarea:hover,
+select:hover,
+.form-control:hover {
+  border-color: var(--elipso-hairline-strong) !important;
+}
+
+input:not([type='checkbox']):not([type='radio']):focus,
+textarea:focus,
+select:focus,
+.form-control:focus {
+  border-color: #444444 !important;
+  box-shadow: 0 0 0 2px rgb(255 255 255 / 0.08) !important;
 }
 
 button:not(.elipso-theme-toggle),
@@ -551,17 +605,39 @@ button:not(.elipso-theme-toggle),
   transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
 }
 
-input:focus,
-textarea:focus,
-select:focus,
-.form-control:focus {
-  border-color: var(--elipso-hairline-strong) !important;
-  box-shadow: 0 0 0 2px rgb(255 255 255 / 0.08) !important;
-}
-
 button,
 .btn {
   font-family: 'Geist', Inter, system-ui, sans-serif !important;
+}
+
+/* Vercel-style Button Refinements */
+.btn-primary,
+button[type='submit']:not(.btn-secondary):not(.btn-danger) {
+  background-color: var(--elipso-primary) !important;
+  border-color: var(--elipso-primary) !important;
+  color: var(--elipso-on-primary) !important;
+  font-weight: 500 !important;
+}
+
+.btn-primary:hover,
+button[type='submit']:not(.btn-secondary):not(.btn-danger):hover {
+  background-color: #eaeaea !important;
+  border-color: #eaeaea !important;
+}
+
+.btn-secondary,
+.btn-default,
+button.btn-secondary,
+button.btn-default {
+  background-color: var(--elipso-canvas-soft) !important;
+  border: 1px solid var(--elipso-hairline) !important;
+  color: var(--elipso-ink) !important;
+}
+
+.btn-secondary:hover,
+.btn-default:hover {
+  background-color: var(--elipso-canvas-soft-2) !important;
+  border-color: var(--elipso-hairline-strong) !important;
 }
 
 /* Pterodactyl file manager CSS-module rows.
