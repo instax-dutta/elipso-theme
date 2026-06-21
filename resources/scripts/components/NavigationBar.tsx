@@ -56,7 +56,7 @@ export default () => {
     return (
         <div
             style={{
-                background: 'rgba(10,10,10,0.80)',
+                background: 'rgba(255,255,255,0.80)',
                 backdropFilter: 'blur(10px) saturate(160%)',
                 WebkitBackdropFilter: 'blur(10px) saturate(160%)',
             }}
