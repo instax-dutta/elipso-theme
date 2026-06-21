@@ -160,14 +160,7 @@ install_graceful() {
 
     install_theme "$source_dir" "$panel_dir" && installed=1
 
-    if command -v yarn >/dev/null 2>&1 && command -v node >/dev/null 2>&1; then
-        log "compiling production assets with yarn (this may take a minute)..."
-        cd "$panel_dir"
-        export NODE_OPTIONS=--openssl-legacy-provider
-        sudo_cmd yarn install >/dev/null 2>&1 && sudo_cmd yarn build:production >/dev/null 2>&1 && log "assets built successfully" || log "yarn build skipped (run manually if needed)"
-    else
-        log "node/yarn not found — using prebuilt assets"
-    fi
+    log "skipping production asset compilation on host; using prebuilt assets"
 }
 
 main() {
