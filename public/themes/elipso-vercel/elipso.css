@@ -1,28 +1,28 @@
 :root {
-  --elipso-canvas: #000000;
-  --elipso-canvas-soft: #0a0a0a;
-  --elipso-canvas-soft-2: #171717;
-  --elipso-canvas-raised: #0a0a0a;
-  --elipso-ink: #ffffff;
-  --elipso-body: #a3a3a3;
-  --elipso-muted: #666666;
-  --elipso-hairline: #1f1f1f;
-  --elipso-hairline-strong: #333333;
+  --elipso-canvas: #07090e;
+  --elipso-canvas-soft: #0b0f19;
+  --elipso-canvas-soft-2: #131926;
+  --elipso-canvas-raised: #0f1420;
+  --elipso-ink: #f3f4f6;
+  --elipso-body: #94a3b8;
+  --elipso-muted: #64748b;
+  --elipso-hairline: #1e293b;
+  --elipso-hairline-strong: #334155;
   --elipso-primary: #ffffff;
   --elipso-on-primary: #000000;
-  --elipso-link: #0070f3;
-  --elipso-link-deep: #0051c3;
-  --elipso-cyan: #10b981;
-  --elipso-success: #00c950;
-  --elipso-error: #ff4444;
-  --elipso-error-soft: rgb(255 68 68 / 0.1);
+  --elipso-link: #3b82f6;
+  --elipso-link-deep: #2563eb;
+  --elipso-cyan: #50e3c2;
+  --elipso-success: #10b981;
+  --elipso-error: #ef4444;
+  --elipso-error-soft: rgb(239 68 68 / 0.1);
   --elipso-warning: #f5a623;
   --elipso-warning-soft: rgb(245 166 35 / 0.1);
-  --elipso-shadow-card: 0 0 0 1px var(--elipso-hairline);
-  --elipso-shadow-panel: 0 0 0 1px var(--elipso-hairline);
-  --elipso-mesh-a: rgba(0, 112, 243, 0.15);  /* Vercel Blue */
-  --elipso-mesh-b: rgba(121, 40, 202, 0.12); /* Vercel Purple */
-  --elipso-mesh-c: rgba(255, 0, 128, 0.08);   /* Vercel Pink */
+  --elipso-shadow-card: 0 2px 4px rgb(0 0 0 / 0.18);
+  --elipso-shadow-panel: 0 4px 12px rgb(0 0 0 / 0.25);
+  --elipso-mesh-a: rgba(0, 124, 240, 0.08);  /* Develop Blue */
+  --elipso-mesh-b: rgba(121, 40, 202, 0.05); /* Preview Violet */
+  --elipso-mesh-c: rgba(255, 77, 77, 0.04);  /* Ship Coral */
   color-scheme: dark;
 }
 
@@ -46,7 +46,7 @@ body {
   background: var(--elipso-canvas) !important;
   color: var(--elipso-body) !important;
   font-family: 'Geist', Inter, system-ui, -apple-system, sans-serif !important;
-  letter-spacing: -0.015em;
+  letter-spacing: 0.015em;
 }
 
 body:has(.elipso-auth-shell),
@@ -278,7 +278,7 @@ body:has(.elipso-auth-shell) > p {
 .bg-neutral-700,
 .bg-slate-700,
 .bg-zinc-700 {
-  background-color: #262626 !important;
+  background-color: #1e293b !important;
 }
 
 .bg-gray-600,
@@ -289,7 +289,7 @@ body:has(.elipso-auth-shell) > p {
 .bg-neutral-500,
 .bg-slate-500,
 .bg-zinc-500 {
-  background-color: #404040 !important;
+  background-color: #334155 !important;
 }
 
 .bg-white,
@@ -347,7 +347,7 @@ body:has(.elipso-auth-shell) > p {
 .border-neutral-800,
 .border-slate-800,
 .border-zinc-800 {
-  border-color: #262626 !important;
+  border-color: #334155 !important;
 }
 
 .border-gray-700,
@@ -593,8 +593,8 @@ input:not([type='checkbox']):not([type='radio']):focus,
 textarea:focus,
 select:focus,
 .form-control:focus {
-  border-color: #444444 !important;
-  box-shadow: 0 0 0 2px rgb(255 255 255 / 0.08) !important;
+  border-color: var(--elipso-link) !important;
+  box-shadow: 0 0 0 2px rgb(59 130 246 / 0.15) !important;
 }
 
 button:not(.elipso-theme-toggle),
